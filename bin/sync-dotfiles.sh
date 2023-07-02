@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Sync dotfiles repo and ensure that dotfiles are tangled correctly afterward
 

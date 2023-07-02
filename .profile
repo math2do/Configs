@@ -57,3 +57,6 @@ export PATH=$PATH:$HOME/Liquibase
 # pip install ... drops scripts into ~/.local/bin and this is not on the default Debian/Ubuntu $PATH.
 # so add this to path
 export PATH=$HOME/.local/bin:$PATH
+
+# Add custom bash scripts to env
+export PATH=$HOME/config/bin:$PATH
