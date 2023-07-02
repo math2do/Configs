@@ -487,6 +487,19 @@
 (setq httpd-root "/var/www")
 ;; (httpd-start)
 
+;; dired -----------------------------------------------------------------------------------------------------
+(use-package dired
+  :init (setq all-the-icons-dired-monochrome nil)
+  :ensure nil
+  :commands (dired dired-jump)
+  :bind (("C-x C-j" . dired-jump))
+  :custom ((dired-listing-switches "-agho --group-directories-first")))
+
+(use-package dired-single)
+
+(use-package all-the-icons-dired
+  :hook (dired-mode-hook . all-the-icons-dired-mode))
+
 ;; treemacs ------------------------------------------------------------------------------------------------
   (use-package treemacs
     :ensure t
@@ -625,20 +638,6 @@
   ;; code commenting
   (use-package evil-nerd-commenter
     :bind ("C-/" . evilnc-comment-or-uncomment-lines))
-
-
-  ;; dired -----------------------------------------------------------------------------------------------------
-  (use-package dired
-    :init (setq all-the-icons-dired-monochrome nil)
-    :ensure nil
-    :commands (dired dired-jump)
-    :bind (("C-x C-j" . dired-jump))
-    :custom ((dired-listing-switches "-agho --group-directories-first")))
-
-  (use-package dired-single)
-
-  (use-package all-the-icons-dired
-    :hook (dired-mode-hook . all-the-icons-dired-mode))
 
   ;; (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
 
@@ -824,6 +823,8 @@
   (eshell-toggle-window-side 'right)
   (eshell-toggle-use-projectile-root t)
   (eshell-toggle-run-command nil))
+
+(use-package password-store)
 
 (defun efs/exwm-update-class ()
   (exwm-workspace-rename-buffer exwm-class-name))
