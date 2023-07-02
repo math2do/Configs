@@ -5,6 +5,6 @@
 \.gitignore
 
 ^/emacs-snippets
-^/bin/sync-dotfiles.sh
+^/bin
 
 ^/README.*
