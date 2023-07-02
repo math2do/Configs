@@ -1,0 +1,56 @@
+# -*- mode: snippet -*- 
+# name: tarjan 
+# key: tarjan	
+# --
+
+template <typename T>
+vector<int> tarjan(const digraph<T> &g, int &cnt) {
+  vector <bool> seen(g.n, false);
+  vector <int> low(g.n, 0);
+  vector <int> dis(g.n, 0);
+  vector <bool> active(g.n, false);
+  stack <int> st;
+  vector <int> grp(g.n, -1);
+  int timer = 0;
+  cnt = 0;
+  
+  function<void(int)> dfs = [&](int u) {
+    seen[u] = true;
+    active[u] = true;
+    st.push(u);
+
+    dis[u] = low[u] = ++timer;
+    for (int id : g.g[u]) {
+      int v = g.edges[id].from ^ g.edges[id].to ^ u;
+      if (!seen[v]) {
+        dfs(v);
+        low[u] = min(low[u], low[v]);
+      } else if (active[v]) {
+        low[u] = min(low[u], dis[v]);
+      } 
+    }
+        
+    if (low[u] == dis[u]) {
+      //..find SCC
+      while (st.top() != u) {
+        int v = st.top();
+        grp[v] = cnt;
+        active[v] = false;
+        st.pop();
+      } 
+      int v = st.top();
+      grp[v] = cnt;
+      active[v] = false;
+      st.pop();
+      cnt++;
+    }
+  };  
+
+  for (int i = 0; i < g.n; i++) {
+    if (!seen[i]) {
+      dfs(i);
+    }
+  }
+  return grp;
+  //.. grp[i] <= grp[j] for every edge i -> j
+}

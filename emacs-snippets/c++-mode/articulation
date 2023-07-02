@@ -1,0 +1,72 @@
+# -*- mode: snippet -*- 
+# name: articulation 
+# key: articulation	
+# --
+
+template <typename T>
+vector <bool> articulation(dfs_undigraph<T> &g) {
+  g.dfs_all();
+  vector<bool> art(g.n, false);
+  
+  for (int v = 0; v < g.n; v++) {
+    int u = g.pv[v];
+    if (u == -1) continue;
+    
+    // u -- root node, check child cnt
+    if (g.pv[u] == -1) {
+      if (g.cnt[u] > 1) {
+        art[u] = true;
+      }
+      continue;
+    }
+    // u -- v is a proper edge
+    if (g.min_depth[v] >= g.depth[u]) {
+      art[u] = true;
+    } 
+  }
+  
+  return art;
+}
+
+template <typename T>
+vector <int> articulation(const undigraph <T> &g) {
+  vector <bool> seen(g.n, false);
+  vector <int> low(g.n, 0);
+  vector <int> dis(g.n, 0);
+  vector <int> pv(g.n, -1);
+  vector <bool> art(g.n, false);
+  int timer = 0;
+
+  function <void(int)> dfs = [&](int u) {
+    seen[u] = true;
+    dis[u] = low[u] = ++timer;
+    int child_cnt = 0;
+    for (int id : g.g[u]) {
+      int v = g.edges[id].from ^ g.edges[id].to ^ u;
+      if (!seen[v]) {
+        child_cnt++;
+        pv[v] = u;
+        dfs(v);
+        low[u] = min(low[u], low[v]);
+        if (pv[u] == -1 && child_cnt > 1) {
+          art[u] = true;
+        }
+        if (pv[u] != -1 && low[v] >= dis[u]) {
+          art[u] = true;
+        }
+      } else if (v != pv[u]) {
+        low[u] = min(low[u], dis[v]);
+      }
+    }
+  };
+  dfs(0);
+  vector <int> ans;
+  for (int i = 0; i < g.n; i++) {
+    if (art[i]) {
+      ans.push_back(i);
+    } 
+  } 
+
+  return ans;
+  // returns sorted list of weak vertices
+} 

@@ -1,0 +1,16 @@
+# -*- mode: snippet -*- 
+# name: dfs 
+# key: dfs	
+# --
+
+vector <bool> seen(g.n, false);
+function<void(int)> dfs = [&](int u) {
+  seen[u] = true;
+  for (int id : g.g[u]) {
+    int v = g.edges[id].from ^ g.edges[id].to ^ u;
+    if (!seen[v]) {
+      dfs(v);
+    }
+  }
+};
+//dfs(0);

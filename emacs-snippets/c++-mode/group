@@ -1,0 +1,25 @@
+# -*- mode: snippet -*- 
+# name: group 
+# key: group	
+# --
+
+template <typename T>
+vector <pair <int, int>> group(vector <T> &a) {
+  int n = a.size();
+  vector <pair<int, int>> grp(n);
+  int h = 0;
+  while (h < n) {
+    int l = h;
+    while (h + 1 < n && a[h + 1] == a[l]) {
+      h += 1;
+    }
+    for (int i = l; i <= h; i++) {
+      grp[i].first = l;
+      grp[i].second = h;
+    }
+    l = h + 1;
+    h = h + 1; 
+  }
+  return grp; 
+  //..grp[i] = range a[i] is scattered
+} 

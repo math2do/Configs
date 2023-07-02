@@ -1,0 +1,41 @@
+# -*- mode: snippet -*- 
+# name: lis 
+# key: lis	
+# --
+
+// short implementation
+template<typename T>
+int lis(const vector<T>& a) {
+  vector<T> u;
+  for (const T& x : a) {
+    auto it = lower_bound(u.begin(), u.end(), x);
+    if (it == u.end()) {
+      u.push_back(x);
+    } else {
+      *it = x;
+    }
+  }
+  return (int) u.size();
+}
+
+template <typename T>
+int lis(vector <T>& arr) {
+  int n = arr.size();
+  if (n == 0) {
+    return 0;  
+  }
+  vector <T> tail(n, 0);  
+  int length = 1; 
+  tail[0] = arr[0];
+  for (int i = 1; i < n; i++) {  
+    auto b = tail.begin();
+    auto e = tail.begin() + length; 
+    auto it = lower_bound(b, e, arr[i]);
+    if (it == tail.begin() + length) {
+      tail[length++] = arr[i];
+    } else {
+      *it = arr[i];
+    }
+  }  
+  return length;  
+}

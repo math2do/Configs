@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: sol
+# key: sol	
+# --
+cout << "Finally Worked" << endl;

@@ -1,0 +1,184 @@
+# -*- mode: snippet -*- 
+# name: leetcode 
+# key: leetcode	
+# --
+
+namespace Leetcode {
+ifstream in("sol.in");
+string line;
+bool done = false;
+
+string Trim(string &s) {
+  int n = s.length();
+  int i = 0, j = n - 1;
+  while (i < n && s[i] == ' ') {
+    i++;
+  }
+  while (j >= 0 && s[j] == ' ') {
+    j--;
+  }  
+  return s.substr(i, j - i + 1);
+}
+
+void Pass() {
+  while (getline(in, line)) {
+    line = Trim(line);
+    if (line.empty()) continue;
+    break;
+  }
+}
+
+string String() {
+  Pass();
+  return line;
+}
+
+template <typename T>
+vector <T> Vector() {
+  if (!done) Pass();
+  int len = line.length();
+  line = line.substr(1, len - 2);
+  stringstream ss(line);
+  string token;
+  vector <T> arr;
+  while (getline(ss, token, ',')) {
+    int val;
+    if (token == "null") {
+      val = -1;
+    } else {
+      val = stoi(token);
+    }
+    arr.push_back(val);
+  } 
+  return arr;
+}
+
+template <typename T>
+vector <vector <T>> Matrix() { 
+  Pass();
+  done = true;
+  int len = line.length();
+  string temp = line.substr(1, len - 2);
+  stringstream ss(temp);
+  string token;
+  vector <vector <T>> mat;
+  while (getline(ss, token, ']')) {
+    int i = 0;
+    int l = token.length();
+    while (token[i] != '[') i++;
+    line = token.substr(i, l - i) + ']';
+    vector <T> row = Vector<T>();
+    mat.push_back(row);
+  }
+  done = false;
+  return mat;
+}
+
+#ifdef LOCAL
+struct TreeNode {
+  int val;
+  TreeNode *left;
+  TreeNode *right;
+  TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+#endif
+  
+using Node = TreeNode;
+
+template <typename T>
+void Serialize(Node* root) { 
+  vector <T> tree;  
+  auto Bfs = [&](Node* from) {
+    queue <Node*> q;
+    q.push(from);
+    while (!q.empty()) {
+      int size = (int) q.size();
+      while (size--) {
+        Node* u = q.front(); q.pop();
+        if (u == NULL) tree.push_back(-1);
+        else {
+          tree.push_back(u->val);
+          q.push(u->left);
+          q.push(u->right);
+        }
+      }
+    }
+  };
+
+  Bfs(root);
+  cout << "[";
+  for (int i = 0; i < (int) tree.size(); i++) {
+    if (i > 0) cout << ", ";
+    if (tree[i] == -1) cout << "null";
+    else cout << tree[i];
+  }
+  cout << "]";
+}
+
+template <typename T>
+Node* Deserialize(vector <T> &data) {
+  int n = data.size();
+  queue<Node*> q;
+  Node* root = new Node(data[0]);
+  bool is_left = true;
+  q.push(root);
+
+  Node* cur = NULL;
+  for (int i = 1; i < n; i++) {
+    Node *node = NULL;
+    if (data[i] != -1) {
+      node = new Node(data[i]);
+      q.push(node);
+    }
+
+    if (is_left) {
+      cur = q.front();
+      q.pop();
+      cur->left = node;
+      is_left = false;
+    } else {
+      cur->right = node;
+      is_left = true;
+    }
+  }
+  return root;
+} 
+
+template <typename T>
+Node* Tree() {
+  Pass();
+  done = true;
+  vector <T> arr = Vector<T>();
+  Node* root = Deserialize(arr);
+  done = false;
+  return root;
+}  
+
+template <typename T>
+T Int() {
+  Pass();
+  stringstream ss(line);
+  T val;
+  ss >> val;
+  return val;
+}
+
+..........
+
+void read_write() {
+  int tt = Int<int>();
+  while (tt--) {
+    ....
+  }
+}}
+
+using namespace Leetcode;
+
+#ifdef LOCAL
+int main() {
+  ios_base::sync_with_stdio(false);
+  cin.tie(0);
+  read_write();
+  return 0;
+}
+#endif

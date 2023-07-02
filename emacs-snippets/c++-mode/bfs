@@ -1,0 +1,30 @@
+# -*- mode: snippet -*- 
+# name: bfs 
+# key: bfs	
+# --
+
+auto bfs = [&](int from) {
+  vector <bool> seen(g.n, false);
+  vector <int> dist(g.n, numeric_limits<T>::max());
+  queue <int> q;
+  q.push(from);
+  seen[from] = true;
+  dist[from] = 0;
+  int depth = 0;
+  while (!q.empty()) {
+    int size = (int) q.size();
+    while (size--) {
+      int u = q.front(); q.pop();
+      dist[u] = depth;
+      for (int id : g.g[u]) {
+        int v = g.edges[id].from ^ g.edges[id].to ^ u;
+        if (!seen[v]) {
+          seen[v] = true;
+          q.push(v);
+        }
+      } 
+    }
+    depth += 1;
+  }
+  return dist;
+};

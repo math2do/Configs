@@ -1,0 +1,16 @@
+# -*- mode: snippet -*- 
+# name: horner 
+# key: horner	
+# --
+
+// coeff in form = C0 * x^0 + c1 * x^1 + c2 * x^2 .. . . . cn-1 * x^n-1
+template <typename T>
+T horner(const vector<T>& coeff, T x) {
+  int n = (int) coeff.size();
+  T res = coeff[n - 1];
+  for (int i = n - 2; i >= 0; i--) {
+    res = coeff[i] + x * res;
+  } 
+  
+  return res;
+}

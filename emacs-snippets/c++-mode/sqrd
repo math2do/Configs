@@ -1,0 +1,51 @@
+# -*- mode: snippet -*- 
+# name: sqrd 
+# key: sqrd	
+# --
+
+template <typename T>
+class sqrd {
+ public:
+  struct block {
+    //set variables with default values
+    int ans = ...
+  };
+  vector <T> arr;
+  vector <block> b;
+  int size;
+  void unite(block &u, T val) const {
+    ... u = u + val
+  }
+  void remove(block &u, T val) const {
+    ... u = u - val
+  } 
+
+  sqrd(vector <T> &_arr) {
+    arr = _arr;
+    int n = _arr.size();
+    size = (int) sqrt(n + 0.1) + 1;
+    b = vector <block> (size);
+    for (int i = 0; i < n; i++) {
+      unite(b[i / size], _arr[i]);
+    } 
+  }
+  void modify(int i, T val) {
+    remove(b[i / size], arr[i]);
+    unite(b[i / size], val);
+    arr[i] = val;
+  } 
+  ... get(int L, int H) {
+    int ans = ...
+    for (int i = L; i <= H; ) {
+      if (i % size == 0 && i + size - 1 <= H) {
+        block u = b[i / size];
+        ...ans = ans + u
+        i += size;
+      } else {
+        ...ans = ans + arr[i]
+        i++;
+      }
+    }
+    return ans;
+  } 
+};

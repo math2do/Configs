@@ -1,0 +1,159 @@
+# -*- mode: snippet -*- 
+# name: manacher 
+# key: manacher	
+# --
+
+template <typename T>
+vector<int> manacher(int n, const T &s) {
+  if (n == 0) {
+    return vector<int>();
+  }
+  vector<int> res(2 * n - 1, 0);
+  int l = -1, r = -1;
+  for (int z = 0; z < 2 * n - 1; z++) {
+    int i = (z + 1) >> 1;
+    int j = z >> 1;
+    int p = (i >= r ? 0 : min(r - i, res[2 * (l + r) - z]));
+    while (j + p + 1 < n && i - p - 1 >= 0) {
+      if (!(s[j + p + 1] == s[i - p - 1])) {
+        break;
+      }
+      p++;
+    }
+    if (j + p > r) {
+      l = i - p;
+      r = j + p;
+    }
+    res[z] = p;
+  }
+  return res;
+}
+ 
+template <typename T>
+vector<int> manacher(const T &s) {
+  return manacher((int) s.size(), s);
+}
+
+// based on ideserve youtube channel
+// a   b   c   d   e
+// 0 1 2 3 4 5 6 7 8 9
+template <typename T>
+vector<int> manacher(const T &s) {
+  int n = (int) s.length();
+  vector<int> lps(n, 0);
+  int c = 0, r = 0;
+  for (int i = 1; i < n; i++) {
+    if (r > i) {
+      lps[i] = min(r - i, lps[c - (c - i)]);
+    }
+    while (i + (lps[i] + 1) < n && i - (lps[i] + 1) >= 0) {
+      if (s[i + (lps[i] + 1)] !=  s[i - (lps[i] + 1)]) {
+        break;
+      }
+      lps[i]++; 
+    } 
+    if (i + lps[i] > r) {
+      c = i;
+      r = i + lps[i];
+    } 
+  }
+  return lps; 
+}
+
+pair <int, int> Odd(vector <int>& lps, int i) {
+  int l = i - lps[2 * i] / 2;
+  int r = i + lps[2 * i] / 2;
+  return make_pair(l, r);            
+}
+
+pair <int, int> Even(vector <int>& lps, int i) {
+  if (lps[2 * i + 1] > 0) {
+    int l = i - (lps[2 * i + 1] - 1) / 2;
+    int r = i + (lps[2 * i + 1] - 1) / 2 + 1;
+    return make_pair(l, r);
+  }
+  return make_pair(-1, -1);
+};
+
+
+//Mine
+void manacher(const string& str) {
+  int idx = 0;
+  int len = 2 * (int) str.length() + 1;
+  vector <char> arr(len);
+  //arr looks like : $b$a$b.....$
+
+  for (int i = 0; i < len; i++) {
+    if (i % 2 != 0) {
+      arr[i] = str[idx++];
+    } else {
+      arr[i] = '$';
+    }
+  }
+                               
+  vector <int> lps(len, 0);
+  int l = 0;
+  int h = 0;
+  //here m is the center.
+  for (int m = 0; m < len; ) {
+    while (l > 0 && h < len - 1 && arr[l - 1] == arr[h + 1]) {
+      l--;
+      h++;
+    }
+    lps[m] = h - l + 1;
+
+    if (h == len - 1) {
+      //we could simply break here if remaining lps is not required
+      for (int j = m + 1; j <= h; j++) {
+        lps[j] = min(lps[m - (j - m)], 2 * (h - j) + 1);
+      }    
+      break;
+    }
+
+    //center : even m => h + 1, odd m => h
+    int center = h + 1; //(m % 2 == 0 ? 1 : 0);
+    for (int j = m + 1; j <= h; j++) {
+      lps[j] = min(lps[m - (j - m)], 2 * (h - j) + 1);
+      if (j + lps[m - (j - m)] / 2 == h) {
+        center = j;
+        break;
+      }
+    }
+
+    m = center;
+    h = m + lps[m] / 2;
+    l = m - lps[m] / 2;
+  }
+
+  vector <int> even; 
+  vector <int> odd;
+
+  //lps value of last '$' is useless
+  //for even count mid taken at left of i
+      
+  for (int i = 0; i < len - 1; i++) {
+    if (i % 2 == 0) even.push_back(lps[i] / 2);
+    else odd.push_back(lps[i] / 2);
+  } 
+
+  //form longest palindromic substring 
+  int cnt = INT_MIN;
+  int from = 0;
+  for (int i = 0; i < len; i++) {
+    int val = lps[i];
+    if (val > cnt) {
+      cnt = val;
+      from = i;
+    } 
+  }
+  
+  //form longest palindromic substring
+  int s = from - cnt / 2;
+  int e = from + cnt / 2;
+  string ans;
+  for (int i = s; i <= e; i++) {
+    if (arr[i] == '$') continue;
+    ans.push_back(arr[i]);
+  } 
+  cout << ans << endl;
+}

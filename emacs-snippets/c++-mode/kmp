@@ -1,0 +1,29 @@
+# -*- mode: snippet -*- 
+# name: kmp 
+# key: kmp	
+# --
+
+vector <int> kmp(const string& pat, const string& txt) {
+  int n = txt.length();
+  int m = pat.length();
+  int len = 0;
+  vector <int> lps = calc_lps(pat);
+  vector <int> pos;
+
+  for (int i = 0; i < n; i++) {
+    while (len > 0 && pat[len] != txt[i]) {
+      len = lps[len - 1];
+    }
+    if (pat[len] == txt[i]) {
+      len++;
+    }
+    if (len == m) {
+      int at = i - len + 1;
+      pos.emplace_back(at);
+      len = lps[len - 1];
+    }
+  }
+
+  return pos;
+  //.. starting indices of match
+}

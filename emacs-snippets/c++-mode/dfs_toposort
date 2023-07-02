@@ -1,0 +1,71 @@
+# -*- mode: snippet -*- 
+# name: dfs_toposort 
+# key: dfs_toposort	
+# --
+
+//..verified against AOJ GRL_4_B
+const int N = 100001;
+vector <bool> visited(N);
+
+class Graph {
+private:
+  int V;
+  int E;
+  vector <vector <int>> adj;
+  void dfsUtil(int u, stack <int> &st);
+public:
+  Graph(int n, int m);
+  void addEdge(int s, int t);
+  void topologicalSort();
+};
+
+Graph::Graph(int n, int m) {
+  this->V = n;
+  this->E = m;
+  adj.resize(n);
+}
+
+void Graph::addEdge(int s, int t) {
+  adj[s].push_back(t);
+}
+
+void Graph::dfsUtil(int u, stack <int> &st) {
+  visited[u] = true;
+  for (int i = 0; i < (int) adj[u].size(); i++) {
+    int v = adj[u][i];
+    if (!visited[v]) {
+      dfsUtil(v, st);
+    }
+  }
+  st.push(u);
+}
+
+void Graph::topologicalSort() {
+  fill(visited.begin(), visited.begin() + V, false);
+  stack <int> st;
+  for (int u = 0; u < V; u++) {
+    if (!visited[u]) {
+      dfsUtil(u, st);
+    }
+  }
+
+  //..printing topo order
+  while (!st.empty()) {
+    int u = st.top();
+    st.pop();
+    cout << u << endl;
+  }
+}
+
+int main() {
+  int n, m;
+  cin >> n >> m;
+  Graph g(n, m);
+  int s, t;
+  for (int i = 0; i < m; i++) {
+    cin >> s >> t;
+    g.addEdge(s, t);
+  } 
+  g.topologicalSort();
+  return 0;
+} 

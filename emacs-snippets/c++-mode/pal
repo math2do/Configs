@@ -1,0 +1,38 @@
+# -*- mode: snippet -*- 
+# name: pal 
+# key: pal	
+# --
+
+bool can_palin(const string &str, int n) {
+  vector <int> fre(26, 0);
+  for (int i = 0; i < n; i++) {
+    fre[str[i] - 'a']++;
+  }
+  pair <char, int> odd = {'0', 0};
+  for (int i = 0; i < 26; i++) {
+    if (fre[i] > 0) {
+      if (fre[i] % 2 == 1) {
+        if (odd.second == 0) {
+          odd.second = 1;
+          odd.first = (char)(i + 'a');
+        } else {
+          return false;
+        } 
+      }
+    } 
+  }
+  if (odd.second == 1) {
+    if (n % 2 == 0) return false; 
+  } 
+  return true;
+}
+
+template <typename T>
+bool palin(const string &T) {
+  int n = s.size();
+  for (int i = 0; i < n / 2; i++) {
+    int j = n - i - 1;
+    if (s[i] != s[j]) return false;
+  } 
+  return true;
+} 

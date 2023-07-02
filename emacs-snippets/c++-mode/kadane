@@ -1,0 +1,40 @@
+# -*- mode: snippet -*- 
+# name: kadane 
+# key: kadane	
+# --
+
+template <typename T>
+T kadane(vector <T> &arr) {
+  T ans = numeric_limits<T>::min();
+  T sum = T{};
+  for (int v : arr) {
+    sum += v;
+    ans = max(ans, sum);
+    sum = max(0, sum);
+  }
+  return ans;
+  //returns only the maximum subarray sum
+} 
+
+template <typename T>
+T kadane(vector <T> &arr, int &l, int &h) {
+  l = h = 0;
+  T sum = T{};
+  T ans = numeric_limits<T>::min();
+  int n = arr.size();
+  int s = 0;
+  for (int i = 0; i < n; i++) {
+    sum += arr[i];
+    if (sum > ans) {
+      ans = sum;
+      l = s; h = i;
+    }
+    if (sum < 0) {
+      sum = 0;
+      s = i + 1;
+    }
+  }
+  return ans;
+  //returns maximum sum and the subarray[l - h]
+}
+

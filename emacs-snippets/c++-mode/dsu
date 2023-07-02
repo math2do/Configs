@@ -1,0 +1,65 @@
+# -*- mode: snippet -*- 
+# name: dsu 
+# key: dsu	
+# --
+
+class dsu {
+ public:
+  vector<int> p;
+  int n;
+ 
+  dsu(int _n) : n(_n) {
+    p.resize(n);
+    iota(p.begin(), p.end(), 0);
+  }
+ 
+  inline int get(int x) {
+    return (x == p[x] ? x : (p[x] = get(p[x])));
+  }
+ 
+  inline bool unite(int x, int y) {
+    x = get(x);
+    y = get(y);
+    if (x != y) {
+      p[x] = y;
+      return true;
+    }
+    return false;
+  }
+};
+
+//compressed path
+class dsu {
+ public:
+  vector <int> p;
+  vector <int> r;
+  dsu(int n) {
+    p.resize(n);
+    r.resize(n);
+    iota(p.begin(), p.end(), 0);
+    fill(r.begin(), r.end(), 0);
+  } 
+
+  inline int get(int x) {
+    if (x == p[x]) {
+      return x;
+    }
+    return p[x] = get(p[x]);
+  }
+
+  inline bool unite(int x, int y) {
+    x = get(x);
+    y = get(y);
+    if (x != y) {
+      if (r[x] < r[y]) {
+        swap(x, y);
+      }
+      p[y] = x;
+      if (r[x] == r[y]) {
+        r[x]++;
+      }
+      return true;
+    }
+    return false;
+  }  
+};

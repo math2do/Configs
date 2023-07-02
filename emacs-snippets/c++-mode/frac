@@ -1,0 +1,49 @@
+# -*- mode: snippet -*- 
+# name: frac 
+# key: frac	
+# --
+
+struct frac {
+  long long num, den;
+ 
+  frac(long long x = 0, long long y = 1)  {
+    long long g = abs(__gcd(x, y));
+    if (y < 0) {
+      g = -g;
+    }
+    num = x / g;
+    den = y / g;
+  }
+ 
+  frac operator-() const {
+    return frac(-num, den);
+  }
+ 
+  frac operator+(const frac& o) const {
+    return frac(num * o.den + den * o.num, den * o.den);
+  }
+ 
+  frac operator-(const frac& o) const {
+    return frac(num * o.den - den * o.num, den * o.den);
+  }
+ 
+  frac operator*(const frac& o) const {
+    return frac(num * o.num, den * o.den);
+  }
+ 
+  frac operator/(const frac& o) const {
+    return frac(num * o.den, den * o.num);
+  }
+ 
+  bool operator<(const frac& o) const {
+    return num * o.den < den * o.num;
+  }
+ 
+  bool operator==(const frac& o) const {
+    return num * o.den == den * o.num;
+  }
+
+  bool operator>(const frac& o) const {
+    return num * o.den < den * o.num;
+  }
+};

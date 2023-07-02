@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: mongo
+# key: mongo
+# --
+#+begin_src mongo :host localhost :port 27017 :db practice
+$0
+#+end_src

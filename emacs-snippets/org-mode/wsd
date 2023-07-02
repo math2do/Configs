@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: wsd
+# key: wsd
+# --
+#+begin_src wsd :file sequence_diagram.png :output-dir ~/coding/notes/sequence_diagrams/
+$0
+#+end_src

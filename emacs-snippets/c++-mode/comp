@@ -1,0 +1,25 @@
+# -*- mode: snippet -*- 
+# name: comp 
+# key: comp	
+# --
+
+template <typename T>
+struct large {
+  bool operator()(const T &a, const T &b) const {
+    return (!(a < b) && !(!(a < b) && !(b < a)));
+  } 
+};
+
+template <typename T>
+struct small {
+  bool operator()(const T &a, const T &b) const {
+    return a < b;
+  } 
+};
+
+template <typename T>
+struct same {
+  bool operator()(const T &a, const T &b) const {
+    return (!(a < b) && !(b < a));
+  } 
+};

@@ -1,0 +1,12 @@
+# -*- mode: snippet -*- 
+# name: tick 
+# key: tick	
+# --
+
+inline double tick() {
+  static clock_t oldtick;
+  clock_t newtick = clock();
+  double diff = 1.0 * (newtick - oldtick) / CLOCKS_PER_SEC;
+  oldtick = newtick;
+  return diff;
+}

@@ -1,0 +1,41 @@
+# -*- mode: snippet -*- 
+# name: hash 
+# key: hash	
+# --
+
+//..both p and mod prime
+const int p = 31;
+const int mod = (int) (1e9 + 9);
+
+inline long long mul(long long a, long long b) {
+  long long res = a * b;
+  a = res % mod;
+  return a;
+}
+
+inline void add(long long &a, long long b) {
+  a += b;
+  if (a >= mod) {
+    a -= mod;
+  }
+}
+
+//..polynomial rolling hashing of form : str[0] * (p ^ 0) + str[1] * (p ^ 1) + str[2] * (p ^ 2)
+//..complete hash value at end of hash array
+vector <long long> hashing(const string &str) {
+  long long val = 0;
+  long long exp = 1;
+  int len = str.length();
+  vector <long long> hash(len);
+  for (int i = 0; i < len; i++) {   
+    char ch = str[i];
+    int coef = ch - 'a' + 1;
+    add(val, mul(coef, exp));
+    exp = mul(exp, p);
+
+    hash[i] = val;
+  }
+
+  return hash;
+  //..returns incremental hash values
+}

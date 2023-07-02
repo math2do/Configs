@@ -1,0 +1,12 @@
+# -*- mode: snippet -*- 
+# name: unique 
+# key: unique	
+# --
+
+template <typename T>
+inline void unique(vector <T> &arr) {
+  auto it = unique(arr.begin(), arr.end(), [&](const T &a, const T &b) -> bool {
+    return a == b;  
+  });
+  arr.resize(it - arr.begin());
+} 

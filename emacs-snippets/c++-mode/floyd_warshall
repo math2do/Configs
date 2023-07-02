@@ -1,0 +1,36 @@
+# -*- mode: snippet -*- 
+# name: floyd_warshall 
+# key: floyd_warshall	
+# --
+
+template <typename T>
+vector <vector <T>> floyd_warshall(const graph<T> &g, bool &neg) {
+  neg = false;
+  T inf = numeric_limits<T>::max();
+  vector <vector <T>> dist(g.n, vector <T>(g.n, inf));
+  for (int u = 0; u < g.n; u++) {
+    dist[u][u] = 0;
+    for (int id : g.g[u]) {
+      int v = g.edges[id].to ^ g.edges[id].from ^ u;
+      dist[u][v] = g.edges[id].cost;
+    } 
+  } 
+  //i .... k .... j
+  for (int k = 0; k < g.n; k++) {
+    for (int i = 0; i < g.n; i++) {
+      for (int j = 0; j < g.n; j++) {
+        if (dist[i][k] != inf && dist[k][j] != inf) {
+          if (dist[i][k] + dist[k][j] < dist[i][j]) {
+            dist[i][j] = dist[i][k] + dist[k][j];
+          }
+        }
+      } 
+    }
+  } 
+  for (int i = 0; i < g.n; i++) {
+    neg |= (dist[i][i] < 0);
+  } 
+  return dist;
+  //..negative cycle present when dist[i][i] < 0
+  //..contains inf if no path exists, else shortest path
+}

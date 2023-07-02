@@ -1,0 +1,130 @@
+# -*- mode: snippet -*- 
+# name: lca 
+# key: lca	
+# --
+
+//..verified against AOJ GRL_5_C
+class Graph {
+private:
+  int V;
+  vector <vector <int>> adj;
+  vector <int> first;
+  vector <int> height;
+  vector <int> euler;
+  void eulerUtil(int u, vector <bool> &visited, int h);
+  vector <int> seg;
+  void build(int idx, int ss, int se);
+  int lca_query(int idx, int ss, int se, int qs, int qe);
+public:
+  Graph(int n);
+  void addEdge(int u, int v);    
+  void euler_tour();
+  void buildrmq();
+  int lca(int u, int v);
+};
+
+Graph::Graph(int n) {
+  this->V = n;
+  adj.resize(n);
+  first.resize(n);
+  height.resize(n);
+}
+
+void Graph::addEdge(int u, int v) {
+  adj[u].push_back(v);
+}
+
+void Graph::eulerUtil(int u, vector <bool> &visited, int h) {
+  visited[u] = true;
+  first[u] = euler.size();
+  height[u] = h;
+  euler.push_back(u);
+
+  for (int i = 0; i < (int) adj[u].size(); i++) {
+    int v = adj[u][i];
+    if (!visited[v]) {
+      eulerUtil(v, visited, h + 1);
+      euler.push_back(u);
+    }
+  }
+}
+
+void Graph::euler_tour() {
+  vector <bool> visited;
+  fill(visited.begin(), visited.begin() + V, false);
+  eulerUtil(0, visited, 0);
+}
+
+
+void Graph::build(int idx, int ss, int se) {
+  if (ss == se) {
+    seg[idx] = euler[ss];
+    return;
+  }
+
+  int m = (ss + se) / 2;
+  build(2 * idx, ss, m);
+  build(2 * idx + 1, m + 1, se);
+  //..store information based on the depth to be minimum in range
+  seg[idx] = height[seg[2 * idx]] < height[seg[2 * idx + 1]] ? seg[2 * idx] : seg[2 * idx + 1];
+}
+
+void Graph::buildrmq() {
+  int n = euler.size();
+  seg.resize(4 * n);
+  build(1, 0, n - 1);  
+} 
+
+int Graph::lca_query(int idx, int ss, int se, int qs, int qe) {
+  if (qs > qe) {
+    return pinf;
+  }
+  if (ss == qs && se == qe) {
+    return seg[idx];
+  }
+  int m = (ss + se) / 2;
+  int l = lca_query(2 * idx, ss, m, qs, min(m, qe));
+  int r = lca_query(2 * idx + 1, m + 1, se, max(m + 1, qs), qe);
+  if (l == pinf) {
+    return r;
+  } else if (r == pinf) {
+    return l;
+  } else {
+    return height[l] < height[r] ? l : r;
+  }
+}
+
+int Graph::lca(int u, int v) {
+  int qs = first[u];
+  int qe = first[v];
+  if (qs > qe) {
+    swap(qs, qe);
+  }   
+  int n = euler.size();
+  return lca_query(1, 0, n - 1, qs, qe);
+}
+
+int main() {
+  int n;
+  cin >> n;
+  Graph g(n);
+  int k, v;
+  for (int u = 0; u < n; u++) {
+    cin >> k;
+    for (int j = 0; j < k; j++) {
+      cin >> v;
+      //..v is children of u and 0 is the root of this tree
+      g.addEdge(u, v);   
+    } 
+  }
+  g.euler_tour();
+  g.buildrmq();
+
+  int q, ui, vi;
+  cin >> q;
+  for (int i = 0; i < q; i++) {
+    cin >> ui >> vi;
+    cout << g.lca(ui, vi) << '\n';
+  } 
+  return 0;
+}

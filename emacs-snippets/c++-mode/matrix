@@ -1,0 +1,21 @@
+# -*- mode: snippet -*- 
+# name: matrix 
+# key: matrix	
+# --
+
+template <typename T> 
+string to_string(vector <vector<T>> &mat) {
+  string res = "";
+  char temp[32];
+  int n = mat.size();
+  if (n == 0) return res;
+  res += "\n";
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < (int) mat[i].size(); j++) {
+      sprintf(temp, "%-2s", to_string(mat[i][j]).c_str());
+      res += string(temp);
+    }
+    res += "\n";
+  }
+  return res;
+}

@@ -1,0 +1,16 @@
+# -*- mode: snippet -*- 
+# name: vec 
+# key: vec	
+# --
+
+template <typename T>
+istream &operator>>(istream &is, vector <T> &arr) {
+  for (T &val : arr) is >> val;
+  return is;
+}
+
+template <typename T>
+ostream &operator<<(ostream &os, vector <T> &arr) {
+  for (T &val : arr) os << val << ' ';
+  return os;
+}

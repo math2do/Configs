@@ -1,0 +1,9 @@
+# -*- mode: snippet -*- 
+# name: chmax 
+# key: chmax	
+# --
+
+template <typename T> 
+inline bool chmax(T &a, const T &b) {
+  return a < b ? a = b, true : false;
+}

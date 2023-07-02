@@ -1,0 +1,13 @@
+# -*- mode: snippet -*- 
+# name: mul 
+# key: mul	
+# --
+
+inline int mul(int a, int b) {
+  long long res = (long long) a * b;
+  a = (int) (res % mod);
+  if (a < 0) {
+    a += mod;
+  }
+  return a;
+}

@@ -1,0 +1,31 @@
+# -*- mode: snippet -*- 
+# name: ranking 
+# key: ranking	
+# --
+
+template <typename T>
+vector <int> ranking(vector <T> &arr) {
+  int n = arr.size();
+  vector <pair <T, int>> pr(n);
+  for (int i = 0; i < n; i++) {
+    pr[i] = make_pair(arr[i], i);
+  } 
+  stable_sort(pr.begin(), pr.end());
+  int rank = 0;
+  int h = 0;
+  vector <int> r(n);
+  while (h < n) {
+    int l = h;
+    while (h + 1 < n && pr[h + 1].first == pr[l].first) {
+      h += 1;
+    }
+    for (int i = l; i <= h; i++) {
+      r[pr[i].second] = rank;
+    } 
+    rank += 1;
+    l = h + 1;
+    h = h + 1;
+  }
+  return r; 
+  //..r[i] is the rank of arr[i] if arr was sorted
+} 

@@ -1,0 +1,84 @@
+# -*- mode: snippet -*- 
+# name: ford_fulkerson 
+# key: ford_fulkerson	
+# --
+
+//..verified against AOJ GRL_6_A
+const int N = 101;
+vector <bool> visited(N);
+struct Edge {
+  int to, rev;
+  int flow, cap;
+};
+
+class Graph {
+private:
+  int V;
+  int E;
+  vector < vector<Edge>> adj;
+  int augment(int u, int t, int flow);
+public:
+  Graph(int n, int m);
+  void addEdge(int src, int dst, int cap);
+  int maxFlow(int s, int t);
+};
+
+Graph::Graph(int n, int m) {
+  this->V = n;
+  this->E = m;
+  adj.resize(n);
+} 
+
+void Graph::addEdge(int src, int dst, int cap) {
+  Edge a = {dst, (int) adj[dst].size(), 0, cap};
+  Edge b = {src, (int) adj[src].size(), 0, 0};
+
+  adj[src].push_back(a);
+  adj[dst].push_back(b);  
+}
+
+int Graph::augment(int u, int t, int flow) {
+  if (u == t) {
+    return flow;
+  }
+  visited[u] = true;
+  for (Edge &e : adj[u]) {    //important to iterate the reference variable &e
+    int v = e.to;
+    if (!visited[v] && e.flow < e.cap) {
+      int flow_ahead = augment(v, t, min(flow, e.cap - e.flow));
+      if (flow_ahead > 0) {
+        e.flow += flow_ahead;
+        adj[v][e.rev].flow -= flow_ahead;
+        return flow_ahead;
+      }
+    }
+  }
+  return 0;
+}
+
+int Graph::maxFlow(int s, int t) {
+  int total = 0;
+  while (true) {
+    fill(visited.begin(), visited.begin() + V, false);
+    int flow = augment(s, t, pinf);
+    if (flow == 0) {
+      break;
+    }
+    total += flow;
+  }
+  return total;
+} 
+
+int main() {  
+  int n, m;
+  cin >> n >> m;
+  Graph g(n, m);
+
+  int src, dst, cap;
+  for (int i = 0; i < m; i++) {
+    cin >> src >> dst >> cap;
+    g.addEdge(src, dst, cap);
+  }
+  cout << g.maxFlow(0, n - 1) << '\n';
+  return 0;
+}

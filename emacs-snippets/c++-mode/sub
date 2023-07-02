@@ -1,0 +1,11 @@
+# -*- mode: snippet -*- 
+# name: sub 
+# key: sub	
+# --
+
+inline void sub(int &a, int b) {
+  a -= b;
+  if (a < 0) {
+    a += mod;
+  }
+}

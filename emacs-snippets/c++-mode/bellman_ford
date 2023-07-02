@@ -1,0 +1,44 @@
+# -*- mode: snippet -*- 
+# name: bellman_ford 
+# key: bellman_ford	
+# --
+
+template <typename T>
+vector <T> bellman_ford(const graph<T> &g, int from, bool& neg) {
+  neg = false;
+  T inf = numeric_limits<T>::max();
+  vector <T> dist(g.n, inf);
+  dist[from] = 0;
+
+  auto relax = [&](auto &e) -> bool {
+    bool done = false;
+    int u = e.from;
+    int v = e.to;
+    int w = e.cost;
+    if (dist[u] != inf && dist[u] + w < dist[v]) {
+      dist[v] = dist[u] + w;
+      done = true;
+    }
+    return done;
+  };
+
+  //relax all edges g.n - 1 times
+  for (int qq = 1; qq <= g.n - 1; qq++) {
+    for (auto &e : g.edges) {
+      relax(e);
+    }
+  } 
+
+  //if it relaxes more, then it contains negative cycle
+  for (auto &e : g.edges) {
+    if (relax(e)) {
+      neg = true;
+      goto end;
+    } 
+  }
+  end : {
+    return dist;
+  }
+  //dist[i] = distance to 'i' from 'from', inf if not reachable
+  //neg = true if negative cycle is present
+}

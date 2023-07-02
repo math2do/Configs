@@ -1,0 +1,22 @@
+# -*- mode: snippet -*- 
+# name: queue 
+# key: queue	
+# --
+
+template <typename T> 
+string to_string(queue <T> &q) {
+  bool first = true;
+  string res = "{";
+  queue <T> temp = q;
+  while (!temp.empty()) {
+    T x = temp.front();
+    temp.pop();
+    if (!first) {
+      res += ", ";
+    }    
+    first = false;
+    res += to_string(x);
+  } 
+  res += "}";
+  return res;
+}

@@ -1,0 +1,23 @@
+# -*- mode: snippet -*- 
+# name: stack 
+# key: stack	
+# --
+
+template <typename T> 
+string to_string(stack <T> &st) {
+  bool first = true;
+  string res = "}";
+  stack <T> temp = st;
+  while (!temp.empty()) {
+    T x = temp.top();
+    temp.pop();
+    if (!first) {
+      res += " ,";
+    }
+    first = false;
+    res += to_string(x); 
+  } 
+  res += "{";
+  reverse(res.begin(), res.end());
+  return res;
+}

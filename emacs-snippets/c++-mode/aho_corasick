@@ -1,0 +1,223 @@
+# -*- mode: snippet -*- 
+# name: aho_corasick 
+# key: aho_corasick	
+# --
+
+template <bool child_cnt_matter>
+class aho_corasick {
+ public:
+  using pbb = pair <bool, bool>;
+  static constexpr int size = ...
+  inline int hash(char ch) { 
+    return ch - ...; 
+  }
+
+  struct _node {
+   public:
+    bool end;
+    int all;
+    int end_cnt;
+    vector <_node*> c;
+    vector <int> cnt;
+    vector <int> nth;
+    set <int> chars;
+    _node *link;
+    _node() : end(false), all(0), end_cnt(0), link(NULL) {
+      c.resize(size);
+      cnt.resize(size);
+      for (int i = 0; i < size; i++) {
+        c[i] = NULL;
+        cnt[i] = 0;
+      } 
+    } 
+  };
+  
+  bool insert(_node* node, const string &str, int idx, int at) {
+    int len = str.length();
+    if (idx == len) {
+      if (node->end) {
+        //..handle no duplicates by returning false
+        ...
+      }
+      node->nth.push_back(at);
+      node->end_cnt++;
+      node->end = true;
+      return true;
+    }
+    int pos = hash(str[idx]);
+    _node *temp = node->c[pos];
+    if (temp == NULL) {
+      temp = new _node();
+      node->c[pos] = temp;
+      node->chars.insert(pos);
+    }
+    bool res = insert(temp, str, idx + 1, at);
+    if (res == true) {
+      node->cnt[pos]++;
+      node->all++;
+    }
+    return res;
+  } 
+
+  bool insert(vector <string> &arr) {
+    pats.insert(pats.end(), arr.begin(), arr.end());
+    int m = arr.size();
+    if (child_cnt_matter) {
+      for (int ith = 0; ith < m; ith++) {
+        string& str = arr[ith];
+        insert(root, str, 0, n + ith);
+      }
+      n += m;
+      return true;
+    }
+
+    //..insertion with duplicates
+    for (int ith = 0; ith < m; ith++) {
+      _node* crawl = root;
+      string& str = arr[ith];
+      int len = str.length();
+      for (int idx = 0; idx < len; idx++) {
+        int pos = hash(str[idx]);
+        if (!crawl->c[pos]) {
+          crawl->c[pos] = new _node();
+          crawl->chars.insert(pos);
+        }
+        crawl->cnt[pos]++;
+        crawl->all++;
+        crawl = crawl->c[pos];
+      }
+      crawl->end_cnt++;
+      crawl->nth.push_back(n + ith);
+      crawl->end = true;
+    }
+    n += m;
+    return true;
+  }
+  bool insert(const string& str) {
+    vector <string> arr(1, str);
+    bool res = insert(arr);
+    return res;
+  } 
+
+  bool find(const string &str) {
+    _node* crawl = root;
+    int len = str.length();
+    for (int idx = 0; idx < len; idx++) {
+      int pos = hash(str[idx]);
+      if (!crawl->c[pos]) {
+        return false;
+      }
+      crawl = crawl->c[pos];
+    }
+    if (crawl->end) return true;
+    return false;
+  }
+
+  //..first = was present, second = is child subtree completely removed
+  pbb remove(_node* node, const string &str, int idx) {
+    int len = str.length();
+    if (node == NULL) return {false, false};
+    if (idx == len) {
+      if (!node->end) return {false, false};
+      if (node->all == 0) {
+        delete node;
+        return {true, true};
+      }
+      node->end_cnt--;     // deleting only one of same words
+      node->end_cnt = 0 .. // deleting all same words
+      if (node->end_cnt == 0) {
+        node->end = false;
+      }
+      return {true, false};
+    }
+
+    int pos = hash(str[idx]);
+    _node* temp = node->c[pos];
+    if (temp == NULL) return {false, false};
+    pbb res = remove(temp, str, idx + 1);
+    if (res.first) {
+      if (res.second) {
+        node->c[pos] = NULL;
+      }
+      node->cnt[pos]--;
+      node->all--;
+      if (node->all == 0) {
+        delete node;
+        return {true, true};
+      }
+      return {true, false};
+    }
+    return res;
+  }
+
+  bool remove(const string& str) {
+    pbb res = remove(root, str, 0);
+    return res.first;
+  }
+
+  //..very much similar to lps pattern matching
+  inline void Move(_node* &temp, int pos) {
+    while (!temp->c[pos]) {
+      temp = temp->link;
+    }
+    temp = temp->c[pos];
+  }
+
+  void build() {
+    queue <_node*> q;
+    for (int pos = 0; pos < size; pos++) {
+      if (root->c[pos]) {
+        q.push(root->c[pos]);
+        root->c[pos]->link = root;
+      } else {
+        root->c[pos] = root;
+      } 
+    }
+        
+    while (!q.empty()) {
+      int level = (int) q.size();
+      while (level--) {
+        _node* u = q.front(); q.pop();
+        for (int pos : u->chars) {  
+          q.push(u->c[pos]);
+          _node* temp = u->link;
+          Move(temp, pos);
+          u->c[pos]->link = temp; 
+          u->c[pos]->nth.insert(u->c[pos]->nth.end(), (temp->nth).begin(), (temp->nth).end());
+        } 
+      }
+    } 
+  } 
+
+  vector <vector <int>> match(const string &txt) {
+    int len = txt.length();
+    _node* temp = root;
+    vector <vector <int>> ans(n);
+    for  (int idx = 0; idx < len; idx++) {
+      int pos = hash(txt[idx]);
+      Move(temp, pos);
+      for (int ith : temp->nth) {
+        int m = pats[ith].length();
+        ans[ith].push_back(idx + 1 - m);
+      } 
+    }
+    return ans;
+    // ans[i] contains first indexing where ith patthern started matching
+  } 
+
+  vector <string> pats;
+  int n;
+  _node* root;
+  aho_corasick() {
+    root = new _node();
+    root->link = root; 
+    n = 0;
+  }
+};
+
+/*
+aho_corasick<true> ac;
+ac.insert(pat);
+ac.build();
+vector <vector <int>> match = ac.match(txt);
+*/

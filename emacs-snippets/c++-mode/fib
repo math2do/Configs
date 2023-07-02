@@ -1,0 +1,18 @@
+# -*- mode: snippet -*- 
+# name: fib 
+# key: fib	
+# --
+
+vector <int> fib(int maxe = (int) (1e9)) {
+  vector <int> seq = {1, 1};
+  while (true) {
+    int n = seq.size();
+    long long next = (long long) seq[n - 1] + seq[n - 2];
+    if (next > maxe) {
+      break;
+    } 
+    seq.push_back(next);
+  } 
+  return seq;
+  //returns fibonacci sequence rising atmost maxe
+} 

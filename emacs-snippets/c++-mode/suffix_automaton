@@ -1,0 +1,265 @@
+# -*- mode: snippet -*- 
+# name: suffix_automaton 
+# key: suffix_automaton	
+# --
+
+class suffix_automaton {
+ public:
+  struct state {
+    int len;
+    int link;
+    int fpos;
+    map<char, int> next;
+  };
+
+  string str;
+  int n;
+  vector <state> st;
+  int size;
+  int last;
+  vector <bool> terminals;
+
+  suffix_automaton(const string &istr) {
+    str = istr + ...//'$' or istr (for min_shift;
+    n = istr.length();
+    st.resize(2 * n);
+    st[0].len = 0;
+    st[0].link = -1;
+    size++;
+    last = 0;
+  }
+
+  suffix_automaton() {
+
+  }
+
+  void add(char c) {
+    int cur = size++;
+    st[cur].len = st[last].len + 1;
+    st[cur].fpos = st[cur].len - 1;
+    int p = last;
+    while (p != -1 && !st[p].next.count(c)) {
+      st[p].next[c] = cur;
+      p = st[p].link;
+    }
+    if (p == -1) {
+      st[cur].link = 0;
+      st[cur].fpos = st[cur].len - 1;
+    } else {
+      int q = st[p].next[c];
+      if (st[p].len + 1 == st[q].len) {
+        st[cur].link = q;
+        st[cur].fpos = st[cur].len - 1;
+      } else {
+        int clone = size++;
+        st[clone].len = st[p].len + 1;
+        st[clone].next = st[q].next;
+        st[clone].link = st[q].link;
+        st[clone].fpos = st[q].fpos;
+        while (p != -1 && st[p].next[c] == q) {
+          st[p].next[c] = clone;
+          p = st[p].link;
+        }
+        st[q].link = st[cur].link = clone;
+      }
+    }
+    last = cur;
+  }
+
+  vector <int> topo_sort() {
+    vector <int> order;
+    vector <int> deg(last + 1, 0);
+    for (int u = 0; u < last + 1; u++) {
+      for (int ch = 0; ch <= 256; ch++) {
+        if (st[u].next.count(ch)) {
+          int v = st[u].next[ch];
+          deg[v]++;
+        } 
+      } 
+    }
+    queue <int> from;
+    for (int u = 0; u < last + 1; u++) {
+      if (deg[u] == 0) {
+        from.push(u);
+      } 
+    } 
+    while (!from.empty()) {
+      int u = from.front();
+      from.pop();
+      order.emplace_back(u);
+      for (int ch = 0; ch <= 256; ch++) {
+        if (st[u].next.count(ch)) {
+          int v = st[u].next[ch];
+          if (deg[v] == 1) {
+            from.push_back(v);
+          }
+          deg[v]--;
+        } 
+      } 
+    }
+    return order;
+  } 
+  
+  void build() {
+    for (char ch : str) {
+      add(ch);
+    } 
+    terminals.resize(last + 1);
+    fill(terminals.begin(), terminals.end(), false);
+    int p = last;
+    while(p > 0) {
+      terminals[p] = true;  
+      p = st[p].link;
+    }
+  }
+
+  vector <int> dp;
+  int different() {
+    dp.resize(last + 1);
+    fill(dp.begin(), dp.end(), -1);
+    auto Dfs = [&](auto Self, int u) {
+      if (dp[u] != -1) return dp[u];
+      int cnt = 0;
+      for (int ch = 0; ch <= 256; ch++) {
+        if (st[u].next.count(ch)) {
+          cnt += Self(Self, st[u].next[ch]);
+        } 
+      } 
+      return dp[u] = cnt + 1;
+    };
+
+    int ret = 0;
+    for (int ch = 0; ch <= 256; ch++) {
+      if (st[0].next.count(ch)) {
+        ret += Dfs(Dfs, st[0].next[ch]);
+      }
+    }     
+    return ret;
+  }
+
+  int length_sum() {
+    different();
+
+    vector <int> ans(last + 1, -1);
+    auto Dfs = [&](auto Self, int u) {
+      if (ans[u] != -1) return ans[u];
+      int cnt = 0;
+      for (int ch = 0; ch <= 256; ch++) {
+        if (st[u].next.count(ch)) {
+          cnt += Self(Self, st[u].next[ch]) + dp[st[u].next[ch]];
+        } 
+      } 
+      return ans[u] = cnt;
+    };
+
+    int ret = 0;
+    for (int ch = 0; ch <= 256; ch++) {
+      if (st[0].next.count(ch)) {
+        ret += Dfs(Dfs, st[0].next[ch]);
+      }
+    }     
+    return ret;
+  } 
+
+  string kthlex(int k) {
+    string ans;
+    int path = 0;
+    bool found = false;
+    auto Dfs = [&](auto Self, int u) {
+      for (int ch = 0; ch <= 256; ch++) {
+        if (st[u].next.count(ch)) {
+          path++;
+          if (path == k) {
+            found = true;            
+            ans.push_back(ch);
+            return;
+          }
+          Self(Self, st[u].next[ch]);
+          if (path == k) { 
+            ans.push_back(ch);
+            return;
+          }
+        } 
+      }
+    }
+
+    for (int ch = 0; ch <= 256; ch++) {
+      if (st[0].next.count(ch)) {
+        Dfs(Dfs, st[0].next[ch]);
+        if (found) break;
+      }
+    }
+    return ans;
+  }
+
+  //..minimum shift to obtain smallest (lexico)
+  int min_shift() {
+    int t = n / 2;
+    int tp = 0;
+    bool found = false;
+    auto Dfs = [&](auto Self, int u) {
+      for (int ch = 0; ch <= 256; ch++) {
+        if (st[u].next.count(ch)) {
+          tp++;
+          if (tp == t) {
+            found = true;
+            //..cout << st[u].fpos - t + 2 << endl;
+            break;
+          }
+          Self(Self, st[u].next[ch]);
+          if (found) break;
+        } 
+      }
+    }
+
+    for (int ch = 0; ch <= 256; ch++) {
+      if (st[0].next.count(ch)) {
+        Dfs(Dfs, st[0].next[ch]);
+        if (found) break;
+      }
+    }
+  } 
+
+  bool occurs(const string &pat) {
+    int pos = 0;
+    for (char c : pat) {
+      int found = st[pos].next.count[c];
+      if (!found) return false;
+      pos = st[pos].next[c];
+    } 
+    return true;
+  }
+  
+  //..contruct using suffix_automaton st();
+  string lcs(string s, string t) {
+    str = s;
+    n = s.length();
+    st.resize(2 * n);
+    st[0].len = 0;
+    st[0].link = -1;
+    size++;
+    last = 0;
+    
+    int v = 0, l = 0,
+    int best = 0, bestpos = 0;
+    for (int i = 0; i < (int)t.length(); i++) {
+      while (v && !st[v].next.count(t[i])) {
+        v = st[v].link;
+        l = st[v].len;
+      }
+      if (st[v].next.count(t[i])) {
+        v = st[v].next[t[i]];
+        ++l;
+      }
+      if (l > best) {
+        best = l;
+        bestpos = i;
+      }
+    }
+    return t.substr(bestpos - best + 1, best);
+  } 
+
+  vector <int> match(const string &pat) {
+    
+  } 
+}; 
