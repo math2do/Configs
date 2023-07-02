@@ -1,6 +1,10 @@
 # Comments and blank lines are allowed.
+# Check for ignoring other file/folder formats:https://www.gnu.org/software/stow/manual/stow.html#Ignore-Lists
 
 \.git
 \.gitignore
 
 ^/emacs-snippets
+^/bin/sync-dotfiles.sh
+
+^/README.*
