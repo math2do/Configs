@@ -38,8 +38,8 @@
 ;;Revert Buffers when file have changed in disk
 (global-auto-revert-mode 1)
 
-(set-frame-parameter (selected-frame) 'alpha '(97 . 90))
-(add-to-list 'default-frame-alist '(alpha . (97 . 90)))
+(set-frame-parameter (selected-frame) 'alpha '(93 . 90))
+(add-to-list 'default-frame-alist '(alpha . (93 . 90)))
 (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
@@ -204,8 +204,8 @@
 
 ;; (load-theme 'atom-one-dark t)
 
-;; load font, install all these fonts manually first
-(set-face-attribute 'default nil :font "Fira Mono" :height 127)
+;; load font, install all these fonts manually first, the size is 127 without exwm
+(set-face-attribute 'default nil :font "Fira Mono" :height 145)
 
 ;; press C-h to find the which keys does what
 (use-package which-key
@@ -221,10 +221,12 @@
 
 (use-package counsel
   :bind (("M-x" . counsel-M-x)
-   ("C-x b" . counsel-ibuffer)
-   ("C-x C-f" . counsel-find-file)
-   :map minibuffer-local-map
-   ("C-r" . 'counsel-minibuffer-history)))
+         ("C-x b" . counsel-ibuffer)
+         ("C-x C-f" . counsel-find-file)
+         :map minibuffer-local-map
+         ("C-r" . 'counsel-minibuffer-history))
+  :custom
+  (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only))
 
 ;; improved documentation about variables/functions
 (use-package helpful
@@ -378,7 +380,7 @@
   :init
   (setq org-roam-v2-ack t)
   :custom
-  (org-roam-directory "~/coding/roam-notes")
+  (org-roam-directory "~/coding/roam-notes/content")
   :config
   (org-roam-db-autosync-mode))
 
@@ -391,10 +393,10 @@
   (setq org-log-done 'time)
   (setq org-log-into-drawer t)
   (setq org-agenda-files
-  '("~/coding/notes/emacs/Tasks.org"
-    "~/coding/notes/emacs/Habits.org"
-    "~/coding/notes/emacs/Notes.org"
-    "~/coding/notes/emacs/Birthdays.org"))
+        '("~/coding/notes/emacs/Tasks.org"
+          "~/coding/notes/emacs/Habits.org"
+          "~/coding/notes/emacs/Notes.org"
+          "~/coding/notes/emacs/Birthdays.org"))
 
   (setq org-todo-keywords
         '((sequence "BACKLOG(b)" "TODO(t)" "WIP(w)" "CODE-REVIEW(c)" "DEV-DONE(d)" "IN-QA(q)" "NEEDS-INFO(n)" "|" "DONE(d)" "INVALID(i)"))))
@@ -402,23 +404,23 @@
 
 ;; Replace list hyphen with dot
 (font-lock-add-keywords 'org-mode
-                          '(("^ *\\([-]\\) "
-                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "➤"))))))
+                        '(("^ *\\([-]\\) "
+                           (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "➤"))))))
 
 (require 'org-faces)
 
 
 ;; set the size of nested headings
- (dolist (face '((org-level-1 . 1.00)
-                 (org-level-2 . 1.00)
-                 (org-level-3 . 1.00)
-                 (org-level-4 . 1.00)
-                 (org-level-5 . 1.00)
-                 (org-level-6 . 1.00)
-                 (org-level-7 . 1.00)
-                 (org-level-8 . 1.00)))
+(dolist (face '((org-level-1 . 1.00)
+                (org-level-2 . 1.00)
+                (org-level-3 . 1.00)
+                (org-level-4 . 1.00)
+                (org-level-5 . 1.00)
+                (org-level-6 . 1.00)
+                (org-level-7 . 1.00)
+                (org-level-8 . 1.00)))
 
-   (set-face-attribute (car face) nil :font "Fira Mono" :weight 'extra-bold :height (cdr face)))
+  (set-face-attribute (car face) nil :font "Fira Mono" :weight 'extra-bold :height (cdr face)))
 
 ;;use bullet list mode for heading
 (use-package org-bullets
@@ -427,6 +429,15 @@
   :custom
   (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 
+
+(defun efs/org-mode-visual-fill ()
+  (setq visual-fill-column-width 130
+        visual-fill-column-center-text t)
+  (visual-fill-column-mode 1)
+  (visual-line-mode 1))
+
+(use-package visual-fill-column
+  :hook (org-mode . efs/org-mode-visual-fill))
 
 ;; Org babels
 (org-babel-do-load-languages
@@ -454,34 +465,25 @@
   (org-show-children))
 
 (defun dw/org-present-hook ()
-  ;; (setq-local face-remapping-alist '((default (:height 1.2) variable-pitch)
-  ;;                                    (header-line (:height 4.5) variable-pitch)
-  ;;                                    (org-code (:height 1) org-code)
-  ;;                                    (org-verbatim (:height 1.55) org-verbatim)
-  ;;                                    (org-block (:height 1.25) org-block)
-  ;;                                    (org-block-begin-line (:height 0.7) org-block)))
+  (setq-local face-remapping-alist '((default (:height 1.2) variable-pitch)
+                                     (header-line (:height 4.5) variable-pitch)
+                                     (org-code (:height 1) org-code)
+                                     (org-verbatim (:height 1.55) org-verbatim)
+                                     (org-block (:height 1.25) org-block)
+                                     (org-block-begin-line (:height 0.7) org-block)))
   (setq header-line-format " ")
-  (visual-fill-column-mode 1)
-  (visual-line-mode 1)
   (org-display-inline-images)
   (dw/org-present-prepare-slide))
 
 (defun dw/org-present-quit-hook ()
-  ;; (setq-local face-remapping-alist '((default variable-pitch default)))
+  (setq-local face-remapping-alist '((default variable-pitch default)))
   (setq header-line-format nil)
-  (setq visual-fill-column-center-text nil)
   (org-present-small)
-  (visual-fill-column-mode 0)
-  (visual-line-mode 0)
   (org-remove-inline-images))
 
 (use-package org-present
   :hook ((org-present-mode . dw/org-present-hook)
          (org-present-mode-quit . dw/org-present-quit-hook)))
-
-;; Configure fill-width
-(setq visual-fill-column-width 100
-      visual-fill-column-center-text t)
 
 (require 'simple-httpd)
 (setq httpd-root "/var/www")
@@ -825,76 +827,6 @@
   (eshell-toggle-run-command nil))
 
 (use-package password-store)
-
-(defun efs/exwm-update-class ()
-  (exwm-workspace-rename-buffer exwm-class-name))
-
-(use-package exwm
-  :config
-  ;; Set the default number of workspaces
-  (setq exwm-workspace-number 5)
-
-  ;; When window "class" updates, use it to set the buffer name
-  (add-hook 'exwm-update-class-hook #'efs/exwm-update-class)
-
-  ;; Rebind CapsLock to Ctrl
-  ;; (start-process-shell-command "xmodmap" nil "xmodmap ~/.config/emacs/exwm/Xmodmap")
-
-  ;; Set the screen resolution (update this to be the correct resolution for your screen!)
-  (require 'exwm-randr)
-  (exwm-randr-enable)
-  ;; (start-process-shell-command "xrandr" nil "xrandr --output Virtual-1 --primary --mode 2048x1152 --pos 0x0 --rotate normal")
-
-  ;; Load the system tray before exwm-init
-  (require 'exwm-systemtray)
-  (exwm-systemtray-enable)
-
-  ;; These keys should always pass through to Emacs
-  (setq exwm-input-prefix-keys
-    '(?\C-x
-      ?\C-u
-      ?\C-h
-      ?\M-x
-      ?\M-`
-      ?\M-&
-      ?\M-:
-      ?\C-\M-j  ;; Buffer list
-      ?\C-\ ))  ;; Ctrl+Space
-
-  ;; Ctrl+Q will enable the next key to be sent directly
-  (define-key exwm-mode-map [?\C-q] 'exwm-input-send-next-key)
-
-  ;; Set up global key bindings.  These always work, no matter the input state!
-  ;; Keep in mind that changing this list after EXWM initializes has no effect.
-  (setq exwm-input-global-keys
-        `(
-          ;; Reset to line-mode (C-c C-k switches to char-mode via exwm-input-release-keyboard)
-          ([?\s-r] . exwm-reset)
-
-          ;; Move between windows
-          ([s-left] . windmove-left)
-          ([s-right] . windmove-right)
-          ([s-up] . windmove-up)
-          ([s-down] . windmove-down)
-
-          ;; Launch applications via shell command
-          ([?\s-&] . (lambda (command)
-                       (interactive (list (read-shell-command "$ ")))
-                       (start-process-shell-command command nil command)))
-
-          ;; Switch workspace
-          ([?\s-w] . exwm-workspace-switch)
-          ([?\s-`] . (lambda () (interactive) (exwm-workspace-switch-create 0)))
-
-          ;; 's-N': Switch to certain workspace with Super (Win) plus a number key (0 - 9)
-          ,@(mapcar (lambda (i)
-                      `(,(kbd (format "s-%d" i)) .
-                        (lambda ()
-                          (interactive)
-                          (exwm-workspace-switch-create ,i))))
-                    (number-sequence 0 9))))
-
-  (exwm-enable))
 
 (setq custom-file (concat user-emacs-directory "emacs-custom.el"))
 (when (file-exists-p custom-file)

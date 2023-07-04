@@ -60,3 +60,6 @@ export PATH=$HOME/.local/bin:$PATH
 
 # Add custom bash scripts to env
 export PATH=$HOME/config/bin:$PATH
+
+#Add emacs installed from snap path
+export PATH=/snap/emacs/2031/usr/bin:$PATH
