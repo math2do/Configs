@@ -198,7 +198,7 @@
 (use-package doom-themes)
 ;; load theme command M-x ^counsel-load-theme
 (use-package doom-themes
-  :init (load-theme 'doom-palenight t))
+  :init (load-theme 'doom-dracula t))
 ;; other themes = doom-dracula, doom-palenight, doom-acario-light, doom-one, doom-snazzy, doom-solarized-light
 ;; dracula, modus-vivendi, modus-operandi, doom-one-light, doom-opera-light
 
