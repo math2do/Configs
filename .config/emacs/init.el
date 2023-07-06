@@ -69,9 +69,11 @@
 
 
 ;; cursor type
-(setq-default cursor-type '(hbar . 4))
-(setq-default set-cursor-color '"#FFFF00") 
-(setq-default blink-cursor-interval '0.2)
+
+;; (setq-default cursor-type '(hbar . 4))
+;; (setq-default set-cursor-color '"#FFFF00") 
+;; (setq-default blink-cursor-interval '0.2)
+
 ;; Notes
 ;; Describe Variable : C-h v
 ;; Describe Function : C-h f
@@ -146,6 +148,7 @@
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("melpa-stable" . "https://stable.melpa.org/packages/")
                          ;; ("org" . "https://orgmode.org/elpa/")
+                         ("nongnu" . "https://elpa.nongnu.org/nongnu/")
                          ("elpa" . "https://elpa.gnu.org/packages/")))
 
 (package-initialize)
@@ -180,6 +183,24 @@
   :config
   (ivy-mode 1))
 
+;; load font, install all these fonts manually first, the size is 127 without exwm
+(set-face-attribute 'default nil
+                    :font "Fira Mono"
+                    :height 145)
+
+;; Set the fixed pitch face
+(set-face-attribute 'fixed-pitch nil
+                    :font "JetBrains Mono"
+                    :weight 'light
+                    :height 145)
+
+;; Set the variable pitch face
+(set-face-attribute 'variable-pitch nil
+                    ;; :font "Cantarell"
+                    :font "Iosevka Aile"
+                    :height 145
+                    :weight 'light)
+
 ;; NOTE: The first time you load your configuration on a new machine, you'll
 ;; need to run the following command interactively so that mode line icons
 ;; display correctly:
@@ -201,11 +222,7 @@
   :init (load-theme 'doom-dracula t))
 ;; other themes = doom-dracula, doom-palenight, doom-acario-light, doom-one, doom-snazzy, doom-solarized-light
 ;; dracula, modus-vivendi, modus-operandi, doom-one-light, doom-opera-light
-
 ;; (load-theme 'atom-one-dark t)
-
-;; load font, install all these fonts manually first, the size is 127 without exwm
-(set-face-attribute 'default nil :font "Fira Mono" :height 145)
 
 ;; press C-h to find the which keys does what
 (use-package which-key
@@ -348,17 +365,17 @@
   :config
   (setq markdown-command "marked")
   (defun dw/set-markdown-header-font-sizes ()
-     (dolist (face '((markdown-header-face-1 . 1.2)
-     (markdown-header-face-2 . 1.1)
-     (markdown-header-face-3 . 1.0)
-     (markdown-header-face-4 . 1.0)
-     (markdown-header-face-5 . 1.0)))
-     (set-face-attribute (car face) nil :weight 'normal :height (cdr face))))
+    (dolist (face '((markdown-header-face-1 . 1.2)
+                    (markdown-header-face-2 . 1.1)
+                    (markdown-header-face-3 . 1.0)
+                    (markdown-header-face-4 . 1.0)
+                    (markdown-header-face-5 . 1.0)))
+      (set-face-attribute (car face) nil :weight 'normal :height (cdr face))))
 
-(defun dw/markdown-mode-hook ()
-  (dw/set-markdown-header-font-sizes))
+  (defun dw/markdown-mode-hook ()
+    (dw/set-markdown-header-font-sizes))
 
-(add-hook 'markdown-mode-hook 'dw/markdown-mode-hook))
+  (add-hook 'markdown-mode-hook 'dw/markdown-mode-hook))
 
 (use-package hydra)
 (use-package lsp-java :config (add-hook 'java-mode-hook 'lsp))
@@ -408,19 +425,38 @@
                            (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "➤"))))))
 
 (require 'org-faces)
+;; Make sure org-indent face is available
+(require 'org-indent)
 
+(set-face-attribute 'org-document-title nil :font "Iosevka Aile" :weight 'bold :height 1.3)
 
 ;; set the size of nested headings
-(dolist (face '((org-level-1 . 1.00)
-                (org-level-2 . 1.00)
-                (org-level-3 . 1.00)
-                (org-level-4 . 1.00)
-                (org-level-5 . 1.00)
-                (org-level-6 . 1.00)
-                (org-level-7 . 1.00)
-                (org-level-8 . 1.00)))
+(dolist (face '((org-level-1 . 1.3)
+                (org-level-2 . 1.2)
+                (org-level-3 . 1.1)
+                (org-level-4 . 1.0)
+                (org-level-5 . 1.0)
+                (org-level-6 . 1.0)
+                (org-level-7 . 1.0)
+                (org-level-8 . 1.0)))
 
-  (set-face-attribute (car face) nil :font "Fira Mono" :weight 'extra-bold :height (cdr face)))
+  ;; (set-face-attribute (car face) nil :font "Fira Mono" :weight 'extra-bold :height (cdr face))
+  (set-face-attribute (car face) nil :font "Iosevka Aile" :weight 'medium :height (cdr face)))
+
+;; Ensure that anything that should be fixed-pitch in Org files appears that way
+(set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
+(set-face-attribute 'org-table nil  :inherit 'fixed-pitch)
+(set-face-attribute 'org-formula nil  :inherit 'fixed-pitch)
+(set-face-attribute 'org-code nil   :inherit '(shadow fixed-pitch))
+(set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch))
+(set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+(set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+(set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+(set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
+
+;; Get rid of the background on column views
+(set-face-attribute 'org-column nil :background nil)
+(set-face-attribute 'org-column-title nil :background nil)
 
 ;;use bullet list mode for heading
 (use-package org-bullets
@@ -457,33 +493,50 @@
 ;; tab width is as if the language is indented in its major mode
 (setq org-src-tab-acts-natively t)
 
-
-;; org-present ----------------------------------------------------------------------------------
 (defun dw/org-present-prepare-slide ()
   (org-overview)
   (org-show-entry)
   (org-show-children))
 
 (defun dw/org-present-hook ()
-  (setq-local face-remapping-alist '((default (:height 1.2) variable-pitch)
-                                     (header-line (:height 4.5) variable-pitch)
-                                     (org-code (:height 1) org-code)
+  (setq-local face-remapping-alist '((default (:height 1.5) fixed-pitch)
+                                     (header-line (:height 4.5) fixed-pitch)
+                                     (org-document-title (:height 1.75) org-document-title)
+                                     (org-code (:height 1.55) org-code)
                                      (org-verbatim (:height 1.55) org-verbatim)
                                      (org-block (:height 1.25) org-block)
                                      (org-block-begin-line (:height 0.7) org-block)))
   (setq header-line-format " ")
+  (org-appear-mode -1)
   (org-display-inline-images)
-  (dw/org-present-prepare-slide))
+  (dw/org-present-prepare-slide)
+  (efs/kill-panel))
 
 (defun dw/org-present-quit-hook ()
-  (setq-local face-remapping-alist '((default variable-pitch default)))
+  (setq-local face-remapping-alist '((default default default)))
   (setq header-line-format nil)
   (org-present-small)
-  (org-remove-inline-images))
+  (org-remove-inline-images)
+  (org-appear-mode 1)
+  (widen))
+  ;;(efs/start-panel))
+
+(defun dw/org-present-prev ()
+  (interactive)
+  (org-present-prev)
+  (dw/org-present-prepare-slide))
+
+(defun dw/org-present-next ()
+  (interactive)
+  (org-present-next)
+  (dw/org-present-prepare-slide)
+  (when (fboundp 'live-crafter-add-timestamp)
+    (live-crafter-add-timestamp (substring-no-properties (org-get-heading t t t t)))))
 
 (use-package org-present
   :hook ((org-present-mode . dw/org-present-hook)
-         (org-present-mode-quit . dw/org-present-quit-hook)))
+         (org-present-mode-quit . dw/org-present-quit-hook)
+         (org-present-after-navigate-functions . my/org-present-prepare-slide)))
 
 (require 'simple-httpd)
 (setq httpd-root "/var/www")
