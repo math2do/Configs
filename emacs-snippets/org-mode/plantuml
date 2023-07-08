@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: plantuml
-# key: plantuml
+# key: <plantuml
 # --
 #+begin_src plantuml :file uml_diagram.png :output-dir ~/coding/notes/uml_diagram/
 $0

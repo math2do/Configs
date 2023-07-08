@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: sh
-# key: sh	
+# key: <sh	
 # --
 #+begin_src shell
 $0

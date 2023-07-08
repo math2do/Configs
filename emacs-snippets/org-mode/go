@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: go
-# key: go
+# key: <go
 # --
 #+begin_src go
 $0

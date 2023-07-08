@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: rest
-# key: rest
+# key: <rest
 # --
 #+begin_src restclient
 $0

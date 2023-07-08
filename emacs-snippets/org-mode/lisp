@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: lisp
-# key: lisp
+# key: <lisp
 # --
 #+begin_src lisp
 $0

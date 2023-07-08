@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: yml
-# key: yml
+# key: <yml
 # --
 #+begin_src yaml
   $0

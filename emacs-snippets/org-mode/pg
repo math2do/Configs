@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: sql
-# key: sql
+# key: <sql
 # --
 #+begin_src sql :engine postgres :dbhost localhost :port 5432 :dbuser postgres :dbpassword postgres :database collection_service
 $0

@@ -48,7 +48,7 @@
 ;; prevent C-backspace to clip into clipboard
 (defun backward-delete-word (arg)
   "Delete characters backward until encountering the beginning of a word.
-   With argument ARG, do this that many times."
+       With argument ARG, do this that many times."
   (interactive "p")
   (delete-region (point) (progn (backward-word arg) (point))))
 (global-set-key (kbd "C-<backspace>") 'backward-delete-word)
@@ -82,7 +82,7 @@
 ;; quite mini-buffer : C-g
 ;; alternatively set ESC for above action
 
-   ;;; Prevent Extraneous Tabs
+       ;;; Prevent Extraneous Tabs
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
 
@@ -136,7 +136,7 @@
                 eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
-
+(setq vc-follow-symlinks t)
 ;; load theme
 ;; C-x-e to evaluating the configuration --> WORKING 
 ;; (load-theme 'tango-dark) --> since doom-theme is loaded somewhere below
@@ -154,7 +154,6 @@
 (package-initialize)
 (unless package-archive-contents
   (package-refresh-contents))
-
 ;; initialise use package on non-linux platforms
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
@@ -186,18 +185,21 @@
 ;; load font, install all these fonts manually first, the size is 127 without exwm
 (set-face-attribute 'default nil
                     :font "Fira Mono"
+                    ;;:font "Source Code Pro"
                     :height 145)
 
 ;; Set the fixed pitch face
 (set-face-attribute 'fixed-pitch nil
-                    :font "JetBrains Mono"
+                    ;;:font "JetBrains Mono"
+                    :font "Source Code Pro"
                     :weight 'light
                     :height 145)
 
 ;; Set the variable pitch face
 (set-face-attribute 'variable-pitch nil
                     ;; :font "Cantarell"
-                    :font "Iosevka Aile"
+                    ;;:font "Iosevka Aile"
+                    :font "JetBrains Mono"
                     :height 145
                     :weight 'light)
 
@@ -401,47 +403,80 @@
   :config
   (org-roam-db-autosync-mode))
 
+;; Turn on indentation and auto-fill mode for Org files
+(defun dw/org-mode-setup ()
+  (org-indent-mode)
+  (auto-fill-mode 0))
+
 ;; symbol ▼  ⤵
 (use-package org
+  :defer t
+  :hook (org-mode . dw/org-mode-setup)
   :config
-  (setq org-ellipsis " ▼")
-  (setq org-hide-emphasis-markers t)
-  (setq org-agenda-start-with-log-mode t)
-  (setq org-log-done 'time)
-  (setq org-log-into-drawer t)
+  (setq org-ellipsis " ▾"
+        org-hide-emphasis-markers t
+        org-src-fontify-natively t
+        org-fontify-quote-and-verse-blocks t
+        org-src-tab-acts-natively t
+        org-edit-src-content-indentation 2
+        org-hide-block-startup nil
+        org-src-preserve-indentation nil
+        org-startup-folded 'content
+        org-cycle-separator-lines 2
+        org-adapt-indentation t
+        org-agenda-start-with-log-mode t
+        org-log-done 'time
+        org-log-into-drawer t)
   (setq org-agenda-files
         '("~/coding/notes/emacs/Tasks.org"
           "~/coding/notes/emacs/Habits.org"
           "~/coding/notes/emacs/Notes.org"
           "~/coding/notes/emacs/Birthdays.org"))
 
+  (setq org-modules
+        '(org-crypt
+          org-habit
+          org-bookmark
+          org-eshell
+          org-irc))
+
+  (setq org-refile-targets '((nil :maxlevel . 1)
+                             (org-agenda-files :maxlevel . 1)))
+
+  (setq org-outline-path-complete-in-steps nil)
+  (setq org-refile-use-outline-path t)
+
   (setq org-todo-keywords
         '((sequence "BACKLOG(b)" "TODO(t)" "WIP(w)" "CODE-REVIEW(c)" "DEV-DONE(d)" "IN-QA(q)" "NEEDS-INFO(n)" "|" "DONE(d)" "INVALID(i)"))))
 
-
 ;; Replace list hyphen with dot
-(font-lock-add-keywords 'org-mode
-                        '(("^ *\\([-]\\) "
-                           (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "➤"))))))
+;; (font-lock-add-keywords 'org-mode
+;;                         '(("^ *\\([-]\\) "
+;;                            (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
 
 (require 'org-faces)
 ;; Make sure org-indent face is available
 (require 'org-indent)
 
-(set-face-attribute 'org-document-title nil :font "Iosevka Aile" :weight 'bold :height 1.3)
+;;(set-face-attribute 'org-document-title nil :font "Iosevka Aile" :weight 'bold :height 1.3)
+;;(set-face-attribute 'org-document-title nil :font "JetBrains Mono" :weight 'bold :height 1.3)
+(set-face-attribute 'org-document-title nil :font "Source Code Pro" :weight 'bold :height 1.3)
+(set-face-attribute 'org-document-info nil :font "Source Code Pro" :weight 'bold :height 1.1)
 
 ;; set the size of nested headings
-(dolist (face '((org-level-1 . 1.3)
-                (org-level-2 . 1.2)
-                (org-level-3 . 1.1)
+(dolist (face '((org-level-1 . 1.2)
+                (org-level-2 . 1.1)
+                (org-level-3 . 1.0)
                 (org-level-4 . 1.0)
                 (org-level-5 . 1.0)
                 (org-level-6 . 1.0)
                 (org-level-7 . 1.0)
                 (org-level-8 . 1.0)))
+  (set-face-attribute (car face) nil :font "Iosevka Aile" :weight 'extra-bold :height (cdr face)))
+;; (set-face-attribute (car face) nil :font "Iosevka Aile" :weight 'bold :height (cdr face)))
 
-  ;; (set-face-attribute (car face) nil :font "Fira Mono" :weight 'extra-bold :height (cdr face))
-  (set-face-attribute (car face) nil :font "Iosevka Aile" :weight 'medium :height (cdr face)))
+
+;; check other faces - https://github.com/tkf/org-mode/blob/master/lisp/org-faces.el
 
 ;; Ensure that anything that should be fixed-pitch in Org files appears that way
 (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
@@ -459,12 +494,18 @@
 (set-face-attribute 'org-column-title nil :background nil)
 
 ;;use bullet list mode for heading
-(use-package org-bullets
-  :after org
-  :hook (org-mode . org-bullets-mode)
-  :custom
-  (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
+;; (use-package org-bullets
+;;   :after org
+;;   :hook (org-mode . org-bullets-mode)
+;;   :custom
+;;   (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 
+(use-package org-superstar
+  :after org
+  :hook (org-mode . org-superstar-mode)
+  :custom
+  (org-superstar-remove-leading-stars t)
+  (org-superstar-headline-bullets-list '("◉" "○" "●" "○" "●" "○" "●")))
 
 (defun efs/org-mode-visual-fill ()
   (setq visual-fill-column-width 130
@@ -487,6 +528,7 @@
    (plantuml . t)
    (restclient . t)
    (go . t)))
+
 ;; this disables the evaluation prompt inside org file
 (setq org-confirm-babel-evaluate nil)
 
@@ -518,8 +560,8 @@
   (org-present-small)
   (org-remove-inline-images)
   (org-appear-mode 1)
-  (widen))
-  ;;(efs/start-panel))
+  (org-present-mode 0))
+;;(efs/start-panel))
 
 (defun dw/org-present-prev ()
   (interactive)
@@ -556,182 +598,182 @@
   :hook (dired-mode-hook . all-the-icons-dired-mode))
 
 ;; treemacs ------------------------------------------------------------------------------------------------
-  (use-package treemacs
-    :ensure t
-    :defer t)
+(use-package treemacs
+  :ensure t
+  :defer t)
 
-  ;; used with treemacs ------------------------------------------------------------------------------------
+;; used with treemacs ------------------------------------------------------------------------------------
 
-  (use-package treemacs-projectile
-    :after (treemacs projectile)
-    :ensure t)
+(use-package treemacs-projectile
+  :after (treemacs projectile)
+  :ensure t)
 
-  (use-package treemacs-icons-dired
-    :hook (dired-mode . treemacs-icons-dired-enable-once)
-    :ensure t)
+(use-package treemacs-icons-dired
+  :hook (dired-mode . treemacs-icons-dired-enable-once)
+  :ensure t)
 
-  (use-package treemacs-magit
-    :after (treemacs magit)
-    :ensure t)
+(use-package treemacs-magit
+  :after (treemacs magit)
+  :ensure t)
 
-  (use-package treemacs-persp ;;treemacs-perspective if you use perspective.el vs. persp-mode
-    :after (treemacs persp-mode) ;;or perspective vs. persp-mode
-    :ensure t
-    :config (treemacs-set-scope-type 'Perspectives))
+(use-package treemacs-persp ;;treemacs-perspective if you use perspective.el vs. persp-mode
+  :after (treemacs persp-mode) ;;or perspective vs. persp-mode
+  :ensure t
+  :config (treemacs-set-scope-type 'Perspectives))
 
-  (use-package treemacs-tab-bar ;;treemacs-tab-bar if you use tab-bar-mode
-    :after (treemacs)
-    :ensure t
-    :config (treemacs-set-scope-type 'Tabs))
+(use-package treemacs-tab-bar ;;treemacs-tab-bar if you use tab-bar-mode
+  :after (treemacs)
+  :ensure t
+  :config (treemacs-set-scope-type 'Tabs))
 
-  ;; sequence diagram from www.websequencediagrams.com ------------------------------------------------------
-  (add-hook 'wsd-mode-hook 'company-mode)
-  ;; plantuml diagrams ----------------------------------------------------------------------------------------
-  (setq org-plantuml-jar-path
-        (expand-file-name "~/coding/notes/plantuml/plantuml-1.2022.5.jar"))
+;; sequence diagram from www.websequencediagrams.com ------------------------------------------------------
+(add-hook 'wsd-mode-hook 'company-mode)
+;; plantuml diagrams ----------------------------------------------------------------------------------------
+(setq org-plantuml-jar-path
+      (expand-file-name "~/coding/notes/plantuml/plantuml-1.2022.5.jar"))
 
-  ;; yaml mode ------------------------------------------------------------------------------------------------
-  (use-package yaml-mode
-    :hook (yaml-mode . lsp-deferred))
-  (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
+;; yaml mode ------------------------------------------------------------------------------------------------
+(use-package yaml-mode
+  :hook (yaml-mode . lsp-deferred))
+(add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
 
-  ;; golang gopls lsp setup taken from  ----------------------------------------------------------------------
-  (use-package go-mode
-    :ensure t
-    :bind (
-           ;; If you want to switch existing go-mode bindings to use lsp-mode/gopls instead
-           ;; uncomment the following lines
-           ;; ("C-c C-j" . lsp-find-definition)
-           ;; ("C-c C-d" . lsp-describe-thing-at-point)
-           )
-    :hook ((go-mode . lsp-deferred)
-           (before-save . lsp-format-buffer)
-           (before-save . lsp-organize-imports)))
+;; golang gopls lsp setup taken from  ----------------------------------------------------------------------
+(use-package go-mode
+  :ensure t
+  :bind (
+         ;; If you want to switch existing go-mode bindings to use lsp-mode/gopls instead
+         ;; uncomment the following lines
+         ;; ("C-c C-j" . lsp-find-definition)
+         ;; ("C-c C-d" . lsp-describe-thing-at-point)
+         )
+  :hook ((go-mode . lsp-deferred)
+         (before-save . lsp-format-buffer)
+         (before-save . lsp-organize-imports)))
 
-  (add-hook 'go-mode-hook (lambda () (setq tab-width 2)))
+(add-hook 'go-mode-hook (lambda () (setq tab-width 2)))
 
-  ;; dap mode debugging
-  (require 'dap-dlv-go)
-
-
-  ;; DAP mode ------------------------------------------------------------------------------------------------
-  (use-package dap-mode
-    ;; Uncomment the config below if you want all UI panes to be hidden by default!
-    ;; :custom
-    ;; (lsp-enable-dap-auto-configure nil)
-    :config
-    (dap-ui-mode 1)
-
-    :config
-    ;; Set up Node debugging
-    (require 'dap-node)
-    (dap-node-setup)) ;; Automatically installs Node debug adapter if needed
-
-  ;; C++ lsp mode  --------------------------------------------------------------------------------------------
-  ;; install language server : sudo snap install clangd --classic
-  ;; (add-hook 'c-mode-hook 'lsp)
-  ;; (add-hook 'c++-mode-hook 'lsp)
-
-  ;; Read Dockerfile --------------------------------------------------------------------------------------
-  (require 'dockerfile-mode)
-
-  ;; dsp for for SQLS
-  (add-hook 'sql-mode-hook 'lsp)
-  (setq lsp-sqls-workspace-config-path nil)
-  (setq lsp-sqls-connections
-      '(((driver . "postgresql") (dataSourceName . "host=127.0.0.1 port=5432 user=postgres password=postgres dbname=fulfillment_service sslmode=disable"))))
+;; dap mode debugging
+(require 'dap-dlv-go)
 
 
-  ;; Python lsp mode ------------------------------------------------------------------------------------------
-  (use-package python-mode
-    :ensure nil
-    :hook (python-mode . lsp-deferred)
-    :custom
-    (python-shell-interpreter "python3")
-    (dap-python-executable "python3"))
+;; DAP mode ------------------------------------------------------------------------------------------------
+(use-package dap-mode
+  ;; Uncomment the config below if you want all UI panes to be hidden by default!
+  ;; :custom
+  ;; (lsp-enable-dap-auto-configure nil)
+  :config
+  (dap-ui-mode 1)
 
-  (require 'dap-python)
-  (setq dap-python-debugger 'debugpy)
+  :config
+  ;; Set up Node debugging
+  (require 'dap-node)
+  (dap-node-setup)) ;; Automatically installs Node debug adapter if needed
 
+;; C++ lsp mode  --------------------------------------------------------------------------------------------
+;; install language server : sudo snap install clangd --classic
+;; (add-hook 'c-mode-hook 'lsp)
+;; (add-hook 'c++-mode-hook 'lsp)
 
-  (setq org-babel-python-command "python3")
-  (add-hook 'python-mode-hook
-            (lambda ()
-              (setq indent-tabs-mode nil)
-              (setq tab-width 4)
-              (setq python-indent-offset 4)))
+;; Read Dockerfile --------------------------------------------------------------------------------------
+(require 'dockerfile-mode)
 
-
-  (use-package css-mode
-    :ensure nil
-    :hook (css-mode . lsp-deferred))
-
-  (use-package html-mode
-    :ensure nil
-    :hook (html-mode . lsp-deferred))
-
-  (use-package scss-mode
-    :ensure nil
-    :hook (scss-mode . lsp-deferred))
+;; dsp for for SQLS
+(add-hook 'sql-mode-hook 'lsp)
+(setq lsp-sqls-workspace-config-path nil)
+(setq lsp-sqls-connections
+    '(((driver . "postgresql") (dataSourceName . "host=127.0.0.1 port=5432 user=postgres password=postgres dbname=fulfillment_service sslmode=disable"))))
 
 
-  ;; better code completion -----------------------------------------------------------------------------------
-  (use-package company
-    :after lsp-mode
-    :hook (lsp-mode . company-mode)
-    :bind (:map company-active-map
-           ("<tab>" . company-complete-selection))
-          (:map lsp-mode-map
-           ("<tab>" . company-indent-or-complete-common))
-    :custom
-    (company-minimum-prefix-length 1)
-    (company-idle-delay 0.0))
-  ;; better looking suggestions
-  (use-package company-box
-    :hook (company-mode . company-box-mode))
+;; Python lsp mode ------------------------------------------------------------------------------------------
+(use-package python-mode
+  :ensure nil
+  :hook (python-mode . lsp-deferred)
+  :custom
+  (python-shell-interpreter "python3")
+  (dap-python-executable "python3"))
 
-  ;; code commenting
-  (use-package evil-nerd-commenter
-    :bind ("C-/" . evilnc-comment-or-uncomment-lines))
-
-  ;; (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
-
-  (use-package dired-open
-    :config
-    ;; Doesn't work as expected!
-    ;;(add-to-list 'dired-open-functions #'dired-open-xdg t)
-    (setq dired-open-extensions '(("png" . "feh")
-                                  ("mkv" . "mpv"))))
-
-  ;; kill the current buffer when selecting a new directory to display
-  ;; (setq dired-kill-when-opening-new-dired-buffer t)
+(require 'dap-python)
+(setq dap-python-debugger 'debugpy)
 
 
-  ;; yas snippets - - - - - - - - - - - - - - - - - - - - - - - - - -  -- -- - - -- -
-  ;; C++ snippets using yasnippet
-  (use-package yasnippet
-    :hook (prog-mode . yas-minor-mode)
-    :config
-    (setq yas-snippet-dirs '("~/config/emacs-snippets"))
-    (yas-global-mode 1))
+(setq org-babel-python-command "python3")
+(add-hook 'python-mode-hook
+          (lambda ()
+            (setq indent-tabs-mode nil)
+            (setq tab-width 4)
+            (setq python-indent-offset 4)))
 
 
-  ;; term mode ----------------------------------------------------------------------------------
-  (use-package term
-    :config
-    (setq explicit-shell-file-name "bash") ;; Change this to zsh, etc
-    ;;(setq explicit-zsh-args '())         ;; Use 'explicit-<shell>-args for shell-specific args
+(use-package css-mode
+  :ensure nil
+  :hook (css-mode . lsp-deferred))
 
-    ;; Match the default Bash shell prompt.  Update this if you have a custom prompt
-    (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *"))
+(use-package html-mode
+  :ensure nil
+  :hook (html-mode . lsp-deferred))
 
-  ;; colouring your terminal in term-mode
-  (use-package eterm-256color
-    :hook (term-mode . eterm-256color-mode))
+(use-package scss-mode
+  :ensure nil
+  :hook (scss-mode . lsp-deferred))
 
-  ;; eshell --------------------------------------------------------------------------------------------------
+
+;; better code completion -----------------------------------------------------------------------------------
+(use-package company
+  :after lsp-mode
+  :hook (lsp-mode . company-mode)
+  :bind (:map company-active-map
+         ("<tab>" . company-complete-selection))
+        (:map lsp-mode-map
+         ("<tab>" . company-indent-or-complete-common))
+  :custom
+  (company-minimum-prefix-length 1)
+  (company-idle-delay 0.0))
+;; better looking suggestions
+(use-package company-box
+  :hook (company-mode . company-box-mode))
+
+;; code commenting
+(use-package evil-nerd-commenter
+  :bind ("C-/" . evilnc-comment-or-uncomment-lines))
+
+;; (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+
+(use-package dired-open
+  :config
+  ;; Doesn't work as expected!
+  ;;(add-to-list 'dired-open-functions #'dired-open-xdg t)
+  (setq dired-open-extensions '(("png" . "feh")
+                                ("mkv" . "mpv"))))
+
+;; kill the current buffer when selecting a new directory to display
+;; (setq dired-kill-when-opening-new-dired-buffer t)
+
+
+;; yas snippets - - - - - - - - - - - - - - - - - - - - - - - - - -  -- -- - - -- -
+;; C++ snippets using yasnippet
+(use-package yasnippet
+  :hook (prog-mode . yas-minor-mode)
+  :config
+  (setq yas-snippet-dirs '("~/config/emacs-snippets"))
+  (yas-global-mode 1))
+
+
+;; term mode ----------------------------------------------------------------------------------
+(use-package term
+  :config
+  (setq explicit-shell-file-name "bash") ;; Change this to zsh, etc
+  ;;(setq explicit-zsh-args '())         ;; Use 'explicit-<shell>-args for shell-specific args
+
+  ;; Match the default Bash shell prompt.  Update this if you have a custom prompt
+  (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *"))
+
+;; colouring your terminal in term-mode
+(use-package eterm-256color
+  :hook (term-mode . eterm-256color-mode))
+
+;; eshell --------------------------------------------------------------------------------------------------
 (defun read-file (file-path)
-    (with-temp-buffer
+  (with-temp-buffer
     (insert-file-contents file-path)
     (buffer-string)))
 
@@ -756,7 +798,7 @@
          (git-output (shell-command-to-string "git rev-parse --show-toplevel"))
          (has-path (not (string-match "^fatal" git-output))))
     (if (not has-path)
-      (abbreviate-file-name current-path)
+        (abbreviate-file-name current-path)
       (string-remove-prefix (file-name-directory git-output) current-path))))
 
 ;; This prompt function mostly replicates my custom zsh prompt setup
@@ -784,11 +826,11 @@
        (propertize "\nλ" 'face `(:foreground "#aece4a")))
      (propertize " " 'face `(:foreground "white")))))
 
- ;; (add-hook 'eshell-banner-load-hook
- ;;          (lambda ()
- ;;             (setq eshell-banner-message
- ;;                   (concat "\n" (propertize " " 'display (create-image "~/config/.config/emacs/eshell/sarna.png" 'png nil :scale 0.05 :align-to "center"))
- ;;                           "\n"))))
+;; (add-hook 'eshell-banner-load-hook
+;;          (lambda ()
+;;             (setq eshell-banner-message
+;;                   (concat "\n" (propertize " " 'display (create-image "~/config/.config/emacs/eshell/sarna.png" 'png nil :scale 0.05 :align-to "center"))
+;;                           "\n"))))
 
 (defun dw/eshell-configure ()
   (use-package xterm-color)
