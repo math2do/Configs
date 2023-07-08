@@ -277,10 +277,10 @@
   ("C-c p" . projectile-command-map)
   :init
   ;; NOTE: Set this to the folder where you keep your Git repos!
-  (when (file-directory-p "~/coding/go/src/lynk")
-    (setq projectile-project-search-path '("~/coding/go/src/lynk" "~/coding/go/src/practice" "~/coding/java/SpringBoot"
-                                           "~/coding/web/ui/lynk" "~/coding/web/ui/practice" "~/coding/java/Lynk"
-                                           "~/coding/java/practice" "~/coding/react/practice")))
+  (when (file-directory-p "~/Projects/go/src/lynk")
+    (setq projectile-project-search-path '("~/Projects/go/src/lynk" "~/Projects/go/src/practice" "~/Projects/java/SpringBoot"
+                                           "~/Projects/web/ui/lynk" "~/Projects/web/ui/practice" "~/Projects/java/Lynk"
+                                           "~/Projects/java/practice" "~/Projects/react/practice")))
   (setq projectile-switch-project-action #'projectile-dired))
 
 ;; after C-c p then M-o
@@ -399,7 +399,7 @@
   :init
   (setq org-roam-v2-ack t)
   :custom
-  (org-roam-directory "~/coding/roam-notes/content")
+  (org-roam-directory "~/Notes/Roam")
   :config
   (org-roam-db-autosync-mode))
 
@@ -428,10 +428,10 @@
         org-log-done 'time
         org-log-into-drawer t)
   (setq org-agenda-files
-        '("~/coding/notes/emacs/Tasks.org"
-          "~/coding/notes/emacs/Habits.org"
-          "~/coding/notes/emacs/Notes.org"
-          "~/coding/notes/emacs/Birthdays.org"))
+        '("~/Projects/notes/emacs/Tasks.org"
+          "~/Projects/notes/emacs/Habits.org"
+          "~/Projects/notes/emacs/Notes.org"
+          "~/Projects/notes/emacs/Birthdays.org"))
 
   (setq org-modules
         '(org-crypt
@@ -630,7 +630,7 @@
 (add-hook 'wsd-mode-hook 'company-mode)
 ;; plantuml diagrams ----------------------------------------------------------------------------------------
 (setq org-plantuml-jar-path
-      (expand-file-name "~/coding/notes/plantuml/plantuml-1.2022.5.jar"))
+      (expand-file-name "~/Projects/notes/plantuml/plantuml-1.2022.5.jar"))
 
 ;; yaml mode ------------------------------------------------------------------------------------------------
 (use-package yaml-mode
@@ -877,7 +877,7 @@
 (use-package eshell
   :hook (eshell-first-time-mode . dw/eshell-configure)
   :init
-  (setq eshell-directory-name "~/config/.config/emacs/eshell/"))
+  (setq eshell-directory-name "~/Configs/.config/emacs/eshell/"))
 
 (use-package eshell-z
   :hook ((eshell-mode . (lambda () (require 'eshell-z)))
