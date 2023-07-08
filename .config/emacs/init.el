@@ -278,16 +278,20 @@
   :init
   ;; NOTE: Set this to the folder where you keep your Git repos!
   (when (file-directory-p "~/Projects/go/src/lynk")
-    (setq projectile-project-search-path '("~/Projects/go/src/lynk" "~/Projects/go/src/practice" "~/Projects/java/SpringBoot"
-                                           "~/Projects/web/ui/lynk" "~/Projects/web/ui/practice" "~/Projects/java/Lynk"
-                                           "~/Projects/java/practice" "~/Projects/react/practice")))
+    (setq projectile-project-search-path '("~/Projects/go/src/lynk"
+                                           "~/Projects/go/src/practice"
+                                           "~/Projects/java/SpringBoot"
+                                           "~/Projects/web/ui/lynk"
+                                           "~/Projects/web/ui/practice"
+                                           "~/Projects/java/Lynk"
+                                           "~/Projects/java/practice"
+                                           "~/Projects/react/practice")))
   (setq projectile-switch-project-action #'projectile-dired))
 
 ;; after C-c p then M-o
 (use-package counsel-projectile
   :config (counsel-projectile-mode))
 
-;; LSP mode configuration ------------------------------------------------------------------------------------
 (defun efs/lsp-mode-setup ()	
   (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
   (lsp-headerline-breadcrumb-mode))
@@ -358,8 +362,8 @@
 (add-hook 'sgml-mode-hook (lambda () (setq tab-width 2)))
 
 (use-package flycheck
-:defer t
-:hook (lsp-mode . flycheck-mode))
+  :defer t
+  :hook (lsp-mode . flycheck-mode))
 
 (use-package markdown-mode
   :ensure t
@@ -460,7 +464,7 @@
 
 ;;(set-face-attribute 'org-document-title nil :font "Iosevka Aile" :weight 'bold :height 1.3)
 ;;(set-face-attribute 'org-document-title nil :font "JetBrains Mono" :weight 'bold :height 1.3)
-(set-face-attribute 'org-document-title nil :font "Source Code Pro" :weight 'bold :height 1.3)
+(set-face-attribute 'org-document-title nil :font "Source Code Pro" :weight 'bold :height 1.2)
 (set-face-attribute 'org-document-info nil :font "Source Code Pro" :weight 'bold :height 1.1)
 
 ;; set the size of nested headings
@@ -482,9 +486,9 @@
 (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
 (set-face-attribute 'org-table nil  :inherit 'fixed-pitch)
 (set-face-attribute 'org-formula nil  :inherit 'fixed-pitch)
-(set-face-attribute 'org-code nil   :inherit '(shadow fixed-pitch))
+(set-face-attribute 'org-code nil   :inherit '(shadow variable-pitch))
 (set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch))
-(set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+(set-face-attribute 'org-verbatim nil :inherit '(shadow variable-pitch))
 (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
 (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
 (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
@@ -544,10 +548,10 @@
   (setq-local face-remapping-alist '((default (:height 1.5) fixed-pitch)
                                      (header-line (:height 4.5) fixed-pitch)
                                      (org-document-title (:height 1.75) org-document-title)
-                                     (org-code (:height 1.55) org-code)
-                                     (org-verbatim (:height 1.55) org-verbatim)
-                                     (org-block (:height 1.25) org-block)
-                                     (org-block-begin-line (:height 0.7) org-block)))
+                                     (org-code (:height 1.3) org-code)
+                                     (org-verbatim (:height 1.3) org-verbatim)
+                                     (org-block (:height 1.3) org-block)
+                                     (org-block-begin-line (:height 1.0) org-block)))
   (setq header-line-format " ")
   (org-appear-mode -1)
   (org-display-inline-images)
@@ -584,7 +588,6 @@
 (setq httpd-root "/var/www")
 ;; (httpd-start)
 
-;; dired -----------------------------------------------------------------------------------------------------
 (use-package dired
   :init (setq all-the-icons-dired-monochrome nil)
   :ensure nil
@@ -681,7 +684,7 @@
 (add-hook 'sql-mode-hook 'lsp)
 (setq lsp-sqls-workspace-config-path nil)
 (setq lsp-sqls-connections
-    '(((driver . "postgresql") (dataSourceName . "host=127.0.0.1 port=5432 user=postgres password=postgres dbname=fulfillment_service sslmode=disable"))))
+      '(((driver . "postgresql") (dataSourceName . "host=127.0.0.1 port=5432 user=postgres password=postgres dbname=fulfillment_service sslmode=disable"))))
 
 
 ;; Python lsp mode ------------------------------------------------------------------------------------------
@@ -722,9 +725,9 @@
   :after lsp-mode
   :hook (lsp-mode . company-mode)
   :bind (:map company-active-map
-         ("<tab>" . company-complete-selection))
-        (:map lsp-mode-map
-         ("<tab>" . company-indent-or-complete-common))
+              ("<tab>" . company-complete-selection))
+  (:map lsp-mode-map
+        ("<tab>" . company-indent-or-complete-common))
   :custom
   (company-minimum-prefix-length 1)
   (company-idle-delay 0.0))
