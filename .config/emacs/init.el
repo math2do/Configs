@@ -410,7 +410,8 @@
 ;; Turn on indentation and auto-fill mode for Org files
 (defun dw/org-mode-setup ()
   (org-indent-mode)
-  (auto-fill-mode 0))
+  (auto-fill-mode 0)
+  (face-remap-add-relative 'default '(:family "JetBrains Mono"))) ;; default font for org-mode
 
 ;; symbol ▼  ⤵
 (use-package org
@@ -431,6 +432,7 @@
         org-agenda-start-with-log-mode t
         org-log-done 'time
         org-log-into-drawer t)
+
   (setq org-agenda-files
         '("~/Projects/notes/emacs/Tasks.org"
           "~/Projects/notes/emacs/Habits.org"
@@ -690,23 +692,8 @@
          (before-save . lsp-organize-imports)))
 
 (add-hook 'go-mode-hook (lambda () (setq tab-width 2)))
-
 ;; dap mode debugging
 (require 'dap-dlv-go)
-
-
-;; DAP mode ------------------------------------------------------------------------------------------------
-(use-package dap-mode
-  ;; Uncomment the config below if you want all UI panes to be hidden by default!
-  ;; :custom
-  ;; (lsp-enable-dap-auto-configure nil)
-  :config
-  (dap-ui-mode 1)
-
-  :config
-  ;; Set up Node debugging
-  (require 'dap-node)
-  (dap-node-setup)) ;; Automatically installs Node debug adapter if needed
 
 ;; C++ lsp mode  --------------------------------------------------------------------------------------------
 ;; install language server : sudo snap install clangd --classic
@@ -809,6 +796,18 @@
 ;; colouring your terminal in term-mode
 (use-package eterm-256color
   :hook (term-mode . eterm-256color-mode))
+
+(use-package dap-mode
+  ;; Uncomment the config below if you want all UI panes to be hidden by default!
+  ;; :custom
+  ;; (lsp-enable-dap-auto-configure nil)
+  :config
+  (dap-ui-mode 1)
+
+  :config
+  ;; Set up Node debugging
+  (require 'dap-node)
+  (dap-node-setup)) ;; Automatically installs Node debug adapter if needed
 
 ;; eshell --------------------------------------------------------------------------------------------------
 (defun read-file (file-path)
