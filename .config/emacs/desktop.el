@@ -61,7 +61,7 @@
   (add-hook 'exwm-init-hook #'efs/exwm-init-hook)
 
   ;; Rebind CapsLock to Ctrl
-  ;; (start-process-shell-command "xmodmap" nil "xmodmap ~/.config/emacs/exwm/Xmodmap")
+  (start-process-shell-command "xmodmap" nil "xmodmap ~/.config/emacs/exwm/Xmodmap")
 
   ;; Automatically move EXWM buffer to current workspace when selected
   (setq exwm-layout-show-all-buffers t)

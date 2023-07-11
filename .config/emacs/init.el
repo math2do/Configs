@@ -600,6 +600,13 @@
 (use-package all-the-icons-dired
   :hook (dired-mode-hook . all-the-icons-dired-mode))
 
+(use-package docker
+  :commands docker)
+
+(use-package docker-tramp
+  :defer t
+  :after docker)
+
 ;; treemacs ------------------------------------------------------------------------------------------------
 (use-package treemacs
   :ensure t
@@ -757,7 +764,7 @@
 (use-package yasnippet
   :hook (prog-mode . yas-minor-mode)
   :config
-  (setq yas-snippet-dirs '("~/config/emacs-snippets"))
+  (setq yas-snippet-dirs '("~/Configs/emacs-snippets"))
   (yas-global-mode 1))
 
 
