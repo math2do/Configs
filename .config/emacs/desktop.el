@@ -16,7 +16,7 @@
 
   ;; Show the time and date in modeline
   (setq display-time-day-and-date t)
-  (display-time-mode 1)
+  ;; (display-time-mode 1)
   ;; Also take a look at display-time-format and format-time-string
 
   ;; Launch apps that will run in the background
