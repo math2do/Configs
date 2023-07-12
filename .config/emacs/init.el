@@ -170,17 +170,82 @@
          :map ivy-minibuffer-map
          ("TAB" . ivy-alt-done)	
          ("C-l" . ivy-alt-done)
-         ("C-j" . ivy-next-line)
-         ("C-k" . ivy-previous-line)
+         ("C-n" . ivy-next-line)
+         ("C-p" . ivy-previous-line)
          :map ivy-switch-buffer-map
-         ("C-k" . ivy-previous-line)
+         ("C-p" . ivy-previous-line)
          ("C-l" . ivy-done)
-         ("C-d" . ivy-switch-buffer-kill)
+         ("C-k" . ivy-switch-buffer-kill)
          :map ivy-reverse-i-search-map
-         ("C-k" . ivy-previous-line)
-         ("C-d" . ivy-reverse-i-search-kill))
+         ("C-p" . ivy-previous-line)
+         ("C-k" . ivy-reverse-i-search-kill))
   :config
   (ivy-mode 1))
+
+(defun dw/minibuffer-backward-kill (arg)
+  "When minibuffer is completing a file name delete up to parent
+folder, otherwise delete a word"
+  (interactive "p")
+  (if minibuffer-completing-file-name
+      ;; Borrowed from https://github.com/raxod502/selectrum/issues/498#issuecomment-803283608
+      (if (string-match-p "/." (minibuffer-contents))
+          (zap-up-to-char (- arg) ?/)
+        (delete-minibuffer-contents))
+    (backward-kill-word arg)))
+
+(use-package vertico
+  :ensure t
+  :bind (:map vertico-map
+              ("C-n" . vertico-next)
+              ("C-p" . vertico-previous)
+              ("C-f" . vertico-exit)
+              :map minibuffer-local-map
+              ("M-h" . dw/minibuffer-backward-kill))
+  :custom
+  (vertico-cycle t)
+  :custom-face
+  (vertico-current ((t (:background "#3a3f5a"))))
+  :init
+  (vertico-mode))
+
+(defun dw/get-project-root ()
+  (when (fboundp 'projectile-project-root)
+    (projectile-project-root)))
+
+(use-package consult
+  :ensure t
+  :demand t
+  ;; :bind (("C-s" . consult-line)
+  ;;        ("C-M-l" . consult-imenu)
+  ;;        ("C-M-j" . persp-switch-to-buffer*)
+  ;;        :map minibuffer-local-map
+  ;;        ("C-r" . consult-history))
+  :custom
+  (consult-project-root-function #'dw/get-project-root)
+  (completion-in-region-function #'consult-completion-in-region))
+
+;;:config
+;;(consult-preview-mode))  ;; invalid function
+
+(use-package embark
+  :ensure t
+  :bind (("C-S-a" . embark-act)
+         :map minibuffer-local-map
+         ("C-d" . embark-act))
+  :config
+  ;; Show Embark actions via which-key
+  (setq embark-action-indicator
+        (lambda (map)
+          (which-key--show-keymap "Embark" map nil nil 'no-paging)
+          #'which-key--hide-popup-ignore-command)
+        embark-become-indicator embark-action-indicator))
+
+(use-package embark-consult
+  :ensure t
+  :after (embark consult)
+  :demand t
+  :hook
+  (embark-collect-mode . embark-consult-preview-minor-mode))
 
 ;; load font, install all these fonts manually first, the size is 127 without exwm
 (set-face-attribute 'default nil
@@ -799,15 +864,13 @@
 
 (use-package dap-mode
   ;; Uncomment the config below if you want all UI panes to be hidden by default!
-  ;; :custom
-  ;; (lsp-enable-dap-auto-configure nil)
+  :custom
+  (lsp-enable-dap-auto-configure nil)
   :config
   (dap-ui-mode 1)
-
-  :config
-  ;; Set up Node debugging
+  (dap-tooltip-mode 1)
   (require 'dap-node)
-  (dap-node-setup)) ;; Automatically installs Node debug adapter if needed
+  (dap-node-setup)) ;; Automatically installs debug adapter if needed
 
 ;; eshell --------------------------------------------------------------------------------------------------
 (defun read-file (file-path)
