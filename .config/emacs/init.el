@@ -223,7 +223,6 @@ folder, otherwise delete a word"
   :custom
   (consult-project-root-function #'dw/get-project-root)
   (completion-in-region-function #'consult-completion-in-region))
-
 ;;:config
 ;;(consult-preview-mode))  ;; invalid function
 
