@@ -246,6 +246,20 @@ folder, otherwise delete a word"
   :hook
   (embark-collect-mode . embark-consult-preview-minor-mode))
 
+(use-package perspective
+  :demand t
+  :bind (("C-M-b" . persp-switch)
+         ("C-M-n" . persp-next)
+         ("C-x k" . persp-kill-buffer*))
+  :custom
+  (persp-initial-frame-name "Main")
+  ;;(persp-mode-prefix-key (kbd "C-0"))
+  (persp-suppress-no-prefix-key-warning t)
+  :config
+  ;; Running `persp-mode' multiple times resets the perspective list...
+  (unless (equal persp-mode t)
+    (persp-mode)))
+
 (use-package emojify
   :hook (erc-mode . emojify-mode)
   :commands emojify-mode)
@@ -261,7 +275,7 @@ folder, otherwise delete a word"
   :ensure t
   :after eshell     ;; Make sure it gets hooked after eshell
   :custom-face
-  ;;(mode-line ((t (:height 145))))
+  (mode-line ((t (:height 145))))
   (mode-line-inactive ((t (:height 15))))
   :init (doom-modeline-mode 1)
   :custom
