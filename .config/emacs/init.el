@@ -246,6 +246,10 @@ folder, otherwise delete a word"
   :hook
   (embark-collect-mode . embark-consult-preview-minor-mode))
 
+(use-package emojify
+  :hook (erc-mode . emojify-mode)
+  :commands emojify-mode)
+
 ;; load font, install all these fonts manually first, the size is 127 without exwm
 (set-face-attribute 'default nil
                     :font "Fira Mono"
