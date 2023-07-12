@@ -250,6 +250,36 @@ folder, otherwise delete a word"
   :hook (erc-mode . emojify-mode)
   :commands emojify-mode)
 
+;; You must run (all-the-icons-install-fonts) one time after
+;; installing this package!
+;; NOTE: The first time you load your configuration on a new machine, you'll
+;; need to run the following command interactively so that mode line icons correctly
+
+(use-package all-the-icons)
+
+(use-package doom-modeline
+  :ensure t
+  :after eshell     ;; Make sure it gets hooked after eshell
+  :custom-face
+  ;;(mode-line ((t (:height 145))))
+  (mode-line-inactive ((t (:height 15))))
+  :init (doom-modeline-mode 1)
+  :custom
+  (doom-modeline-height 15)
+  (doom-modeline-bar-width 6)
+  (doom-modeline-lsp t)
+  (doom-modeline-modal-icon t)
+  ;;(doom-modeline-github t)
+  ;;(doom-modeline-mu4e nil)              
+  ;;(doom-modeline-irc nil)
+  (doom-modeline-minor-modes nil)
+  ;;(doom-modeline-persp-name nil)
+  (doom-modeline-buffer-file-name-style 'truncate-except-project)
+  (doom-modeline-icon t)
+  (doom-modeline-env-enable-go t)
+  (doom-modeline-buffer-state-icon t)
+  (doom-modeline-major-mode-icon t))
+
 ;; load font, install all these fonts manually first, the size is 127 without exwm
 (set-face-attribute 'default nil
                     :font "Fira Mono"
@@ -270,20 +300,6 @@ folder, otherwise delete a word"
                     :font "JetBrains Mono"
                     :height 145
                     :weight 'light)
-
-;; NOTE: The first time you load your configuration on a new machine, you'll
-;; need to run the following command interactively so that mode line icons
-;; display correctly:
-;;
-;; M-x all-the-icons-install-fonts
-
-(use-package all-the-icons)
-
-;; doom mode line 
-(use-package doom-modeline
-  :ensure t
-  :init (doom-modeline-mode 1)
-  :custom ((doom-modeline-height 15)))
 
 ;; doom theme
 (use-package doom-themes)
