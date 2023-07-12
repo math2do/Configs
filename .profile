@@ -28,7 +28,7 @@ fi
 
 #setting up golang environment variables
 export PATH=$PATH:/usr/local/go/bin
-export GOPATH=$HOME/coding/go
+export GOPATH=$HOME/Projects/go
 export GOBIN=$GOPATH/bin
 export PATH=$GOPATH/bin:$PATH
 
@@ -38,7 +38,7 @@ export PATH=/usr/local/lib/nodejs/node-v18.12.1-linux-x64/bin:$PATH
 # export PATH=/usr/local/lib/nodejs/node-v14.17.3-linux-x64/bin:$PATH
 
 #cpp custom lib
-export CPP_LIB=$HOME/coding/cpp/
+export CPP_LIB=$HOME/Projects/cpp/
 export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:$CPP_LIB
 
 #add java home to path
