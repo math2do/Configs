@@ -469,9 +469,23 @@ folder, otherwise delete a word"
   :defer t
   :hook (lsp-mode . flycheck-mode))
 
+(use-package hydra)
+(use-package lsp-java :config (add-hook 'java-mode-hook 'lsp))
+(use-package dap-mode :after lsp-mode :config (dap-auto-configure-mode))
+(use-package dap-java :ensure nil)
+
+;; spring boot support is experimental
+(require 'lsp-java-boot)
+
+;; to enable the lenses
+(add-hook 'lsp-mode-hook #'lsp-lens-mode)
+(add-hook 'java-mode-hook #'lsp-java-boot-lens-mode)
+
+(add-hook 'java-mode-hook (lambda () (setq tab-width 2)))
+
 (use-package markdown-mode
   :ensure t
-  :mode "\\.md\\'"
+  :mode ("README\\.md\\'" . gfm-mode) ;; Github README
   :config
   (setq markdown-command "marked")
   (defun dw/set-markdown-header-font-sizes ()
@@ -486,20 +500,6 @@ folder, otherwise delete a word"
     (dw/set-markdown-header-font-sizes))
 
   (add-hook 'markdown-mode-hook 'dw/markdown-mode-hook))
-
-(use-package hydra)
-(use-package lsp-java :config (add-hook 'java-mode-hook 'lsp))
-(use-package dap-mode :after lsp-mode :config (dap-auto-configure-mode))
-(use-package dap-java :ensure nil)
-
-;; spring boot support is experimental
-(require 'lsp-java-boot)
-
-;; to enable the lenses
-(add-hook 'lsp-mode-hook #'lsp-lens-mode)
-(add-hook 'java-mode-hook #'lsp-java-boot-lens-mode)
-
-(add-hook 'java-mode-hook (lambda () (setq tab-width 2)))
 
 (use-package org-roam
   :ensure t
@@ -698,14 +698,15 @@ folder, otherwise delete a word"
   :init (setq all-the-icons-dired-monochrome nil)
   :ensure nil
   :commands (dired dired-jump)
-  :bind (
-         ("C-x C-j" . dired-jump))
+  :bind (("C-x C-j" . dired-jump))
   :config
   (setq dired-listing-switches "-agho --group-directories-first"
         dired-omit-files "^\\.[^.].*"
         dired-omit-verbose nil
         dired-hide-details-hide-symlink-targets nil
-        delete-by-moving-to-trash t))
+        delete-by-moving-to-trash t
+        dired-recursive-copies 'always
+        dired-recursive-deletes 'always))
 
 (use-package dired-rainbow
   :defer 2
@@ -880,15 +881,6 @@ folder, otherwise delete a word"
 ;; (setq dired-kill-when-opening-new-dired-buffer t)
 
 
-;; yas snippets - - - - - - - - - - - - - - - - - - - - - - - - - -  -- -- - - -- -
-;; C++ snippets using yasnippet
-(use-package yasnippet
-  :hook (prog-mode . yas-minor-mode)
-  :config
-  (setq yas-snippet-dirs '("~/Configs/emacs-snippets"))
-  (yas-global-mode 1))
-
-
 ;; term mode ----------------------------------------------------------------------------------
 (use-package term
   :config
@@ -901,6 +893,12 @@ folder, otherwise delete a word"
 ;; colouring your terminal in term-mode
 (use-package eterm-256color
   :hook (term-mode . eterm-256color-mode))
+
+(use-package yasnippet
+  :hook (prog-mode . yas-minor-mode)
+  :config
+  (setq yas-snippet-dirs '("~/Configs/emacs-snippets"))
+  (yas-global-mode 1))
 
 (use-package dap-mode
   ;; Uncomment the config below if you want all UI panes to be hidden by default!
