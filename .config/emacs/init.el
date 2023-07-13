@@ -967,11 +967,11 @@ folder, otherwise delete a word"
        (propertize "\nλ" 'face `(:foreground "#aece4a")))
      (propertize " " 'face `(:foreground "white")))))
 
-;; (add-hook 'eshell-banner-load-hook
-;;          (lambda ()
-;;             (setq eshell-banner-message
-;;                   (concat "\n" (propertize " " 'display (create-image "~/config/.config/emacs/eshell/sarna.png" 'png nil :scale 0.05 :align-to "center"))
-;;                           "\n"))))
+(add-hook 'eshell-banner-load-hook
+          (lambda ()
+            (setq eshell-banner-message
+                  (concat "\n" (propertize " " 'display (create-image "~/Configs/.config/emacs/eshell/sarna.png" 'png nil :scale 0.05 :align-to "center"))
+                          "\n"))))
 
 (defun dw/eshell-configure ()
   (use-package xterm-color)
