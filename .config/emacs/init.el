@@ -275,8 +275,8 @@ folder, otherwise delete a word"
   :ensure t
   :after eshell     ;; Make sure it gets hooked after eshell
   :custom-face
-  (mode-line ((t (:height 145))))
-  (mode-line-inactive ((t (:height 15))))
+  (mode-line ((t (:height 1.0))))
+  (mode-line-inactive ((t (:height 1.0))))
   :init (doom-modeline-mode 1)
   :custom
   (doom-modeline-height 15)
@@ -337,9 +337,15 @@ folder, otherwise delete a word"
   (ivy-rich-mode 1))
 
 (use-package counsel
+  :after ivy
+  :config
+  (setq counsel-yank-pop-preselect-last t)
+  (setq counsel-yank-pop-separator "\n--------\n")
   :bind (("M-x" . counsel-M-x)
          ("C-x b" . counsel-ibuffer)
+         ("M-y" . counsel-yank-pop)
          ("C-x C-f" . counsel-find-file)
+         ("C-x d" . counsel-dired)
          :map minibuffer-local-map
          ("C-r" . 'counsel-minibuffer-history))
   :custom
@@ -564,8 +570,8 @@ folder, otherwise delete a word"
 
 ;;(set-face-attribute 'org-document-title nil :font "Iosevka Aile" :weight 'bold :height 1.3)
 ;;(set-face-attribute 'org-document-title nil :font "JetBrains Mono" :weight 'bold :height 1.3)
-(set-face-attribute 'org-document-title nil :font "Source Code Pro" :weight 'bold :height 1.2)
-(set-face-attribute 'org-document-info nil :font "Source Code Pro" :weight 'bold :height 1.1)
+(set-face-attribute 'org-document-title nil :font "JetBrains Mono" :weight 'bold :height 1.1)
+(set-face-attribute 'org-document-info nil :font "JetBrains Mono" :weight 'bold :height 1.0)
 
 ;; set the size of nested headings
 (dolist (face '((org-level-1 . 1.2)
@@ -692,7 +698,8 @@ folder, otherwise delete a word"
   :init (setq all-the-icons-dired-monochrome nil)
   :ensure nil
   :commands (dired dired-jump)
-  :bind (("C-x C-j" . dired-jump))
+  :bind (
+         ("C-x C-j" . dired-jump))
   :config
   (setq dired-listing-switches "-agho --group-directories-first"
         dired-omit-files "^\\.[^.].*"
