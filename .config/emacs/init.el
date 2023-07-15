@@ -538,10 +538,53 @@ folder, otherwise delete a word"
         org-log-into-drawer t)
 
   (setq org-agenda-files
-        '("~/Projects/notes/emacs/Tasks.org"
-          "~/Projects/notes/emacs/Habits.org"
-          "~/Projects/notes/emacs/Notes.org"
-          "~/Projects/notes/emacs/Birthdays.org"))
+        '("~/Notes/Tasks.org"
+          "~/Notes/Habits.org"
+          "~/Notes/Notes.org"
+          "~/Notes/Archive.org"
+          "~/Notes/Journal.org"
+          "~/Notes/Birthdays.org"))
+
+
+
+  (setq org-tag-alist
+        '((:startgroup)                 
+          (:endgroup) ; Put mutually exclusive tags here
+          ("@errand" . ?E)
+          ("@home" . ?H)
+          ("@work" . ?W)
+          ("agenda" . ?a)
+          ("planning" . ?p)
+          ("publish" . ?P)
+          ("batch" . ?b)
+          ("note" . ?n)
+          ("idea" . ?i)))
+
+  (setq org-capture-templates
+        `(("t" "Tasks / Projects")
+          ("tt" "Task" entry (file+olp "~/Notes/Tasks.org" "Captured")
+           "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
+
+          ("j" "Journal Entries")
+          ("jj" "Journal" entry
+           (file+olp+datetree "~/Notes/Journal.org")
+           "\n* %<%I:%M %p> - Journal :journal:\n\n%?\n\n"
+           ;; ,(dw/read-file-as-string "~/Notes/Templates/Daily.org")
+           :clock-in :clock-resume
+           :empty-lines 1)
+          ("jm" "Meeting" entry
+           (file+olp+datetree "~/Notes/Journal.org")
+           "* %<%I:%M %p> - %a :meetings:\n\n%?\n\n"
+           :clock-in :clock-resume
+           :empty-lines 1)
+
+          ("w" "Workflows")
+          ("we" "Checking Email" entry (file+olp+datetree "~/Notes/Journal.org")
+           "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)
+
+          ("m" "Metrics Capture")
+          ("mw" "Weight" table-line (file+headline "~/Notes/Metrics.org" "Weight")
+           "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)))
 
   (setq org-modules
         '(org-crypt
@@ -550,14 +593,64 @@ folder, otherwise delete a word"
           org-eshell
           org-irc))
 
+  ;; moving around TODO entries
   (setq org-refile-targets '((nil :maxlevel . 1)
-                             (org-agenda-files :maxlevel . 1)))
+                             (org-agenda-files :maxlevel . 2)))
+
+  ;; Save Org buffers after refiling!
+  (advice-add 'org-refile :after 'org-save-all-org-buffers)
 
   (setq org-outline-path-complete-in-steps nil)
   (setq org-refile-use-outline-path t)
 
   (setq org-todo-keywords
-        '((sequence "BACKLOG(b)" "TODO(t)" "WIP(w)" "CODE-REVIEW(c)" "DEV-DONE(d)" "IN-QA(q)" "NEEDS-INFO(n)" "|" "DONE(d)" "INVALID(i)"))))
+        '((sequence "BACKLOG(b)" "TODO(t)" "ACTIVE(a)" "REVIEW(v)" "READY(r)" "WAIT(w)" "|" "DONE(d)" "CANC(c)"))))
+
+
+;; Configure custom agenda views
+(setq org-agenda-custom-commands
+      '(("d" "Dashboard"
+         ((agenda "" ((org-deadline-warning-days 7)))
+          (todo "TODO"
+                ((org-agenda-overriding-header "Next Tasks")))
+          (tags-todo "agenda/ACTIVE" ((org-agenda-overriding-header "Active Projects")))))
+
+        ("n" "Next Tasks"
+         ((todo "TODO"
+                ((org-agenda-overriding-header "Next Tasks")))))
+
+        ("W" "Work Tasks" tags-todo "+work-email")
+
+        ;; Low-effort next actions
+        ("e" tags-todo "+TODO=\"NEXT\"+Effort<15&+Effort>0"
+         ((org-agenda-overriding-header "Low Effort Tasks")
+          (org-agenda-max-todos 20)
+          (org-agenda-files org-agenda-files)))
+
+        ("w" "Workflow Status"
+         ((todo "WAIT"
+                ((org-agenda-overriding-header "Waiting on External")
+                 (org-agenda-files org-agenda-files)))
+          (todo "REVIEW"
+                ((org-agenda-overriding-header "In Review")
+                 (org-agenda-files org-agenda-files)))
+          (todo "BACKLOG"
+                ((org-agenda-overriding-header "Project Backlog")
+                 (org-agenda-todo-list-sublevels nil)
+                 (org-agenda-files org-agenda-files)))
+          (todo "READY"
+                ((org-agenda-overriding-header "Ready for Work")
+                 (org-agenda-files org-agenda-files)))
+          (todo "ACTIVE"
+                ((org-agenda-overriding-header "Active Projects")
+                 (org-agenda-files org-agenda-files)))
+          (todo "DONE"
+                ((org-agenda-overriding-header "Completed Projects")
+                 (org-agenda-files org-agenda-files)))
+          (todo "CANC"
+                ((org-agenda-overriding-header "Cancelled Projects")
+                 (org-agenda-files org-agenda-files)))))))
+
 
 ;; Replace list hyphen with dot
 ;; (font-lock-add-keywords 'org-mode
