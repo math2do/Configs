@@ -628,22 +628,27 @@ folder, otherwise delete a word"
           (org-agenda-files org-agenda-files)))
 
         ("w" "Workflow Status"
-         ((todo "WAIT"
+         ((todo "BACKLOG"
+            ((org-agenda-overriding-header "Project Backlog")
+             (org-agenda-todo-list-sublevels nil)
+             (org-agenda-files org-agenda-files)))
+
+          (todo "WAIT"
                 ((org-agenda-overriding-header "Waiting on External")
                  (org-agenda-files org-agenda-files)))
-          (todo "REVIEW"
-                ((org-agenda-overriding-header "In Review")
-                 (org-agenda-files org-agenda-files)))
-          (todo "BACKLOG"
-                ((org-agenda-overriding-header "Project Backlog")
-                 (org-agenda-todo-list-sublevels nil)
-                 (org-agenda-files org-agenda-files)))
+
           (todo "READY"
                 ((org-agenda-overriding-header "Ready for Work")
                  (org-agenda-files org-agenda-files)))
+
           (todo "ACTIVE"
                 ((org-agenda-overriding-header "Active Projects")
                  (org-agenda-files org-agenda-files)))
+
+          (todo "REVIEW"
+                ((org-agenda-overriding-header "In Review")
+                 (org-agenda-files org-agenda-files)))
+
           (todo "DONE"
                 ((org-agenda-overriding-header "Completed Projects")
                  (org-agenda-files org-agenda-files)))
@@ -737,6 +742,10 @@ folder, otherwise delete a word"
 
 ;; tab width is as if the language is indented in its major mode
 (setq org-src-tab-acts-natively t)
+
+(use-package toc-org
+  :commands toc-org-enable
+  :init (add-hook 'org-mode-hook 'toc-org-enable))
 
 (defun dw/org-present-prepare-slide ()
   (org-overview)
