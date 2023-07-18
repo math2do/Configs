@@ -43,9 +43,9 @@
 (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
-;; don't suspend emacs
+;; don't suspend emacs and frame
 (global-unset-key (kbd "C-z"))
-
+(global-unset-key (kbd "C-x C-z"))
 
 ;; prevent C-backspace to clip into clipboard
 (defun backward-delete-word (arg)
