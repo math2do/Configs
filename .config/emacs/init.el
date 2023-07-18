@@ -97,25 +97,6 @@
 ;; Undo   : C-_        equaivalent to C-S-+
 ;; Redo   : C-g C-_    C-g is used to reverse the action
 
-;; compile c and c++ files with F4 -----------------------------------------------------------------------
-
-(defun code-compile ()
-  (interactive)
-  (save-buffer)
-  (unless (file-exists-p "Makefile")
-    (set (make-local-variable 'compile-command)
-         (let ((file (file-name-nondirectory buffer-file-name)))
-           (format "%s %s -std=c++17 -O2 -o sol -Wall -Wextra -DLOCAL"
-                   (if  (equal (file-name-extension file) "cpp") "g++" "gcc" )
-                   file
-                   (file-name-sans-extension file))))
-    (compile compile-command)))
-
-(add-hook 'c-mode-common-hook
-          (lambda ()
-            (local-set-key [f4] 'code-compile)))
-
-
 ;; don't show the splash screen
 ;; C-M-x for evaluating the configuration -- > WORKING
 (setq inhibit-startup-message t) ; Comment at end of line
@@ -163,6 +144,22 @@
 
 ;; show the key pressing events
 (use-package command-log-mode)
+
+;; compile c and c++ files with F4 -----------------------------------------------------------------------
+
+(defun efs/code-compile ()
+  (interactive)
+  (save-buffer)
+  (set (make-local-variable 'compile-command)
+       (let ((file (file-name-nondirectory buffer-file-name)))
+         (format "%s %s -std=c++17 -O2 -o sol -Wall -Wextra -DLOCAL"
+                 (if (equal (file-name-extension file) "cpp") "g++" "gcc" )
+                 file
+                 (file-name-sans-extension file))))
+  (compile compile-command))
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (local-set-key [f4] 'efs/code-compile)))
 
 (use-package ivy
   :diminish
@@ -248,9 +245,9 @@ folder, otherwise delete a word"
 
 (use-package perspective
   :demand t
-  :bind (("C-M-b" . persp-switch)
-         ("C-M-n" . persp-next)
-         ("C-x k" . persp-kill-buffer*))
+  ;; :bind (("C-M-b" . persp-switch)
+  ;;        ("C-M-n" . persp-next)
+  ;;        ("C-x k" . persp-kill-buffer*))
   :custom
   (persp-initial-frame-name "Main")
   ;;(persp-mode-prefix-key (kbd "C-0"))
@@ -834,10 +831,33 @@ folder, otherwise delete a word"
   (dired-rainbow-define vc "#0074d9" ("git" "gitignore" "gitattributes" "gitmodules"))
   (dired-rainbow-define-chmod executable-unix "#38c172" "-.*x.*"))
 
-(use-package dired-single)
+
+(defun efs/my-dired-init ()
+  "Bunch of stuff to run for dired, either immediately or when it's
+ loaded."
+  ;; <add other stuff here>
+  (define-key dired-mode-map [remap dired-find-file]
+    'dired-single-buffer)
+  (define-key dired-mode-map [remap dired-mouse-find-file-other-window]
+    'dired-single-buffer-mouse)
+  (define-key dired-mode-map [remap dired-up-directory]
+    'dired-single-up-directory))
+
+(use-package dired-single
+  :hook (dired-mode-hook . efs/my-dired-init))
 
 (use-package all-the-icons-dired
   :hook (dired-mode-hook . all-the-icons-dired-mode))
+
+(use-package dired-open
+  :config
+  ;; Doesn't work as expected!
+  ;;(add-to-list 'dired-open-functions #'dired-open-xdg t)
+  (setq dired-open-extensions '(("png" . "feh")
+                                ("mkv" . "mpv"))))
+
+;; kill the current buffer when selecting a new directory to display
+;; (setq dired-kill-when-opening-new-dired-buffer t)
 
 (use-package docker
   :commands docker)
@@ -969,18 +989,6 @@ folder, otherwise delete a word"
 ;; code commenting
 (use-package evil-nerd-commenter
   :bind ("C-/" . evilnc-comment-or-uncomment-lines))
-
-;; (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
-
-(use-package dired-open
-  :config
-  ;; Doesn't work as expected!
-  ;;(add-to-list 'dired-open-functions #'dired-open-xdg t)
-  (setq dired-open-extensions '(("png" . "feh")
-                                ("mkv" . "mpv"))))
-
-;; kill the current buffer when selecting a new directory to display
-;; (setq dired-kill-when-opening-new-dired-buffer t)
 
 
 ;; term mode ----------------------------------------------------------------------------------
