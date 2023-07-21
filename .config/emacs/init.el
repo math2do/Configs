@@ -380,15 +380,11 @@ folder, otherwise delete a word"
   ("C-c p" . projectile-command-map)
   :init
   ;; NOTE: Set this to the folder where you keep your Git repos!
-  (when (file-directory-p "~/Projects/go/src/lynk")
+  (when (file-directory-p "~/Projects")
     (setq projectile-project-search-path '("~/Projects/go/src/lynk"
                                            "~/Projects/go/src/practice"
-                                           "~/Projects/java/SpringBoot"
-                                           "~/Projects/web/ui/lynk"
-                                           "~/Projects/web/ui/practice"
-                                           "~/Projects/java/Lynk"
-                                           "~/Projects/java/practice"
-                                           "~/Projects/react/practice")))
+                                           "~/Projects/node"
+                                           "~/Projects/react")))
   (setq projectile-switch-project-action #'projectile-dired))
 
 ;; after C-c p then M-o
