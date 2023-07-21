@@ -1,9 +1,8 @@
 # System Configurations
 
-All credit goes to Daviwil.
+Credit goes to Daviwil.
 
 Reference
-
-[dotfiles](github.com/daviwil/dotfiles)
-[System Crafters's site](https://systemcrafters.net/)
-[System Crafter's Youtube Channel](https://www.youtube.com/@SystemCrafters)
+- [Daviwil's dotfiles](github.com/daviwil/dotfiles)
+- [System Crafters's site](https://systemcrafters.net/)
+- [System Crafter's Youtube Channel](https://www.youtube.com/@SystemCrafters)
