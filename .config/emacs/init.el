@@ -297,22 +297,25 @@ folder, otherwise delete a word"
 (set-face-attribute 'default nil
                     :font "Fira Mono"
                     ;;:font "Source Code Pro"
-                    :height 145)
+                    :height 127)
+;; :height 145) ;; in exwm
 
 ;; Set the fixed pitch face
 (set-face-attribute 'fixed-pitch nil
                     ;;:font "JetBrains Mono"
                     :font "Source Code Pro"
                     :weight 'light
-                    :height 145)
+                    :height 127)
+;; :height 145)
 
 ;; Set the variable pitch face
 (set-face-attribute 'variable-pitch nil
                     ;; :font "Cantarell"
                     ;;:font "Iosevka Aile"
                     :font "JetBrains Mono"
-                    :height 145
-                    :weight 'light)
+                    :weight 'light
+                    ;; :height 145
+                    :height 127)
 
 ;; doom theme
 (use-package doom-themes)
@@ -382,7 +385,7 @@ folder, otherwise delete a word"
   ;; NOTE: Set this to the folder where you keep your Git repos!
   (when (file-directory-p "~/Projects")
     (setq projectile-project-search-path '("~/Projects/go/src/lynk"
-                                           "~/Projects/go/src/practice"
+                                           "~/Projects/go/src/math2do.in"
                                            "~/Projects/node"
                                            "~/Projects/react")))
   (setq projectile-switch-project-action #'projectile-dired))
@@ -397,7 +400,7 @@ folder, otherwise delete a word"
 
 (use-package lsp-mode
   :commands (lsp lsp-deferred)
-  :hook ((js2-mode web-mode rjsx-mode) . lsp)
+  :hook ((js2-mode web-mode rjsx-mode yaml-mode) . lsp)
   :init
   (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
   :config
@@ -1167,6 +1170,18 @@ folder, otherwise delete a word"
   (eshell-toggle-window-side 'right)
   (eshell-toggle-use-projectile-root t)
   (eshell-toggle-run-command nil))
+
+(use-package buffer-flip
+  :ensure t
+  :bind  (("M-<tab>" . buffer-flip)
+          :map buffer-flip-map
+          ( "M-<tab>" .   buffer-flip-forward) 
+          ( "M-S-<tab>" . buffer-flip-backward) 
+          ( "M-ESC" .     buffer-flip-abort))
+  :config
+  (setq buffer-flip-skip-patterns
+        '("^\\*helm\\b"
+          "^\\*swiper\\*$")))
 
 (use-package password-store)
 
