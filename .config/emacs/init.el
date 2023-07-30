@@ -302,8 +302,8 @@ folder, otherwise delete a word"
 
 ;; Set the fixed pitch face
 (set-face-attribute 'fixed-pitch nil
-                    ;;:font "JetBrains Mono"
-                    :font "Source Code Pro"
+                    :font "JetBrains Mono"
+                    ;;:font "Source Code Pro"
                     :weight 'light
                     :height 127)
 ;; :height 145)
@@ -317,13 +317,10 @@ folder, otherwise delete a word"
                     ;; :height 145
                     :height 127)
 
-;; doom theme
 (use-package doom-themes)
 ;; load theme command M-x ^counsel-load-theme
 (use-package doom-themes
   :init (load-theme 'doom-dracula t))
-;; other themes = doom-dracula, doom-palenight, doom-acario-light, doom-one, doom-snazzy, doom-solarized-light
-;; dracula, modus-vivendi, modus-operandi, doom-one-light, doom-opera-light
 ;; (load-theme 'atom-one-dark t)
 
 ;; press C-h to find the which keys does what
@@ -678,8 +675,8 @@ folder, otherwise delete a word"
                 (org-level-6 . 1.0)
                 (org-level-7 . 1.0)
                 (org-level-8 . 1.0)))
-  (set-face-attribute (car face) nil :font "Iosevka Aile" :weight 'extra-bold :height (cdr face)))
-;; (set-face-attribute (car face) nil :font "Iosevka Aile" :weight 'bold :height (cdr face)))
+  (set-face-attribute (car face) nil :font "Cantarell" :weight 'extra-bold :height (cdr face)))
+;; (set-face-attribute (car face) nil :font "Iosevka Aile" :weight 'extra-bold :height (cdr face))
 
 
 ;; check other faces - https://github.com/tkf/org-mode/blob/master/lisp/org-faces.el
