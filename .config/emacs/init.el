@@ -302,7 +302,7 @@ folder, otherwise delete a word"
 
 ;; Set the fixed pitch face
 (set-face-attribute 'fixed-pitch nil
-                    :font "JetBrains Mono"
+                    :font "Fira Mono"
                     ;;:font "Source Code Pro"
                     :weight 'light
                     :height 127)
