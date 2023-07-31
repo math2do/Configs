@@ -624,9 +624,9 @@ folder, otherwise delete a word"
 
         ("w" "Workflow Status"
          ((todo "BACKLOG"
-            ((org-agenda-overriding-header "Project Backlog")
-             (org-agenda-todo-list-sublevels nil)
-             (org-agenda-files org-agenda-files)))
+                ((org-agenda-overriding-header "Project Backlog")
+                 (org-agenda-todo-list-sublevels nil)
+                 (org-agenda-files org-agenda-files)))
 
           (todo "WAIT"
                 ((org-agenda-overriding-header "Waiting on External")
@@ -675,7 +675,7 @@ folder, otherwise delete a word"
                 (org-level-6 . 1.0)
                 (org-level-7 . 1.0)
                 (org-level-8 . 1.0)))
-  (set-face-attribute (car face) nil :font "Cantarell" :weight 'extra-bold :height (cdr face)))
+  (set-face-attribute (car face) nil :font "Ubuntu" :weight 'extra-bold :height (cdr face)))
 ;; (set-face-attribute (car face) nil :font "Iosevka Aile" :weight 'extra-bold :height (cdr face))
 
 
@@ -725,8 +725,11 @@ folder, otherwise delete a word"
  '((emacs-lisp . t)
    (python . t)
    (C . t)
+   (sass . t)
+   (css . t)
    (shell . t)
    (sql . t)
+   (java . t)
    (js . t)
    (plantuml . t)
    (restclient . t)
@@ -959,6 +962,8 @@ folder, otherwise delete a word"
 (use-package css-mode
   :ensure nil
   :hook (css-mode . lsp-deferred))
+(add-hook 'css-mode-hook (lambda () (setq-local css-indent-offset 2)))
+
 
 (use-package html-mode
   :ensure nil

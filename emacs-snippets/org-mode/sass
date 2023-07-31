@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: sass
+# key: <sass
+# --
+#+begin_src sass
+$0
+#+end_src
