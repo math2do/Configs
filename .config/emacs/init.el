@@ -772,7 +772,8 @@ folder, otherwise delete a word"
   (org-show-children))
 
 (defun dw/org-present-hook ()
-  (setq-local face-remapping-alist '((default (:height 1.5) fixed-pitch)
+  (setq-local face-remapping-alist '((default (:family "Cantarell" :height 1.5))
+                                     ;; (default (:height 1.5) fixed-pitch)
                                      (header-line (:height 4.5) fixed-pitch)
                                      (org-document-title (:height 1.75) org-document-title)
                                      (org-code (:height 1.3) org-code)
