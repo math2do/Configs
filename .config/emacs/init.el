@@ -332,7 +332,7 @@ folder, otherwise delete a word"
 (set-face-attribute 'variable-pitch nil
                     ;; :font "Cantarell"
                     ;;:font "Iosevka Aile"
-                    :font "JetBrains Mono"
+                    :font "Fira Mono"
                     :weight 'light
                     ;; :height 145
                     :height 127)
@@ -530,7 +530,7 @@ folder, otherwise delete a word"
 (defun dw/org-mode-setup ()
   (org-indent-mode)
   (auto-fill-mode 0)
-  (face-remap-add-relative 'default '(:family "JetBrains Mono"))) ;; default font for org-mode
+  (face-remap-add-relative 'default '(:family "Cantarell" :height 1.08))) ;; default font for org-mode
 
 ;; symbol ▼  ⤵
 (use-package org
@@ -683,8 +683,9 @@ folder, otherwise delete a word"
 
 ;;(set-face-attribute 'org-document-title nil :font "Iosevka Aile" :weight 'bold :height 1.3)
 ;;(set-face-attribute 'org-document-title nil :font "JetBrains Mono" :weight 'bold :height 1.3)
-(set-face-attribute 'org-document-title nil :font "JetBrains Mono" :weight 'bold :height 1.1)
-(set-face-attribute 'org-document-info nil :font "JetBrains Mono" :weight 'bold :height 1.0)
+(set-face-attribute 'org-document-title nil :font "Cantarell" :weight 'bold :height 1.1)
+(set-face-attribute 'org-document-info nil :font "Cantarell" :weight 'bold :height 1.0)
+(set-face-attribute 'org-document-info-keyword nil :font "Fira Mono")
 
 ;; set the size of nested headings
 (dolist (face '((org-level-1 . 1.2)
@@ -695,7 +696,7 @@ folder, otherwise delete a word"
                 (org-level-6 . 1.0)
                 (org-level-7 . 1.0)
                 (org-level-8 . 1.0)))
-  (set-face-attribute (car face) nil :font "Ubuntu" :weight 'extra-bold :height (cdr face)))
+  (set-face-attribute (car face) nil :font "Iosevka Aile" :weight 'extra-bold :height (cdr face)))
 ;; (set-face-attribute (car face) nil :font "Iosevka Aile" :weight 'extra-bold :height (cdr face))
 
 
