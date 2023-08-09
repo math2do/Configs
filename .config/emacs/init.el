@@ -16,6 +16,7 @@
       dap-breakpoints-file (expand-file-name "tmp/.dap-breakpoints" user-emacs-directory))
 
 (setq default-process-coding-system '(utf-8-unix . utf-8-unix))
+(prefer-coding-system 'utf-8)
 (show-paren-mode 1)
 
 (use-package paren
@@ -530,7 +531,7 @@ folder, otherwise delete a word"
 (defun dw/org-mode-setup ()
   (org-indent-mode)
   (auto-fill-mode 0)
-  (face-remap-add-relative 'default '(:family "Cantarell" :height 1.08))) ;; default font for org-mode
+  (face-remap-add-relative 'default '(:family "Iosevka Aile"))) ;; default font for org-mode
 
 ;; symbol ▼  ⤵
 (use-package org
@@ -772,7 +773,7 @@ folder, otherwise delete a word"
   (org-show-children))
 
 (defun dw/org-present-hook ()
-  (setq-local face-remapping-alist '((default (:family "Cantarell" :height 1.5))
+  (setq-local face-remapping-alist '((default (:family "Iosevka Aile" :height 1.5))
                                      ;; (default (:height 1.5) fixed-pitch)
                                      (header-line (:height 4.5) fixed-pitch)
                                      (org-document-title (:height 1.75) org-document-title)
@@ -781,17 +782,17 @@ folder, otherwise delete a word"
                                      (org-block (:height 1.3) org-block)
                                      (org-block-begin-line (:height 1.0) org-block)))
   (setq header-line-format " ")
-  (org-appear-mode -1)
+  ;; (org-appear-mode -1)
   (org-display-inline-images)
-  (dw/org-present-prepare-slide)
-  (efs/kill-panel))
+  (dw/org-present-prepare-slide))
+;; (efs/kill-panel))
 
 (defun dw/org-present-quit-hook ()
   (setq-local face-remapping-alist '((default default default)))
   (setq header-line-format nil)
   (org-present-small)
   (org-remove-inline-images)
-  (org-appear-mode 1)
+  ;; (org-appear-mode 1)
   (org-present-mode 0))
 ;;(efs/start-panel))
 
@@ -811,6 +812,17 @@ folder, otherwise delete a word"
   :hook ((org-present-mode . dw/org-present-hook)
          (org-present-mode-quit . dw/org-present-quit-hook)
          (org-present-after-navigate-functions . my/org-present-prepare-slide)))
+
+;; Automatically tangle our Emacs.org config file when we save it
+(defun math2do/org-babel-tangle-config ()
+  (interactive)
+  (when (string-equal (file-name-directory (buffer-file-name)) (expand-file-name "~/Projects/Leetcode/"))
+    ;; Dynamic scoping to the rescue
+    (let ((org-confirm-babel-evaluate nil)
+          (current-prefix-arg '(4)))
+      (call-interactively 'org-babel-tangle))))
+
+(add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'math2do/org-babel-tangle-config)))
 
 (require 'simple-httpd)
 (setq httpd-root "/var/www")
