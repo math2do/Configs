@@ -1141,9 +1141,11 @@ folder, otherwise delete a word"
 
   ;; Use completion-at-point to provide completions in eshell
   (define-key eshell-mode-map (kbd "<tab>") 'completion-at-point)
+  (define-key eshell-mode-map (kbd "C-r") 'consult-history)
 
   ;; Initialize the shell history
   (eshell-hist-initialize)
+
 
   (setenv "PAGER" "cat")
 
@@ -1158,8 +1160,12 @@ folder, otherwise delete a word"
 
 (use-package eshell
   :hook (eshell-first-time-mode . dw/eshell-configure)
+  ;; :bind (:map eshell-mode-map
+  ;;             ("C-r" . consult-history))
   :init
   (setq eshell-directory-name "~/Configs/.config/emacs/eshell/"))
+
+
 
 (use-package eshell-z
   :hook ((eshell-mode . (lambda () (require 'eshell-z)))

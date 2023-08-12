@@ -2,3 +2,4 @@
 .config/emacs/eshell/history
 
 .password-store
+/.pgpass
