@@ -189,7 +189,7 @@ This one changes the cursor color on each blink. Define colors in `blink-cursor-
   :bind (("C-s" . swiper)
          :map ivy-minibuffer-map
          ("TAB" . ivy-alt-done)	
-         ("C-l" . ivy-alt-done)
+         ("C-l" . ivy-alt-done)  ;; when there is already fuzzy match and you want to select what is typed
          ("C-n" . ivy-next-line)
          ("C-p" . ivy-previous-line)
          :map ivy-switch-buffer-map
@@ -239,18 +239,13 @@ This one changes the cursor color on each blink. Define colors in `blink-cursor-
 ;; Enable rich annotations using the Marginalia package
 (use-package marginalia
   :disabled
-  ;; Bind `marginalia-cycle' locally in the minibuffer.  To make the binding
-  ;; available in the *Completions* buffer, add it to the
-  ;; `completion-list-mode-map'.
+  :after vertico
+  :ensure t
+  :custom
+  (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
   :bind (:map minibuffer-local-map
               ("M-A" . marginalia-cycle))
-
-  ;; The :init section is always executed.
   :init
-
-  ;; Marginalia must be activated in the :init section of use-package such that
-  ;; the mode gets enabled right away. Note that this forces loading the
-  ;; package.
   (marginalia-mode))
 
 (defun dw/get-project-root ()
