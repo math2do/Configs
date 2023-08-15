@@ -31,7 +31,7 @@
 (set-default 'truncate-lines t)
 (recentf-mode 1)
 ;; remember commands
-(setq history-length 25)
+(setq history-length 500)
 (savehist-mode 1)
 ;; saves the cursor position
 (save-place-mode 1)
