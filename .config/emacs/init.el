@@ -202,9 +202,14 @@ This one changes the cursor color on each blink. Define colors in `blink-cursor-
   :config
   (ivy-mode 1))
 
+;; ivy rich-mode shows description of auto suggested
+(use-package ivy-rich
+  :init
+  (ivy-rich-mode 1))
+
 (defun dw/minibuffer-backward-kill (arg)
   "When minibuffer is completing a file name delete up to parent
-folder, otherwise delete a word"
+  folder, otherwise delete a word"
   (interactive "p")
   (if minibuffer-completing-file-name
       ;; Borrowed from https://github.com/raxod502/selectrum/issues/498#issuecomment-803283608
@@ -214,19 +219,39 @@ folder, otherwise delete a word"
     (backward-kill-word arg)))
 
 (use-package vertico
+  :disabled
   :ensure t
-  :bind (:map vertico-map
-              ("C-n" . vertico-next)
-              ("C-p" . vertico-previous)
-              ("C-f" . vertico-exit)
-              :map minibuffer-local-map
-              ("M-h" . dw/minibuffer-backward-kill))
+  :bind (("C-s" . swiper)
+         :map vertico-map
+         ("C-n" . vertico-next)
+         ("C-p" . vertico-previous)
+         ("C-f" . vertico-exit)
+         :map minibuffer-local-map
+         ("M-h" . dw/minibuffer-backward-kill))
   :custom
   (vertico-cycle t)
   :custom-face
   (vertico-current ((t (:background "#3a3f5a"))))
   :init
   (vertico-mode))
+
+
+;; Enable rich annotations using the Marginalia package
+(use-package marginalia
+  :disabled
+  ;; Bind `marginalia-cycle' locally in the minibuffer.  To make the binding
+  ;; available in the *Completions* buffer, add it to the
+  ;; `completion-list-mode-map'.
+  :bind (:map minibuffer-local-map
+              ("M-A" . marginalia-cycle))
+
+  ;; The :init section is always executed.
+  :init
+
+  ;; Marginalia must be activated in the :init section of use-package such that
+  ;; the mode gets enabled right away. Note that this forces loading the
+  ;; package.
+  (marginalia-mode))
 
 (defun dw/get-project-root ()
   (when (fboundp 'projectile-project-root)
@@ -235,11 +260,12 @@ folder, otherwise delete a word"
 (use-package consult
   :ensure t
   :demand t
-  ;; :bind (("C-s" . consult-line)
-  ;;        ("C-M-l" . consult-imenu)
-  ;;        ("C-M-j" . persp-switch-to-buffer*)
-  ;;        :map minibuffer-local-map
-  ;;        ("C-r" . consult-history))
+  :bind (
+         ;; ("C-s" . consult-line)
+         ;; ("C-M-l" . consult-imenu)
+         ;; ("C-M-j" . persp-switch-to-buffer*)
+         :map minibuffer-local-map
+         ("C-r" . consult-history))
   :custom
   (consult-project-root-function #'dw/get-project-root)
   (completion-in-region-function #'consult-completion-in-region))
@@ -350,11 +376,6 @@ folder, otherwise delete a word"
   :diminish which-key-mode
   :config
   (setq which-key-idle-delay 0))
-
-;; ivy rich-mode shows description of auto suggested
-(use-package ivy-rich
-  :init
-  (ivy-rich-mode 1))
 
 (use-package counsel
   :after ivy
@@ -822,7 +843,7 @@ folder, otherwise delete a word"
           (current-prefix-arg '(4)))
       (call-interactively 'org-babel-tangle))))
 
-(add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'math2do/org-babel-tangle-config)))
+;; (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'math2do/org-babel-tangle-config)))
 
 (require 'simple-httpd)
 (setq httpd-root "/var/www")
