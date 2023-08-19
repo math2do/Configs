@@ -547,7 +547,7 @@ This one changes the cursor color on each blink. Define colors in `blink-cursor-
 (defun dw/org-mode-setup ()
   (org-indent-mode)
   (auto-fill-mode 0)
-  (face-remap-add-relative 'default '(:family "Iosevka Aile"))) ;; default font for org-mode
+  (face-remap-add-relative 'default '(:family "Iosevka Aile" :height 1.1))) ;; default font for org-mode
 
 ;; symbol ▼  ⤵
 (use-package org
