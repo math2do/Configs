@@ -4,7 +4,7 @@
 
 GREEN='\033[1;32m'
 BLUE='\033[1;34m'
-RED='\033[1;30m'
+RED='\033[1;31m'
 NC='\033[0m'
 
 # Navigate to the directory of this script (generally ~/.dotfiles/.bin)
