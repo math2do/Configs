@@ -114,6 +114,7 @@
 (global-display-line-numbers-mode 1)
 ;; Disable line numbers for some modes
 (dolist (mode '(org-mode-hook
+                vterm-mode-hook
                 term-mode-hook
                 shell-mode-hook
                 org-present-mode-hook
@@ -1227,6 +1228,9 @@ This one changes the cursor color on each blink. Define colors in `blink-cursor-
   (eshell-toggle-window-side 'right)
   (eshell-toggle-use-projectile-root t)
   (eshell-toggle-run-command nil))
+
+(use-package vterm
+  :ensure t)
 
 (use-package buffer-flip
   :ensure t
