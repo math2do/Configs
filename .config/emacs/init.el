@@ -148,13 +148,12 @@
 ;; show the key pressing events
 (use-package command-log-mode)
 
-(setq cursor-type '(bar . 3))
-
 (defvar blink-cursor-colors (list  "#92c48f" "#6785c5" "#be369c" "#d9ca65")
   "On each blink the cursor will cycle to the next color in this list.")
 
 (setq blink-cursor-count 0)
 (defun blink-cursor-timer-function ()
+
   "Zarza wrote this cyberpunk variant of timer `blink-cursor-timer'. 
 Warning: overwrites original version in `frame.el'.
 
@@ -167,6 +166,9 @@ This one changes the cursor color on each blink. Define colors in `blink-cursor-
     (internal-show-cursor nil (not (internal-show-cursor-p)))))
 
 (blink-cursor-timer-function)
+
+;; Following has no effect
+(setq cursor-type '(bar . 2))
 
 ;; compile C++ files with F4 -----------------------------------------------------------------------
 
@@ -1041,8 +1043,6 @@ This one changes the cursor color on each blink. Define colors in `blink-cursor-
 (use-package evil-nerd-commenter
   :bind ("C-/" . evilnc-comment-or-uncomment-lines))
 
-
-;; term mode ----------------------------------------------------------------------------------
 (use-package term
   :config
   (setq explicit-shell-file-name "bash") ;; Change this to zsh, etc
@@ -1071,7 +1071,8 @@ This one changes the cursor color on each blink. Define colors in `blink-cursor-
   (require 'dap-node)
   (dap-node-setup)) ;; Automatically installs debug adapter if needed
 
-;; eshell --------------------------------------------------------------------------------------------------
+(setq shell-file-name "/bin/bash")
+
 (defun read-file (file-path)
   (with-temp-buffer
     (insert-file-contents file-path)
