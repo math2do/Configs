@@ -117,6 +117,11 @@ if ! shopt -oq posix; then
 fi
 
 
+#my custom aliases
+alias goland='goland.sh'
+alias idea='idea.sh'
+
+
 # for configuring vterm as mentioned in this repo: https://github.com/akermu/emacs-libvterm
 vterm_printf() {
     if [ -n "$TMUX" ] && ([ "${TERM%%-*}" = "tmux" ] || [ "${TERM%%-*}" = "screen" ]); then

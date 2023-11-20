@@ -34,7 +34,8 @@ export PATH=$GOPATH/bin:$PATH
 
 # node binary downloaded 'node-v14.17.3-linux-x64.tar.xz' from https://nodejs.org/dist/v14.17.3/
 # extract using sudo tar -xJvf node-v14.17.3-linux-x64.tar.xz -C /usr/local/lib/nodejs
-export PATH=/usr/local/lib/nodejs/node-v18.12.1-linux-x64/bin:$PATH
+# export PATH=/usr/local/lib/nodejs/node-v18.12.1-linux-x64/bin:$PATH
+export PATH=/usr/local/lib/nodejs/node-v18.18.0-linux-x64/bin:$PATH
 # export PATH=/usr/local/lib/nodejs/node-v14.17.3-linux-x64/bin:$PATH
 
 #cpp custom lib
@@ -50,6 +51,8 @@ export PATH=$HOME/Maven/bin:$PATH
 
 #add Intellij-Idea to path
 export PATH=$HOME/Intellij-IDEA/bin:$PATH
+#add Goland path
+export PATH=$HOME/Goland/bin:$PATH
 
 #liquibase path
 export PATH=$PATH:$HOME/Liquibase
