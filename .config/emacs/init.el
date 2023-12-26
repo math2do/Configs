@@ -723,7 +723,7 @@ This one changes the cursor color on each blink. Define colors in `blink-cursor-
 ;; check other faces - https://github.com/tkf/org-mode/blob/master/lisp/org-faces.el
 
 ;; Ensure that anything that should be fixed-pitch in Org files appears that way
-(set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch :height 1.1)
+(set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch :height 1.02)
 (set-face-attribute 'org-table nil  :inherit 'fixed-pitch :height 1.1)
 (set-face-attribute 'org-formula nil  :inherit 'fixed-pitch :height 1.1)
 (set-face-attribute 'org-code nil   :inherit '(shadow variable-pitch) :height 1.1)
@@ -843,7 +843,7 @@ This one changes the cursor color on each blink. Define colors in `blink-cursor-
           (current-prefix-arg '(4)))
       (call-interactively 'org-babel-tangle))))
 
-;; (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'math2do/org-babel-tangle-config)))
+(add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'math2do/org-babel-tangle-config)))
 
 (require 'simple-httpd)
 (setq httpd-root "/var/www")
