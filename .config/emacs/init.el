@@ -327,7 +327,7 @@ This one changes the cursor color on each blink. Define colors in `blink-cursor-
   (doom-modeline-bar-width 6)
   (doom-modeline-lsp t)
   (doom-modeline-modal-icon t)
-  ;;(doom-modeline-github t)
+  ;; (doom-modeline-github t)
   ;;(doom-modeline-mu4e nil)              
   ;;(doom-modeline-irc nil)
   (doom-modeline-minor-modes nil)
@@ -475,9 +475,9 @@ This one changes the cursor color on each blink. Define colors in `blink-cursor-
 ;; (setq prettier-js-show-errors nil))
 
 (use-package rjsx-mode
-  :mode "\\.jsx?\\'"
+  :mode "\\.tsx?\\'"
   :config
-  (add-to-list 'auto-mode-alist '("components\\/.*\\.js\\'" . rjsx-mode))
+  (add-to-list 'auto-mode-alist '("\\.tsx?\\'" . rjsx-mode))
   ;; Set up proper indentation in JavaScript and JSON files
   (add-hook 'js2-mode-hook #'dw/set-js-indentation)
   (add-hook 'rjsx-mode-hook #'dw/set-js-indentation)

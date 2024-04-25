@@ -151,3 +151,11 @@ vterm_prompt_end(){
     vterm_printf "51;A$(whoami):$(pwd)"
 }
 PS1=$PS1'\[$(vterm_prompt_end)\]'
+
+# pnpm
+export PNPM_HOME="/home/math2do/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
