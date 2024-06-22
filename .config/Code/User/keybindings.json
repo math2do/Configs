@@ -1,23 +1,4 @@
-// Place your key bindings in this file to override the defaultsauto[]
 [
-  {
-    "key": "ctrl+y",
-    "command": "editor.action.clipboardCutAction"
-  },
-  {
-    "key": "ctrl+x",
-    "command": "-editor.action.clipboardCutAction"
-  },
-  {
-    "key": "ctrl+shift+down",
-    "command": "editor.action.insertLineAfter",
-    "when": "editorTextFocus && !editorReadonly"
-  },
-  {
-    "key": "ctrl+enter",
-    "command": "-editor.action.insertLineAfter",
-    "when": "editorTextFocus && !editorReadonly"
-  },
   {
     "key": "f4",
     "command": "code-runner.run"

@@ -11,7 +11,7 @@
   "[html]": {
     "editor.defaultFormatter": "vscode.html-language-features",
     "editor.formatOnType": true,
-    "editor.formatOnSave": true,
+    "editor.formatOnSave": true
   },
   "files.associations": {
     "*.ejs": "html",
@@ -22,7 +22,6 @@
     "*.env": "env",
     "*.env.local": "env"
   },
-  //css
   "css.lint.zeroUnits": "warning",
   "css.lint.emptyRules": "ignore",
   "scss.lint.duplicateProperties": "warning",
@@ -40,7 +39,6 @@
     "editor.formatOnType": true,
     "editor.formatOnSave": true
   },
-  //javascript
   "javascript.referencesCodeLens.enabled": false,
   "javascript.updateImportsOnFileMove.enabled": "always",
   "javascript.format.enable": true,
@@ -57,17 +55,15 @@
   "[javascript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features",
     "editor.formatOnType": true,
-    "editor.formatOnSave": true,
+    "editor.formatOnSave": true
   },
-  //react
   "emmet.showSuggestionsAsSnippets": true,
   "[javascriptreact]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features",
+    "editor.defaultFormatter": "vscode.typescript-language-features"
   },
   "emmet.includeLanguages": {
-    "javascript": "javascriptreact",
+    "javascript": "javascriptreact"
   },
-  //json
   "[json]": {
     "editor.defaultFormatter": "vscode.json-language-features",
     "editor.formatOnType": true,
@@ -103,11 +99,9 @@
     "editor.defaultFormatter": "IronGeek.vscode-env"
   },
   "[cpp]": {
-    // "editor.autoClosingBrackets": "never",
     "editor.defaultFormatter": "ms-vscode.cpptools"
   },
   "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 2, ColumnLimit: 0, AlignAfterOpenBracket: DontAlign}",
-  // code runner 
   "code-runner.clearPreviousOutput": true,
   "code-runner.saveFileBeforeRun": true,
   "code-runner.executorMap": {
@@ -115,11 +109,11 @@
     "python": "python3",
     "go": "go run",
     "c": "gcc $fileName -o sol && ./sol < in",
-    // "cpp": "g++ $fileName -std=c++20 -O2 -o sol -Wall -Wextra -DLOCAL",
-    "cpp": "g++ $fileName -Wall -Wextra -pedantic -std=c++17 -O2 -o sol -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTIFY_SOURCE=2 -fsanitize=address -fsanitize=undefined -fno-sanitize-recover -fstack-protector -DLOCAL"
+    "cpp": "g++ $fileName -std=c++20 -O2 -o sol -Wall -Wextra -DLOCAL",
+    "cpp2": "g++ $fileName -Wall -Wextra -pedantic -std=c++20 -O2 -o sol -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTIFY_SOURCE=2 -fsanitize=address -fsanitize=undefined -fno-sanitize-recover -fstack-protector -DLOCAL"
   },
   "vs-kubernetes": {
     "vscode-kubernetes.helm-path-linux": "/home/math2do/.local/state/vs-kubernetes/tools/helm/linux-amd64/helm",
     "vscode-kubernetes.minikube-path-linux": "/home/math2do/.local/state/vs-kubernetes/tools/minikube/linux-amd64/minikube"
-  },
+  }
 }
