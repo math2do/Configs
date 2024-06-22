@@ -82,23 +82,6 @@ string to_string(tuple<A, B, C, D> p) {
   return "{" + to_string(get<0>(p)) + ", " + to_string(get<1>(p)) + ", " + to_string(get<2>(p)) + ", " + to_string(get<3>(p)) + "}";
 }
 
-template <typename T> 
-string to_string(vector <vector<T>> &mat) {
-  string res = "";
-  char temp[32];
-  int n = mat.size();
-  if (n == 0) return res;
-  res += "\n";
-  for (int i = 0; i < n; i++) {
-    for (int j = 0; j < (int) mat[i].size(); j++) {
-      sprintf(temp, "%-18s", to_string(mat[i][j]).c_str());
-      res += string(temp);
-    }
-    res += "\n";
-  }
-  return res;
-}
-
 void debug_out() { cerr << endl; }
 
 template <typename Head, typename... Tail>

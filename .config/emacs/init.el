@@ -178,7 +178,7 @@ This one changes the cursor color on each blink. Define colors in `blink-cursor-
   (save-buffer)
   (set (make-local-variable 'compile-command)
        (let ((file (file-name-nondirectory buffer-file-name)))
-         (format "%s %s -std=c++17 -O2 -o sol -Wall -Wextra -DLOCAL"
+         (format "%s %s -std=c++20 -O2 -o sol -Wall -Wextra -DLOCAL"
                  (if (equal (file-name-extension file) "cpp") "g++" "gcc" )
                  file
                  (file-name-sans-extension file))))
@@ -424,6 +424,7 @@ This one changes the cursor color on each blink. Define colors in `blink-cursor-
     (setq projectile-project-search-path '("~/Projects/go/src/lynk"
                                            "~/Projects/go/src/math2do.in"
                                            "~/Projects/node"
+                                           "~/Notes/Roam"
                                            "~/Projects/react")))
   (setq projectile-switch-project-action #'projectile-dired))
 
@@ -546,6 +547,8 @@ This one changes the cursor color on each blink. Define colors in `blink-cursor-
   :config
   (org-roam-db-autosync-mode))
 
+;; ((nil . ((org-roam-directory . ".") (org-roam-db-location . "~/.config/emacs/system-design/org-roam.db"))))
+
 ;; Turn on indentation and auto-fill mode for Org files
 (defun dw/org-mode-setup ()
   (org-indent-mode)
@@ -573,12 +576,12 @@ This one changes the cursor color on each blink. Define colors in `blink-cursor-
         org-log-into-drawer t)
 
   (setq org-agenda-files
-        '("~/Notes/Tasks.org"
-          "~/Notes/Habits.org"
-          "~/Notes/Notes.org"
-          "~/Notes/Archive.org"
-          "~/Notes/Journal.org"
-          "~/Notes/Birthdays.org"))
+        '("~/Notes/Org/Tasks.org"
+          "~/Notes/Org/Habits.org"
+          "~/Notes/Org/Notes.org"
+          "~/Notes/Org/Archive.org"
+          "~/Notes/Org/Journal.org"
+          "~/Notes/Org/Birthdays.org"))
 
 
 
@@ -637,6 +640,7 @@ This one changes the cursor color on each blink. Define colors in `blink-cursor-
 
   (setq org-outline-path-complete-in-steps nil)
   (setq org-refile-use-outline-path t)
+  (setq indent-tabs-mode nil)
 
   (setq org-todo-keywords
         '((sequence "BACKLOG(b)" "TODO(t)" "ACTIVE(a)" "REVIEW(v)" "READY(r)" "WAIT(w)" "|" "DONE(d)" "CANC(c)"))))

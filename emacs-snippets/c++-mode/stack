@@ -15,9 +15,12 @@ string to_string(stack <T> &st) {
       res += " ,";
     }
     first = false;
-    res += to_string(x); 
+    string data = to_string(x);
+    reverse(data.begin(), data.end());
+    res += data;
   } 
   res += "{";
   reverse(res.begin(), res.end());
   return res;
 }
+
