@@ -1,10 +1,10 @@
 {
   "editor.fontFamily": "'Source Code Pro','Cascadia Code','Fira Mono','Consolas','JetBrains Mono NL'",
+  "editor.tabSize": 2,
   "workbench.iconTheme": "vscode-icons",
   "workbench.editor.enablePreview": false,
   "go.toolsManagement.autoUpdate": true,
   "editor.accessibilitySupport": "off",
-  "workbench.colorTheme": "Solarized Light",
   "html.autoClosingTags": true,
   "html.format.wrapLineLength": 180,
   "html.format.maxPreserveNewLines": 1,
@@ -54,9 +54,15 @@
     "javascriptreact"
   ],
   "[javascript]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features",
+    // "editor.defaultFormatter": "vscode.typescript-language-features",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnType": true,
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    // prettier config
+    "prettier.trailingComma": "es5",
+    "prettier.tabWidth": 2,
+    "prettier.semi": true,
+    "prettier.singleQuote": true
   },
   "emmet.showSuggestionsAsSnippets": true,
   "[javascriptreact]": {
@@ -81,7 +87,6 @@
   },
   "git.autofetch": true,
   "git.confirmSync": false,
-  "editor.tabSize": 2,
   "editor.codeActionsOnSave": {},
   "editor.language.brackets": [],
   "editor.wordWrap": "on",
@@ -93,6 +98,9 @@
   "[go]": {
     "editor.defaultFormatter": "golang.go"
   },
+  "[go.mod]": {
+    "editor.formatOnSave": false
+  },
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
   },
@@ -100,7 +108,11 @@
     "editor.defaultFormatter": "IronGeek.vscode-env"
   },
   "[cpp]": {
-    "editor.defaultFormatter": "ms-vscode.cpptools"
+    "editor.defaultFormatter": "ms-vscode.cpptools",
+    "editor.autoClosingBrackets": "never"
+  },
+  "[yaml]": {
+    "editor.formatOnSave": false
   },
   "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 2, ColumnLimit: 0, AlignAfterOpenBracket: DontAlign}",
   "code-runner.clearPreviousOutput": true,
@@ -116,5 +128,7 @@
   "vs-kubernetes": {
     "vscode-kubernetes.helm-path-linux": "/home/math2do/.local/state/vs-kubernetes/tools/helm/linux-amd64/helm",
     "vscode-kubernetes.minikube-path-linux": "/home/math2do/.local/state/vs-kubernetes/tools/minikube/linux-amd64/minikube"
-  }
+  },
+  "makefile.configureOnOpen": true,
+  "workbench.colorTheme": "Github Light Theme",
 }
