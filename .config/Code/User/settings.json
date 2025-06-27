@@ -4,6 +4,12 @@
   "workbench.iconTheme": "vscode-icons",
   "workbench.editor.enablePreview": false,
   "go.toolsManagement.autoUpdate": true,
+  "go.lintTool": "golint",
+  "go.alternateTools": {
+    "go-langserver": "gopls"
+  },
+  "go.useLanguageServer": true,
+  "terminal.integrated.scrollback": 10000,
   "editor.accessibilitySupport": "off",
   "html.autoClosingTags": true,
   "html.format.wrapLineLength": 180,
@@ -130,5 +136,6 @@
     "vscode-kubernetes.minikube-path-linux": "/home/math2do/.local/state/vs-kubernetes/tools/minikube/linux-amd64/minikube"
   },
   "makefile.configureOnOpen": true,
-  "workbench.colorTheme": "Github Light Theme",
+  "workbench.colorTheme": "Default Light+",
+  "docker.extension.enableComposeLanguageServer": false,
 }

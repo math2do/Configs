@@ -120,6 +120,7 @@ fi
 #my custom aliases
 alias goland='goland.sh'
 alias idea='idea.sh'
+alias docker-compose='docker compose'
 
 
 # for configuring vterm as mentioned in this repo: https://github.com/akermu/emacs-libvterm
