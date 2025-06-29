@@ -50,4 +50,31 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 ```
 
 ### Install oh-my-zsh plugins
-1. 
+- Check the [link](https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#oh-my-zsh) to install zsh-autosuggestions
+
+- Check the [link](https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md#oh-my-zsh) to install zsh-syntax-highlighting
+
+```bash
+# clone to ~/.oh-my-zsh/custom/plugins
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+
+# add to the following list in ~/.zshrc
+plugins=(git, ...other, zsh-autosuggestions, zsh-syntax-highlighting)
+# 
+```
+
+## Manage dotfiles in WSL
+> Place your `Configs` project at Home(/home/math2do). Noe treat `~/Configs` as the home directory and **move (cut-paste) ** dotfiles from `~/` to `~/Configs`. 
+
+```bash
+# Install
+sudo apt install stow
+
+# execute from ~/Configs which is same as `stow -d=~/Configs -t=~/`
+stow .
+
+# remote the symblink for specific file or folder
+stow -D <file>  # didn't remove the symblink hence force remove by: rm ~/.bashrc
+```
