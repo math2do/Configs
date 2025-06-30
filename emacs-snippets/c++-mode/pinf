@@ -1,6 +1,0 @@
-# -*- mode: snippet -*- 
-# name: pinf 
-# key: pinf	
-# --
-
-const int pinf = numeric_limits<int>::max();

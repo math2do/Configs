@@ -1,6 +1,0 @@
-# -*- mode: snippet -*- 
-# name: min 
-# key: min	
-# --
-
-#define min(...) min({__VA_ARGS__})

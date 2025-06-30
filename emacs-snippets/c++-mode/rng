@@ -1,6 +1,0 @@
-# -*- mode: snippet -*- 
-# name: rng 
-# key: rng	
-# --
-
-mt19937 rng((unsigned int) chrono::system_clock::now().time_since_epoch().count());

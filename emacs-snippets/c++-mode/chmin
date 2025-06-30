@@ -1,9 +1,0 @@
-# -*- mode: snippet -*- 
-# name: chmin 
-# key: chmin	
-# --
-
-template <typename T> 
-inline bool chmin(T &a, const T &b) {
-  return a > b ? a = b, true : false;
-}

@@ -1,6 +1,0 @@
-# -*- mode: snippet -*- 
-# name: max 
-# key: max	
-# --
-
-#define max(...) max({__VA_ARGS__})
