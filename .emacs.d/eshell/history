@@ -1,0 +1,128 @@
+ls
+/sol
+./sl
+ls
+cd ..
+cd string-tricks/
+clear 1
+ls
+ls
+git branch -M main
+git branch --list
+git remote add origin https://github.com/math2do/Golang.git
+git remote add origin git@github.com:math2do/Golang.git
+git remote rm origin
+git remote add origin git@github.com:math2do/Golang.git
+git branch -M main
+git push -u origin main
+npm dev run
+ls
+ll
+ls
+clear 1
+ls
+cd Projects/go/src/
+ls
+cd side-hustle/
+ls
+cd businesspages/
+ls
+go mod tidy
+ls
+cd ~/Projects/
+ls
+cd Next/
+ls
+./build.sh
+sudo ./build.sh
+ls
+chmod +x build.sh 
+./build.sh
+ls
+pwd
+ls
+ls
+cd ../medium/
+./sol
+cd ..
+./sol
+cd /home/math2do/Projects/InterviewBit/array/
+./sol
+ls
+./sol
+cd ..
+cd Projects/
+ls
+cd react/
+ls
+cd next-js/
+ls
+cd ..
+cd node/
+ls
+cd ..
+ls
+clear
+ls
+cd Next/
+ls
+cd blog/
+ls
+npm run dev
+ls
+cd Projects/Next/blog/
+ls
+pwd
+ls
+./sol
+./build.sh
+cd Notes/Roam/
+git init
+ls
+./build.sh
+cd Notes/
+cd Roam/
+ls
+./build.sh 
+clear 1
+./build.sh 
+./build.sh
+./build.sh 
+python3
+python3 scrap.py 
+go doc http
+man go
+ls
+ls -al
+ls
+cd Projects/
+ls
+cd go/
+cd src/
+ls
+cd math2do.in/
+ls
+cd gin-template/
+./sol
+cd ~/Configs/
+stow .
+git status
+ls
+cd Projects/
+ls
+cd ..
+cd Configs/
+ls
+stow .
+git status
+git diff .bashrc 
+git add .
+git status
+git commit -m "update config"
+git push
+ls
+clear
+ls
+ls -al
+ls
+exit
