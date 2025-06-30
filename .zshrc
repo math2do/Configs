@@ -102,3 +102,11 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+## MY CUSTOM SCRIPTS
+
+#setting up golang environment variables
+export PATH=$PATH:/usr/local/go/bin
+export GOPATH=$HOME/Projects/go
+export GOBIN=$GOPATH/bin
+export PATH=$GOPATH/bin:$PATH
