@@ -109,3 +109,6 @@ alias c="clear"
 alias cdp="cd ~/Projects/"
 alias cdc="cd ~/Configs"
 alias cdn="cd ~/Notes"
+
+# xclip alias
+alias clip="xclip -selection clipboard"
