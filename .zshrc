@@ -112,3 +112,6 @@ alias cdn="cd ~/Notes"
 
 # xclip alias
 alias clip="xclip -selection clipboard"
+
+# docker alias
+alias docker-compose='docker compose'
