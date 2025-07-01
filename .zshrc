@@ -103,10 +103,9 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-## MY CUSTOM SCRIPTS
-
-#setting up golang environment variables
-export PATH=$PATH:/usr/local/go/bin
-export GOPATH=$HOME/Projects/go
-export GOBIN=$GOPATH/bin
-export PATH=$GOPATH/bin:$PATH
+## Its loaded when a terminal is opened, so use it for alias that you use while using terminal
+## Use .zprofile for env variables
+alias c="clear"
+alias cdp="cd ~/Projects/"
+alias cdc="cd ~/Configs"
+alias cdn="cd ~/Notes"
