@@ -116,6 +116,9 @@ alias clip="xclip -selection clipboard"
 # docker alias
 alias docker-compose='docker compose'
 
+# python
+alias python="python3"
+
 # fnm
 FNM_PATH="/home/math2do/.local/share/fnm"
 if [ -d "$FNM_PATH" ]; then
