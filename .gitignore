@@ -3,3 +3,4 @@
 
 .password-store
 /.pgpass
+.config/nvim/

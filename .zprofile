@@ -13,3 +13,6 @@ export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:$CPP_LIB
 
 # add sync-dotfiles binary to path
 export PATH=$HOME/Configs/bin:$PATH
+
+# Add neovim binary to path
+export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
