@@ -7,7 +7,7 @@ BLUE='\033[1;34m'
 RED='\033[1;31m'
 NC='\033[0m'
 
-# Navigate to the directory of this script (generally ~/.dotfiles/.bin)
+# Navigate to the directory of this script (generally ~/.dotfiles/bin)
 cd $(dirname $(readlink -f $0))
 cd ..
 
@@ -20,7 +20,7 @@ fi
 
 echo -e "${BLUE}Pulling updates from dotfiles repo...${NC}"
 echo
-git pull origin main
+git pull origin wsl-main
 echo
 
 if [[ $needs_pop -eq 1 ]]; then
