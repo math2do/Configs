@@ -115,7 +115,9 @@ alias clip="xclip -selection clipboard"
 
 # docker alias
 alias docker-compose='docker compose'
-
+alias k='kubectl'
+alias h='helm'
+alias hf='helmfile'
 # python
 alias python="python3"
 
