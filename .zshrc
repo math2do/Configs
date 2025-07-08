@@ -121,6 +121,10 @@ alias hf='helmfile'
 # python
 alias python="python3"
 
+# Load the completions in startup, put in `.zshrc` file
+# TODO: fix this later. Task was installed using npm. but uninstall didn't work.
+# eval "$(task --completion zsh)"
+
 # fnm
 FNM_PATH="/home/math2do/.local/share/fnm"
 if [ -d "$FNM_PATH" ]; then
