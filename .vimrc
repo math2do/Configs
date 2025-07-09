@@ -76,8 +76,8 @@ nnoremap <C-s> :w<CR>
 " save file without auto-formatting
 nnoremap <leader>sn :noautocmd w<CR>
 
-" quit file
-nnoremap <C-q> :q<CR>
+" save file and quit file
+nnoremap <C-q> :wq<CR>
 
 " delete single character without copying into register
 nnoremap x "_x
