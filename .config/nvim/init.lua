@@ -156,7 +156,7 @@ vim.o.list = false
 vim.o.inccommand = "split"
 
 -- Show which line your cursor is on
-vim.o.cursorline = true
+vim.o.cursorline = false
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.o.scrolloff = 10
@@ -172,6 +172,38 @@ vim.o.confirm = true
 -- MY ADDED KEYBINDINGS
 -- for conciseness
 local opts = { noremap = true, silent = true }
+vim.o.relativenumber = true -- Set relative numbered lines (default: false)
+vim.o.wrap = false -- Display lines as one long line (default: true)
+vim.o.linebreak = true -- Companion to wrap, don't split words (default: false)
+vim.o.autoindent = true -- Copy indent from current line when starting new one (default: true)
+vim.o.shiftwidth = 2 -- The number of spaces inserted for each indentation (default: 8)
+vim.o.tabstop = 2 -- Insert n spaces for a tab (default: 8)
+vim.o.softtabstop = 2 -- Number of spaces that a tab counts for while performing editing operations (default: 0)
+vim.o.expandtab = true -- Convert tabs to spaces (default: false)
+vim.o.scrolloff = 4 -- Minimal number of screen lines to keep above and below the cursor (default: 0)
+vim.o.sidescrolloff = 8 -- Minimal number of screen columns either side of cursor if wrap is `false` (default: 0)
+vim.o.hlsearch = false -- Set highlight on search (default: true)
+vim.opt.termguicolors = true -- Set termguicolors to enable highlight groups (default: false)
+vim.o.whichwrap = "bs<>[]hl" -- Which "horizontal" keys are allowed to travel to prev/next line (default: 'b,s')
+vim.o.numberwidth = 2 -- Set number column width to 2 {default 4} (default: 4)
+vim.o.swapfile = false -- Creates a swapfile (default: true)
+vim.o.smartindent = true -- Make indenting smarter again (default: false)
+vim.o.showtabline = 2 -- Always show tabs (default: 1)
+vim.o.backspace = "indent,eol,start" -- Allow backspace on (default: 'indent,eol,start')
+vim.o.pumheight = 10 -- Pop up menu height (default: 0)
+vim.o.conceallevel = 0 -- So that `` is visible in markdown files (default: 1)
+vim.wo.signcolumn = "yes" -- Keep signcolumn on by default (default: 'auto')
+vim.o.fileencoding = "utf-8" -- The encoding written to a file (default: 'utf-8')
+vim.o.cmdheight = 1 -- More space in the Neovim command line for displaying messages (default: 1)
+vim.o.updatetime = 250 -- Decrease update time (default: 4000)
+vim.o.timeoutlen = 300 -- Time to wait for a mapped sequence to complete (in milliseconds) (default: 1000)
+vim.o.backup = false -- Creates a backup file (default: false)
+vim.o.writebackup = false -- If a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited (default: true)
+vim.o.completeopt = "menuone,noselect" -- Set completeopt to have a better completion experience (default: 'menu,preview')
+vim.opt.shortmess:append("c") -- Don't give |ins-completion-menu| messages (default: does not include 'c')
+vim.opt.iskeyword:append("-") -- Hyphenated words recognized by searches (default: does not include '-')
+vim.opt.formatoptions:remove({ "c", "r", "o" }) -- Don't insert the current comment leader automatically for auto-wrapping comments using 'textwidth', hitting <Enter> in insert mode, or hitting 'o' or 'O' in normal mode. (default: 'croql')
+vim.opt.runtimepath:remove("/usr/share/vim/vimfiles") -- Separate Vim plugins from Neovim in case Vim still in use (default: includes this path if Vim is installed)
 
 -- make jj behave as esc
 vim.keymap.set("i", "jj", "<Esc>", { noremap = true })
@@ -241,6 +273,7 @@ vim.keymap.set("v", "p", '"_dP', opts)
 -- vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 -- vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 -- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+
 -- END OF MY KEY BINDINGS
 
 -- Clear highlights on search when pressing <Esc> in normal mode
@@ -320,7 +353,6 @@ rtp:prepend(lazypath)
 --    :Lazy update
 --
 -- NOTE: Here is where you install your plugins.
-
 require("lazy").setup({
 	-- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
 	"NMAC427/guess-indent.nvim", -- Detect tabstop and shiftwidth automatically
@@ -759,7 +791,7 @@ require("lazy").setup({
 			--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
 			local servers = {
 				-- clangd = {},
-				-- gopls = {},
+				gopls = {},
 				-- pyright = {},
 				-- rust_analyzer = {},
 				-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -855,6 +887,7 @@ require("lazy").setup({
 			end,
 			formatters_by_ft = {
 				lua = { "stylua" },
+				go = { "gofmt" },
 				-- Conform can also run multiple formatters sequentially
 				-- python = { "isort", "black" },
 				--
@@ -1068,32 +1101,6 @@ require("lazy").setup({
 		--    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 	},
 
-	-- MY PLUGINS
-	{
-		"nvim-neo-tree/neo-tree.nvim",
-		branch = "v3.x",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-			"MunifTanjim/nui.nvim",
-			-- Optional image support for file preview: See `# Preview Mode` for more information.
-			-- {"3rd/image.nvim", opts = {}},
-			-- OR use snacks.nvim's image module:
-			-- "folke/snacks.nvim",
-		},
-		lazy = false, -- neo-tree will lazily load itself
-		---@module "neo-tree"
-		-- @type neotree.Config?
-		opts = {
-			-- add options here
-		},
-	},
-	{
-		"nvim-lualine/lualine.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-	},
-	-- END OF MY PLUGINS
-
 	-- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
 	-- init.lua. If you want these files, they are in the repository, so you can just download them and
 	-- place them in the correct locations.
@@ -1103,18 +1110,18 @@ require("lazy").setup({
 	--  Here are some example plugins that I've included in the Kickstart repository.
 	--  Uncomment any of the lines below to enable them (you will need to restart nvim).
 	--
-	-- require 'kickstart.plugins.debug',
-	-- require 'kickstart.plugins.indent_line',
-	-- require 'kickstart.plugins.lint',
-	-- require 'kickstart.plugins.autopairs',
-	-- require 'kickstart.plugins.neo-tree',
-	-- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+	require("kickstart.plugins.debug"),
+	-- require("kickstart.plugins.indent_line"), -- vertical line to indent
+	require("kickstart.plugins.lint"),
+	require("kickstart.plugins.autopairs"),
+	require("kickstart.plugins.neo-tree"),
+	require("kickstart.plugins.gitsigns"), -- adds gitsigns recommend keymaps
 
 	-- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
 	--    This is the easiest way to modularize your config.
 	--
 	--  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-	-- { import = 'custom.plugins' },
+	{ import = "custom.plugins" },
 	--
 	-- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
 	-- Or use telescope!
