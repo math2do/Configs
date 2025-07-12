@@ -891,8 +891,8 @@ require('lazy').setup({
 			formatters_by_ft = {
 				lua = { 'stylua' },
 				go = { 'goimports', 'gofmt' },
-				cpp = { 'clang-format' },
-				c = { 'clang-format' },
+				cpp = { 'custom_clang_format' },
+				c = { 'custom_clang_format' },
 				-- Conform can also run multiple formatters sequentially
 				-- python = { "isort", "black" },
 				--
@@ -902,6 +902,13 @@ require('lazy').setup({
 			formatters = {
 				stylua = {
 					prepend_args = { '--quote-style', 'ForceSingle' },
+				},
+				custom_clang_format = {
+					command = 'clang-format',
+					args = {
+						'--style={BasedOnStyle: Google, IndentWidth: 2, ColumnLimit: 0, AlignAfterOpenBracket: DontAlign}',
+					},
+					stdin = true,
 				},
 			},
 		},
