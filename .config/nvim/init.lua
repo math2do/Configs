@@ -170,8 +170,7 @@ vim.o.confirm = true
 --  See `:help vim.keymap.set()`
 
 -- MY ADDED KEYBINDINGS
--- for conciseness
-local opts = { noremap = true, silent = true }
+vim.o.fileformat = 'unix' -- expect the unix file format
 vim.o.relativenumber = true -- Set relative numbered lines (default: false)
 vim.o.wrap = false -- Display lines as one long line (default: true)
 vim.o.linebreak = true -- Companion to wrap, don't split words (default: false)
@@ -205,6 +204,8 @@ vim.opt.iskeyword:append('-') -- Hyphenated words recognized by searches (defaul
 vim.opt.formatoptions:remove({ 'c', 'r', 'o' }) -- Don't insert the current comment leader automatically for auto-wrapping comments using 'textwidth', hitting <Enter> in insert mode, or hitting 'o' or 'O' in normal mode. (default: 'croql')
 vim.opt.runtimepath:remove('/usr/share/vim/vimfiles') -- Separate Vim plugins from Neovim in case Vim still in use (default: includes this path if Vim is installed)
 
+-- for conciseness
+local opts = { noremap = true, silent = true }
 -- make jj behave as esc
 vim.keymap.set('i', 'jj', '<Esc>', { noremap = true })
 
