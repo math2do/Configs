@@ -3,4 +3,7 @@
 
 .password-store
 /.pgpass
-go/
+.config/go/
+.config/gopls/
+.config/coc/
+.config/helm/

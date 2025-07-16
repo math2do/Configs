@@ -269,11 +269,10 @@ vim.keymap.set('v', '>', '>gv', opts)
 vim.keymap.set('v', 'p', '"_dP', opts)
 
 -- Diagnostic keymaps
--- Deprecated!
--- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
--- vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
--- vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
--- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
+vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 -- END OF MY KEY BINDINGS
 
@@ -894,6 +893,8 @@ require('lazy').setup({
 				cpp = { 'custom_clang_format' },
 				c = { 'custom_clang_format' },
 				markdown = { 'markdownlint' },
+				sh = { 'shfmt' },
+				python = { 'black' },
 				-- Conform can also run multiple formatters sequentially
 				-- python = { "isort", "black" },
 				--
