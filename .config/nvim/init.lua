@@ -893,6 +893,7 @@ require('lazy').setup({
 				go = { 'goimports', 'gofmt' },
 				cpp = { 'custom_clang_format' },
 				c = { 'custom_clang_format' },
+				markdown = { 'markdownlint' },
 				-- Conform can also run multiple formatters sequentially
 				-- python = { "isort", "black" },
 				--
