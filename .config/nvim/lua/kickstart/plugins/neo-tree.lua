@@ -20,6 +20,12 @@ return {
 					['\\'] = 'close_window',
 				},
 			},
+			filtered_items = {
+				visible = true, -- 👈 Show all files, even hidden ones
+				show_hidden_count = true,
+				hide_dotfiles = false, -- 👈 Don't hide dotfiles (e.g., .git, .env)
+				hide_gitignored = false, -- 👈 Don't hide files in .gitignore
+			},
 		},
 	},
 }

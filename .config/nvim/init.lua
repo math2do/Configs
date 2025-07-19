@@ -269,7 +269,6 @@ vim.keymap.set('v', '>', '>gv', opts)
 vim.keymap.set('v', 'p', '"_dP', opts)
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
@@ -800,7 +799,7 @@ require('lazy').setup({
 				--    https://github.com/pmizio/typescript-tools.nvim
 				--
 				-- But for many setups, the LSP (`ts_ls`) will work just fine
-				-- ts_ls = {},
+				ts_ls = {},
 				--
 
 				lua_ls = {
@@ -899,7 +898,13 @@ require('lazy').setup({
 				-- python = { "isort", "black" },
 				--
 				-- You can use 'stop_after_first' to run the first available formatter from the list
-				-- javascript = { "prettierd", "prettier", stop_after_first = true },
+				javascript = { 'prettier', 'prettierd', stop_after_first = true },
+				typescript = { 'prettier' },
+				css = { 'prettier', 'prettierd', stop_after_first = true },
+				javascriptreact = { 'prettier', 'prettierd', stop_after_first = true },
+				typescriptreact = { 'prettier' },
+				json = { 'prettier', 'prettierd', stop_after_first = true },
+				html = { 'prettier', 'prettierd', stop_after_first = true },
 			},
 			formatters = {
 				stylua = {
