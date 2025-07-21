@@ -834,6 +834,9 @@ require('lazy').setup({
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(ensure_installed, {
 				'stylua', -- Used to format Lua code
+				'tailwindcss-language-server',
+				'eslint-lsp',
+				'yaml-language-server',
 			})
 			require('mason-tool-installer').setup({ ensure_installed = ensure_installed })
 
@@ -894,6 +897,8 @@ require('lazy').setup({
 				markdown = { 'markdownlint' },
 				sh = { 'shfmt' },
 				python = { 'black' },
+				yaml = { 'yamlfmt' },
+				yml = { 'yamlfmt' },
 				-- Conform can also run multiple formatters sequentially
 				-- python = { "isort", "black" },
 				--
