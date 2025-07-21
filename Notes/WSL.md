@@ -19,7 +19,9 @@ wsl --install -d <Distribution Name>
 ## Install zsh terminal in WSL/ubuntu
 
 ### Install `zsh` shell
+
 Execute following commands and relaunch the terminal
+
 ```bash
 # Install by apt
 sudo apt install zsh
@@ -32,16 +34,18 @@ chsh -s $(which zsh)
 ```
 
 Verify using
+
 ```bash
 # Output: /usr/bin/zsh or similar
 echo $SHELL
-``` 
+```
 
 Creates files like:  `.zshenv`, `.zprofile`, `.zshrc`, `.zlogin`
 
 > Put environment variables in `.zprofile`. Put aliases, prompts, functions in `.zshrc`
 
 ### Install `oh my zsh`
+
 Checkout [official site](https://ohmyz.sh/)
 
 ```bash
@@ -50,6 +54,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 ```
 
 ### Install oh-my-zsh plugins
+
 - Check the [link](https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#oh-my-zsh) to install zsh-autosuggestions
 
 - Check the [link](https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md#oh-my-zsh) to install zsh-syntax-highlighting
@@ -66,7 +71,8 @@ plugins=(git, ...other, zsh-autosuggestions, zsh-syntax-highlighting)
 ```
 
 ## Manage dotfiles in WSL
-> Place your `Configs` project at Home(/home/math2do). Noe treat `~/Configs` as the home directory and **move (cut-paste) ** dotfiles from `~/` to `~/Configs`. 
+>
+> Place your `Configs` project at Home(/home/math2do). Noe treat `~/Configs` as the home directory and **move (cut-paste)** dotfiles from `~/` to `~/Configs`.
 
 ```bash
 # Install
