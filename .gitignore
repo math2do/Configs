@@ -8,3 +8,5 @@
 .config/gopls/
 .config/coc/
 .config/helm/
+
+.config/lazygit/
