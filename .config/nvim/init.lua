@@ -183,6 +183,7 @@ vim.o.scrolloff = 4 -- Minimal number of screen lines to keep above and below th
 vim.o.sidescrolloff = 8 -- Minimal number of screen columns either side of cursor if wrap is `false` (default: 0)
 vim.o.hlsearch = false -- Set highlight on search (default: true)
 vim.opt.termguicolors = true -- Set termguicolors to enable highlight groups (default: false)
+-- vim.opt.spell = true
 vim.o.whichwrap = 'bs<>[]hl' -- Which "horizontal" keys are allowed to travel to prev/next line (default: 'b,s')
 vim.o.numberwidth = 2 -- Set number column width to 2 {default 4} (default: 4)
 vim.o.swapfile = false -- Creates a swapfile (default: true)
