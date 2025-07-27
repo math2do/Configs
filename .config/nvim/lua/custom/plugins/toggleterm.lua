@@ -17,8 +17,6 @@ return {
 			float_opts = {
 				border = 'curved',
 				winblend = 0,
-				width = 180,
-				height = 80,
 				highlights = {
 					border = 'Normal',
 					background = 'Normal',
@@ -26,11 +24,17 @@ return {
 			},
 		})
 
+		vim.keymap.set({ 'n', 'i', 'v' }, '<C-\\>', function()
+			vim.cmd('write')
+			require('toggleterm').toggle()
+		end, { noremap = true, silent = true, desc = 'Save & Toggle Terminal' })
+
 		-- Optional: floating terminal for lazygit or similar
 		local Terminal = require('toggleterm.terminal').Terminal
 		local lazygit = Terminal:new({ cmd = 'lazygit', hidden = true, direction = 'float' })
 
 		function _lazygit_toggle()
+			vim.cmd('write')
 			lazygit:toggle()
 		end
 

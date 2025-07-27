@@ -119,6 +119,7 @@ alias docker-compose='docker compose'
 alias k='kubectl'
 alias h='helm'
 alias hf='helmfile'
+alias t='terraform'
 
 # Load the completions in startup, put in `.zshrc` file
 # TODO: fix this later. Task was installed using npm. but uninstall didn't work.
