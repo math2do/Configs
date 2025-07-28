@@ -1,12 +1,13 @@
 # Notes on system configuration
 
+<!-- TODO: put this in Note project -->
 ## Installing WSL in fresh **windows 11**
 
 > Enable the virtualization support in BIOS (Advanced -> OC -> Advanced CPU Configuration -> SVM)
 
 > Enable the `Windows Hypervisor Platform` from (Control Panel -> Programs and Features -> Turn windows features on or off)
 
-Seach for `wsl` in windows search box and click on `wsl`. WSL installation will start automatically. Alternatively you can open powershell and enter `wsl --install` followed by below commands.
+Search for `wsl` in windows search box and click on `wsl`. WSL installation will start automatically. Alternatively you can open powershell and enter `wsl --install` followed by below commands.
 
 ```powershell
 # List all available distros
