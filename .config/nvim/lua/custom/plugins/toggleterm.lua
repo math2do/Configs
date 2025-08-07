@@ -25,7 +25,9 @@ return {
 		})
 
 		vim.keymap.set({ 'n', 'i', 'v' }, '<C-\\>', function()
-			vim.cmd('write')
+			if vim.bo.buftype == '' then
+				vim.cmd('write')
+			end
 			require('toggleterm').toggle()
 		end, { noremap = true, silent = true, desc = 'Save & Toggle Terminal' })
 
@@ -34,7 +36,9 @@ return {
 		local lazygit = Terminal:new({ cmd = 'lazygit', hidden = true, direction = 'float' })
 
 		function _lazygit_toggle()
-			vim.cmd('write')
+			if vim.bo.buftype == '' then
+				vim.cmd('write')
+			end
 			lazygit:toggle()
 		end
 
