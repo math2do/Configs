@@ -16,3 +16,7 @@ export PATH=$HOME/Configs/bin:$PATH
 
 # Add neovim binary to path
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+
+
+# Added by Toolbox App
+export PATH="$PATH:/home/math2do/.local/share/JetBrains/Toolbox/scripts"
