@@ -20,3 +20,6 @@ export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 
 # Added by Toolbox App
 export PATH="$PATH:/home/math2do/.local/share/JetBrains/Toolbox/scripts"
+
+# Created by `pipx` on 2026-01-03 15:02:59
+export PATH="$PATH:/home/math2do/.local/bin"
