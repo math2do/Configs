@@ -1,0 +1,295 @@
+{
+  // GLOBAL CONFIGS ================================================
+  "editor.fontFamily": "'BlexMono Nerd Font', 'Source Code Pro', 'Cascadia Mono light', 'Fira Mono','Consolas','JetBrains Mono NL'",
+  // Themes and editor view
+  "workbench.iconTheme": "vscode-icons",
+  "workbench.editor.enablePreview": false,
+  "files.insertFinalNewline": false, // TODO: doesn't work, fix it
+  // Integrated Terminal
+  "terminal.integrated.scrollback": 10000,
+  "terminal.integrated.fontSize": 17,
+  // Git
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "diffEditor.ignoreTrimWhitespace": false,
+  // Global configs for editor
+  "editor.tabSize": 2,
+  "editor.accessibilitySupport": "off",
+  "editor.codeActionsOnSave": {},
+  "editor.language.brackets": [],
+  "editor.wordWrap": "on",
+  "editor.cursorBlinking": "expand",
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": "active",
+  "editor.fontSize": 17,
+  "editor.fontWeight": "400",
+  // Language: HTML ================================================
+  "html.autoClosingTags": true,
+  "html.format.wrapLineLength": 180,
+  "html.format.maxPreserveNewLines": 1,
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features",
+    "editor.formatOnType": true,
+    "editor.formatOnSave": true
+  },
+  "files.associations": {
+    "*.ejs": "html",
+    ".stylelintrc": "json",
+    ".postcssrc": "json",
+    ".htmlhintrc": "json",
+    ".eslintrc": "json",
+    "*.env": "env",
+    "*.env.local": "env"
+  },
+  // Language: CSS ================================================
+  "css.lint.zeroUnits": "warning",
+  "css.lint.emptyRules": "ignore",
+  "scss.lint.duplicateProperties": "warning",
+  "scss.lint.zeroUnits": "warning",
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnType": true,
+    "editor.formatOnSave": true
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnType": true,
+    "editor.formatOnSave": true
+  },
+  // Language: JAVASCRIPT ================================================
+  "javascript.referencesCodeLens.enabled": false,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "javascript.format.enable": true,
+  "javascript.format.insertSpaceAfterConstructor": false,
+  "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+  "javascript.preferences.quoteStyle": "single",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnType": true,
+    "editor.formatOnSave": true,
+    // prettier config for javascript used by above formatter. These can be ovverriden later
+    "prettier.trailingComma": "es5",
+    "prettier.tabWidth": 2,
+    "prettier.semi": true,
+    // "prettier.singleQuote": true
+  },
+"[typescript]": {  // same as above
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnType": true,
+    "editor.formatOnSave": true,
+    // prettier config for javascript used by above formatter. These can be ovverriden later
+    "prettier.trailingComma": "es5",
+    "prettier.tabWidth": 2,
+    "prettier.semi": true,
+    // "prettier.singleQuote": true
+  },
+
+  // Javascript Library: React ================================================
+  "javascript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+
+  // .jsx and .tsx file
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.fixAll":"always",
+      "source.organizeImports":"always"
+    },
+    "editor.formatOnSave": true
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.fixAll":"always",
+      "source.organizeImports":"always"
+    },
+    "editor.formatOnSave": true
+  },
+  // Eslint for correctness of js/ts files
+  "eslint.enable": true,
+  "eslint.lintTask.enable": true,
+  "eslint.run": "onType",
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescriptreact"
+  ],
+  // Autocomplete html tags using built in emmet
+  "emmet.showSuggestionsAsSnippets": true,
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact", // maps .js to .jsx
+    "typescript": "typescriptreact" // maps .ts to .tsx
+  },
+  // File Format: Json
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  // Language: Python ================================================
+  "python.analysis.typeCheckingMode": "standard",
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.tabSize": 2,
+    "editor.formatOnSave": true,
+    "editor.insertSpaces": true,
+  },
+
+  // Language: GOLANG ================================================
+  "go.toolsManagement.autoUpdate": true,
+  "go.lintTool": "golint",
+  "go.alternateTools": {
+    "go-langserver": "gopls"
+  },
+  "go.useLanguageServer": true,
+  "[go]": {
+    "editor.defaultFormatter": "golang.go"
+  },
+  "[go.mod]": {
+    "editor.formatOnSave": false
+  },
+  // Java
+  // "java.format.settings.url": "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml",
+  // "java.format.settings.profile": "GoogleStyle",
+  "java.compile.nullAnalysis.mode": "automatic",
+    // Collapse imports into wildcard after N classes from same package
+  "java.sources.organizeImports.starThreshold": 5,
+  "java.sources.organizeImports.staticStarThreshold": 5,
+  "java.autobuild.enabled": true,
+  "java.gradle.buildServer.enabled": "on",
+  "java.format.enabled": true,
+
+  "[java]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "always"
+    },
+    "editor.wordWrap": "wordWrapColumn",
+    "editor.wordWrapColumn": 120,
+    "editor.defaultFormatter": "redhat.java",
+    "editor.tabSize": 2,
+    "editor.formatOnSave": true,
+    "editor.insertSpaces": true,
+    "editor.autoIndent": "full",
+    "editor.formatOnType": true,
+    "editor.formatOnPaste": true
+  },
+  "[xml]": {
+    "editor.formatOnSave": true
+  },
+  // SQL
+  "[sql]": {
+    "editor.wordWrap": "off"
+  },
+  // Primsa
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
+  },
+  // enviornment file
+  "[env]": {
+    "editor.defaultFormatter": "IronGeek.vscode-env"
+  },
+  // Markdown linting and formatting
+  "[markdown]": {
+    "editor.defaultFormatter": "DavidAnson.vscode-markdownlint",
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true
+  },
+  "markdownlint.config": {
+    "default": true,
+    "MD012": false
+  },
+  "markdownlint.run": "onSave", // Lint only on save, not on type
+  // Language: C/C++
+  "[c]": {
+    "editor.defaultFormatter": "xaver.clang-format",
+    // "editor.autoClosingBrackets": "never"
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true
+  },
+  "clang-format.style": "{ BasedOnStyle: Google, ColumnLimit: 150, AlignAfterOpenBracket: DontAlign }",
+  "[cpp]": {
+    "editor.defaultFormatter": "xaver.clang-format",
+    // "editor.autoClosingBrackets": "never",
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true
+  },
+  // File format: yaml with redhat extension
+  "yaml.format.singleQuote": true,
+  "[yaml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml",
+    "editor.formatOnSave": true
+  },
+  "[yml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml",
+    "editor.formatOnSave": true
+  },
+  // Following for C/C++ extension of vs code from microsoft. Not needed anymore since clangd is configured
+  "C_Cpp.intelliSenseEngine": "disabled",
+  "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 2, ColumnLimit: 0, AlignAfterOpenBracket: DontAlign}",
+  // Code runner
+  "code-runner.clearPreviousOutput": true,
+  "code-runner.saveFileBeforeRun": true,
+  "code-runner.executorMap": {
+    "javascript": "node",
+    "typescript": "npx ts-node",
+    "python": "/home/math2do/Projects/python/practice/.venv/bin/python",
+    "go": "go run",
+    "c": "gcc $fileName -o sol && ./sol < in",
+    "cpp": "g++ $fileName -std=c++20 -O2 -o sol -Wall -Wextra -DLOCAL",
+    "cpp2": "g++ $fileName -Wall -Wextra -pedantic -std=c++20 -O2 -o sol -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTIFY_SOURCE=2 -fsanitize=address -fsanitize=undefined -fno-sanitize-recover -fstack-protector -DLOCAL",
+    "java": "javac -d bin src/*.java && java -cp bin Main"
+  },
+  // OTHERS
+"makefile.configureOnOpen": true,
+  "remote.SSH.remotePlatform": {
+    "10.80.189.28": "linux",
+    "172.16.5.254": "linux",
+    "172.16.4.25": "linux"
+  },
+  "redhat.telemetry.enabled": true,
+  "docker.extension.enableComposeLanguageServer": false,
+  // for vim config
+  "vim.useSystemClipboard": true,
+  "vim.insertModeKeyBindings": [
+    {
+      "before": [
+        "j",
+        "j"
+      ],
+      "after": [
+        "<Esc>"
+      ]
+    }
+  ],
+  "notebook.editorOptionsCustomizations": {
+    "editor.tabSize": 2,
+    "editor.indentSize": 2,
+    "editor.insertSpaces": false
+  },
+  "cSpell.userWords": [
+    "fenwick",
+    "zipcodes"
+  ],
+  "workbench.colorTheme": "Github Light Theme",
+  "settingsSync.ignoredExtensions": [
+    "ms-vscode-remote.remote-containers"
+  ],
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "gitlens.ai.model": "vscode",
+  "gitlens.ai.vscode.model": "copilot:gpt-4.1",
+  "vs-kubernetes": {
+    "vs-kubernetes.minikube-show-information-expiration": "2025-12-15T19:35:14.104Z"
+  },
+  "sonarlint.connectedMode.connections.sonarqube": [
+    {
+      "serverUrl": "http://localhost:9000",
+      "connectionId": "http-localhost-9000-"
+    }
+  ],
+  "remote.autoForwardPortsSource": "hybrid",
+  "claudeCode.preferredLocation": "panel",
+  "chat.viewSessions.orientation": "stacked",
+}
