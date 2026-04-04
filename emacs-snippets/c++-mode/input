@@ -1,0 +1,30 @@
+# -*- mode: snippet -*- 
+# name: input 
+# key: input	
+# --
+
+from sys import stdin, stdout
+import sys
+sys.stdout = open("sol.out", "w") # for redirecting output to a file
+
+n = stdin.readline() 
+# array input similar method 
+arr = [int(x) for x in stdin.readline().split()] 
+
+#single n input followed by newline
+val = int(input())
+print(val)
+
+#split expects newline, else error will come unlike cin in c++
+a, b = [int(x) for x in input().split()]
+print(a * b)
+
+a, b = map(int, input().split())
+print(a * b)
+
+#using stdin and stdout
+a, b = [int(x) for x in stdin.readline().rstrip().split()]
+stdout.write(str(a * b) + "\n")
+
+arr = [2, 3, 4, 5]
+[print(i) for i in arr] temp

@@ -1,0 +1,53 @@
+# -*- mode: snippet -*- 
+# name: cum 
+# key: cum	
+# --
+
+template <typename T, typename U>
+class cum {
+ public:
+  int n, m;
+  vector <vector <T> > mat;
+  cum(vector <vector <U> > &_mat) {
+    n = _mat.size();
+    m = _mat[0].size();
+    mat = vector <vector <T> >(n + 1, vector <T>(m + 1, 0));
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < m; j++) {
+        mat[i + 1][j + 1] = _mat[i][j];
+      } 
+    } 
+    for (int i = 1; i < n + 1; i++) {
+      for (int j = 1; j < m + 1; j++) {
+        mat[i][j] += mat[i - 1][j] + mat[i][j - 1] - mat[i - 1][j - 1];
+      } 
+    }
+  }
+  T get(int x, int y) {
+    return get(0, 0, x, y);
+  } 
+  T get(int p, int q, int r, int s) {
+    p += 1, q += 1, r += 1, s += 1;
+    return mat[r][s] - mat[r][q - 1] - mat[p - 1][s] + mat[p - 1][q - 1];
+  } 
+};
+
+template <typename T, typename U>
+class cum {
+ public:
+  int n;
+  vector <T> arr;
+  cum(vector <U> &_arr) {
+    n = _arr.size();
+    arr = vector <int>(n);
+    arr[0] = _arr[0];
+    for (int i = 1; i < n; i++) {
+      arr[i] = arr[i - 1] + _arr[i]; 
+    } 
+  }
+  T get(int x, int y) {
+    T H = arr[y];
+    T L = x - 1 >= 0 ? arr[x - 1] : 0;
+    return H - L;
+  } 
+};

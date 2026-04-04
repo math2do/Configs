@@ -1,0 +1,22 @@
+# -*- mode: snippet -*- 
+# name: lps 
+# key: lps	
+# --
+
+vector <int> calc_lps(const string &pat) {
+  int n = pat.length();
+  vector <int> lps(n, 0);
+  int len = 0;
+  lps[0] = len;
+  for (int i = 1; i < n; i++) {
+    while (len > 0 && pat[len] != pat[i]) {
+      len = lps[len - 1];
+    }
+    if (pat[len] == pat[i]) {
+      len++;
+    }
+    lps[i] = len;
+  }
+  return lps;
+  //..lps[i] = the longest proper prefix of pat[0..i] which is also a suffix of pat[0..i].
+}

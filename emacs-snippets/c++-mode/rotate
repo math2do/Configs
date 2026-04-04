@@ -1,0 +1,29 @@
+# -*- mode: snippet -*- 
+# name: rotate 
+# key: rotate	
+# --
+
+/*
+inline void rotate(int& x, int& y, int n) {
+  x = n - 1 - y;
+  y = x;
+}
+*/
+//rotate string s by amt to L or R
+auto rotateL = [&](string &s, int k) {
+  int len = s.length();
+  k = k % len;
+  string t(len, '0');
+  int idx = k;
+  for (int i = 0; i < len; i++) {
+    t[i] = s[idx];
+    idx = idx + 1;
+    if (idx == len) idx = 0;
+  } 
+  s = t;
+};
+auto rotateR = [&](string &s, int k) {
+  int len = s.length();
+  k = k % len;
+  rotateL(s, len - k);
+};

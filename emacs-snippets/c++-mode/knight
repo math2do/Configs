@@ -1,0 +1,7 @@
+# -*- mode: snippet -*- 
+# name: knight 
+# key: knight	
+# --
+
+vector <int> dx = {-2, -2, -1, 1, 2, 2, 1, -1};
+vector <int> dy = {-1, 1, 2, 2, 1, -1, -2, -2};

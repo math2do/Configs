@@ -1,0 +1,7 @@
+# -*- mode: snippet -*- 
+# name: 4d 
+# key: 4d	
+# --
+
+vector <int> dx = {-1, 0, 1, 0};
+vector <int> dy = {0, 1, 0, -1};

@@ -1,0 +1,65 @@
+# -*- mode: snippet -*- 
+# name: bridge 
+# key: bridge	
+# --
+
+// import dfs_undigraph first
+
+template <typename T>
+vector<bool> find_bridges(dfs_undigraph<T> &g) {
+  g.dfs_all();
+  vector<bool> bridge(g.edges.size(), false);
+  for (int i = 0; i < g.n; i++) {
+    if (g.pv[i] != -1 && g.min_depth[i] == g.depth[i]) {
+      bridge[g.pe[i]] = true;
+    }
+  }
+  return bridge;
+}
+
+// delete above when this is tested
+template <typename T>
+vector<bool> find_bridges(dfs_undigraph<T> &g) {
+  g.dfs_all();
+  vector<bool> bridge(g.edges.size(), false);
+  for (int v = 0; v < g.n; v++) {
+    int u = g.pv[v];
+    if (u == -1) continue;
+    
+    if (g.min_depth[v] > g.depth[u]) {
+      bridge[g.pe[v]] = true;
+    }
+  }
+  return bridge;
+}
+
+
+template <typename T>
+vector <int> bridge(const undigraph <T> &g) {
+  vector <bool> seen(g.n, false);
+  vector <int> low(g.n, 0);
+  vector <int> dis(g.n, 0);
+  vector <int> pv(g.n, -1);
+  int timer = 0;
+  vector <int> ans;
+  function <void(int)> dfs = [&](int u) {
+    seen[u] = true;
+    dis[u] = low[u] = ++timer;
+    for (int id : g.g[u]) {
+      int v = g.edges[id].from ^ g.edges[id].to ^ u;
+      if (!seen[v]) {
+        pv[v] = u;
+        dfs(v);
+        low[u] = min(low[u], low[v]);
+        if (low[v] > dis[u]) {
+          ans.push_back(id);
+        }
+      } else if (v != pv[u]) {
+        low[u] = min(low[u], dis[v]);
+      }
+    }
+  };
+  dfs(0);
+  return ans;
+  // return edge id's of bridges
+} 

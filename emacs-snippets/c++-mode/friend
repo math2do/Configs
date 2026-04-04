@@ -1,0 +1,20 @@
+# -*- mode: snippet -*- 
+# name: friend 
+# key: friend	
+# --
+
+class Complex {
+  int r;
+  int i;
+  Complex(int ir, int ii) : r(ir), i(ii) {}
+  friend istream& operator >> (istream &in,  Complex &c);
+  friend ostream& operator << (istream &out,  Complex &c);
+};
+
+istream& operator >> (istream &in,  Circle &c) {
+  //TODO
+}
+
+ostream& operator << (ostream &out,  Circle &c) {
+  //TODO
+} 

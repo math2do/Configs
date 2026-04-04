@@ -1,0 +1,10 @@
+# -*- mode: snippet -*- 
+# name: rand 
+# key: rand	
+# --
+
+mt19937 rng((unsigned int) chrono::system_clock::now().time_since_epoch().count());
+template <typename T>
+T rand(T L, T H) {
+  return uniform_int_distribution<T> (L, H)(rng);
+}

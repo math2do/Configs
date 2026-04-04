@@ -1,0 +1,74 @@
+# -*- mode: snippet -*- 
+# name: z 
+# key: z	
+# --
+
+template <typename T>
+vector<int> z_function(int n, const T &s) {
+  vector<int> z(n, n);
+  int l = 0, r = 0;
+  for (int i = 1; i < n; i++) {
+    z[i] = (i > r ? 0 : min(r - i + 1, z[i - l]));
+    while (i + z[i] < n && s[z[i]] == s[i + z[i]]) {
+      z[i]++;
+    }
+    if (i + z[i] - 1 > r) {
+      l = i;
+      r = i + z[i] - 1;
+    }
+  }
+  return z;
+  //..z[i] = longest suffix starting at i that is also a prefix starting at 0
+}
+
+template <typename T>
+vector<int> z_function(const T &s) {
+  return z_function((int) s.size(), s);
+}
+
+//Mine
+//..kshf.....l....i........h
+vector <int> buildZ_array(const string& pat, const string &txt) {
+  string str = pat + "$" + txt;
+  int len = str.length();
+  vector <int> z(len, 0);
+  int l = 0, h = 0;
+  for (int i = 1; i < len; i++) {
+    if (i > h) {
+      l = h = i;
+      while (h < len && str[h] == str[h - l]) {
+        h++;
+      }
+      h--; 
+      z[i] = h - l + 1;
+    } else {
+      int look = i - l;
+      if (z[look] < h - i + 1) {
+        z[i] = z[look];
+      } else {
+        l = i;
+        while (h < len && str[h] == str[h - l]) {
+          h++;
+        }
+        h--; 
+        z[i] = h - l + 1;
+      } 
+    } 
+  } 
+  return z;
+  //..z[i] = longest suffix starting at i that is also a prefix
+} 
+
+vector <int> Z_Algorithm(const string& pat, const string& txt) {
+  vector <int> z = buildZ_array(pat, txt);
+  vector <int> pos;
+  for (int i = 0; i < (int) z.size(); i++) {
+    if (z[i] == (int) pat.length()) {
+      int idx = i - pat.length() - 1;
+      pos.emplace_back(idx);
+    } 
+  }
+ 
+  return pos;
+  //..starting indices of txt where matching starts
+} 

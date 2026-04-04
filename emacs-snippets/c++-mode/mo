@@ -1,0 +1,70 @@
+# -*- mode: snippet -*- 
+# name: mo 
+# key: mo	
+# --
+
+struct query {
+  int when;
+  int L;
+  int H;
+};
+
+template <typename T>
+class mo {
+ public:
+  map <int, int> mp...
+  set <int> st...
+  vector <int> fre...
+  int ans = ...
+  inline void _init() {
+    ..init above variables
+  }  
+  inline void add(int i) {
+    ...add arr[i]
+  }
+
+  inline void rem(int i) {
+    ...remove arr[i]
+  }
+  inline ... get() {
+    ... get answer
+  } 
+
+  vector <T> arr;
+  int size;
+
+  mo(vector <T> &_arr) {
+    arr = _arr;
+    int n = _arr.size();
+    size = (int) sqrt(n + 0.1) + 1;
+  } 
+  
+  vector <...> get(vector <query>& queries) {  
+    int qq = queries.size();
+    int n = arr.size();
+    auto comp = [&](auto &a, auto &b) ->bool {
+      int ax = a.L / size;
+      int bx = b.L / size;
+      if (ax == bx) {
+        return a.H < b.H;
+      }  
+      return ax < bx;
+    };
+    sort(queries.begin(), queries.end(), comp);
+    int L = 0, H = -1;
+    vector <...> ret(qq);
+    _init();
+    for (query &q : queries) {
+      assert(0 <= q.L && q.L < n && 0 <= q.H && q.H < n);
+      while (L > q.L) { L--; add(L); }
+      while (H < q.H) { H++; add(H); }
+      while (L < q.L) { rem(L); L++; }
+      while (H > q.H) { rem(H); H--; }
+      ret[q.when] = get();
+    }
+    return ret;
+  } 
+};
+
+...mo<int> m(arr)
+...vector <...> ans = m.get(queries);

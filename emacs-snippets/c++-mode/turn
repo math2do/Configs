@@ -1,0 +1,13 @@
+# -*- mode: snippet -*- 
+# name: turn 
+# key: turn	
+# --
+
+const int L = -1;
+const int S = 0;
+const int R = 1; 
+int turn(const point &p, const point &q, const point &r) { 
+  int val = (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y); 
+  if (val == 0) return S;
+  return (val > 0) ? R : L;
+}

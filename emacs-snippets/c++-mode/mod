@@ -1,0 +1,6 @@
+# -*- mode: snippet -*- 
+# name: mod 
+# key: mod	
+# --
+
+const int mod = (int) (1e9 + 7);

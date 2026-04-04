@@ -1,0 +1,166 @@
+# -*- mode: snippet -*- 
+# name: trie 
+# key: trie	
+# --
+
+template <bool child_cnt_matter>
+class trie {
+ public:
+  using pbb = pair <bool, bool>;
+  static constexpr int size = ...
+  inline int hash(char ch) { 
+    return ch - ...; 
+  }
+  struct Node {
+    bool end;
+    int all;
+    int end_cnt;
+    vector <Node*> c;
+    vector <int> cnt;
+    Node() : end(false), all(0), end_cnt(0) {
+      c.resize(size);
+      cnt.resize(size);
+      for (int i = 0; i < size; i++) {
+        c[i] = NULL;
+        cnt[i] = 0;
+      } 
+    } 
+  };
+
+  string sub;
+  void Dfs(Node* node, int depth) {
+    for (int i = 0; i < size; i++) {
+      if (node->c[i] != NULL) {
+        sub.push_back((char) (i + '...'));
+        cerr << sub << endl;
+        Dfs(node->c[i], depth + 1);
+        sub.pop_back();
+      } 
+    }
+    ...int from = node->end_cnt + (node->all - used);
+    ...int many = from / k;
+    ...int rem = from % k;
+    ...ans += depth * many;
+    cerr << "node : " << sub << endl;
+    cerr << "depth : " << depth << endl;
+    cerr << "ends here : " << node->end_cnt << endl;
+    cerr << "passes through : " << node->all << endl;
+  } 
+
+  void solve() {
+    for (int i = 0; i < size; i++) {
+      if (root->c[i] != NULL) {
+        sub.push_back((char) (i + '...'));
+        cerr << sub << endl;
+        Dfs(root->c[i], 1);
+        sub.pop_back();
+      }
+    }
+  }
+  
+  bool insert(Node* node, const string &str, int idx) {
+    int len = str.length();
+    if (idx == len) {
+      if (node->end) {
+        //..handle no duplicates by returning false
+        ...
+      }
+      node->end_cnt++;
+      node->end = true;
+      return true;
+    }
+    int pos = hash(str[idx]);
+    Node *temp = node->c[pos];
+    if (temp == NULL) {
+      temp = new Node();
+      node->c[pos] = temp;
+    }
+    bool res = insert(temp, str, idx + 1);
+    if (res == true) {
+      node->cnt[pos]++;
+      node->all++;
+    }
+    return res;
+  } 
+
+  bool insert(const string &str) {
+    if (child_cnt_matter) { 
+      bool res = insert(root, str, 0);
+      return res;
+    }
+
+    //..insertion with duplicates
+    Node* crawl = root;
+    int len = str.length();
+    for (int idx = 0; idx < len; idx++) {
+      int pos = hash(str[idx]);
+      if (!crawl->c[pos]) {
+        crawl->c[pos] = new Node();
+      }
+      crawl->cnt[pos]++;
+      crawl->all++;
+      crawl = crawl->c[pos];
+    }
+    crawl->end_cnt++;
+    crawl->end = true;
+    return true;
+  }
+  bool search(const string &str) {
+    Node* crawl = root;
+    int len = str.length();
+    for (int idx = 0; idx < len; idx++) {
+      int pos = hash(str[idx]);
+      if (!crawl->c[pos]) {
+        return false;
+      }
+      crawl = crawl->c[pos];
+    }
+    if (crawl->end) return true;
+    return false;
+  }
+
+  //..first = was present, second = is child subtree completely removed
+  pbb remove(Node* node, const string &str, int idx) {
+    int len = str.length();
+    if (node == NULL) return {false, false};
+    if (idx == len) {
+      if (!node->end) return {false, false};
+      if (node->all == 0) {
+        delete node;
+        return {true, true};
+      }
+      node->end_cnt--;     // deleting only one of same words
+      node->end_cnt = 0 .. // deleting all same words
+      if (node->end_cnt == 0) {
+        node->end = false;
+      }
+      return {true, false};
+    }
+
+    int pos = hash(str[idx]);
+    Node* temp = node->c[pos];
+    if (temp == NULL) return {false, false};
+    pbb res = remove(temp, str, idx + 1);
+    if (res.first) {
+      if (res.second) {
+        node->c[pos] = NULL;
+      }
+      node->cnt[pos]--;
+      node->all--;
+      if (node->all == 0) {
+        delete node;
+        return {true, true};
+      }
+      return {true, false};
+    }
+    return res;
+  }
+
+  bool remove(const string& str) {
+    pbb res = remove(root, str, 0);
+    return res.first;
+  } 
+ 
+  Node* root;
+  trie() {  this->root = new Node(); }
+};

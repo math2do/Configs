@@ -1,0 +1,25 @@
+# -*- mode: snippet -*- 
+# name: heap 
+# key: heap	
+# --
+
+template <typename T>
+struct heap {
+  priority_queue<T> foo, bar;
+ 
+  void push(T x) {
+    foo.push(x);
+  }
+ 
+  void pop(T x) {
+    bar.push(x);
+  }
+ 
+  T top() {
+    while (!bar.empty() && foo.top() == bar.top()) {
+      foo.pop();
+      bar.pop();
+    }
+    return foo.top();
+  }
+};

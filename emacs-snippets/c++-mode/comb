@@ -1,0 +1,36 @@
+# -*- mode: snippet -*- 
+# name: comb 
+# key: comb	
+# --
+
+template <typename T>
+class combination {
+ public:
+  vector <T> fact;
+  vector <T> inv_fact;
+  combination(int N) : fact(N + 1), inv_fact(N + 1) {
+    assert(N < mod);
+    fact[0] = 1;
+    for (int i = 1; i <= N; i++) {
+      fact[i] = fact[i - 1] * i;
+    }
+    inv_fact[N] = T(1) / fact[N];
+    for (int i = N - 1; i >= 0; i--) {
+      inv_fact[i] = inv_fact[i + 1] * (i + 1);
+    }
+  } 
+  T P(int n, int r) const {
+    if (r < 0 || n < r) return 0;
+    return fact[n] * inv_fact[n - r];
+  }
+ 
+  T C(int n, int r) const {
+    if (r < 0 || n < r) return 0;
+    return fact[n] * inv_fact[r] * inv_fact[n - r];
+  }
+};
+
+const int N = (int) (1e6 + 1);
+combination <mint> co(N);
+inline mint C(int n, int r) { return co.C(n, r); }
+inline mint P(int n, int r) { return co.P(n, r); }

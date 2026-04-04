@@ -1,0 +1,60 @@
+# -*- mode: snippet -*- 
+# name: sieve 
+# key: sieve	
+# --
+
+//calc upto SQRT(n) = m primes using simple_sieve then calc remaining primes using segmented_sieve
+const int N = (int) 1e8;
+const int M = (int) 1e4;
+vector <int> primes;
+vector <bool> isprime(M + 1);
+
+void simple_sieve() {
+  fill(isprime.begin(), isprime.end(), true);
+
+  for (int i = 2; i * i <= M; i++) {
+    if (isprime[i]) {
+      for (int j = i * i; j <= M; j += i) {
+        isprime[j] = false;
+      }
+    }
+  }
+
+  primes.push_back(2);
+  for (int i = 3; i <= M; i += 2) {
+    if (isprime[i]) {
+      primes.push_back(i);
+    }
+  }
+}
+
+void segmented_sieve() {  
+  int limit = M + 1;
+  int low = limit;
+  int high = 2 * limit;
+
+  while (low < N) {
+    if (high >= N) high = N;
+    bool mark[limit + 1];
+    fill(mark, mark + limit + 1, true);
+
+    for (int i = 0; i < (int) primes.size(); i++) {
+      int lolimit = (low / primes[i]) * primes[i];
+      if (lolimit < low) {
+        lolimit += primes[i];
+      }
+      for (int j = lolimit; j < high; j += primes[i]) {
+        mark[j - low] = false;
+      }
+    }
+
+    for (int i = low; i < high; i++) {
+      if (mark[i - low]) {
+        primes.push_back(i);
+      } 
+    }
+
+    low = high;
+    high += limit;
+  }  
+}

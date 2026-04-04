@@ -1,0 +1,47 @@
+# -*- mode: snippet -*- 
+# name: diameter 
+# key: diameter	
+# --
+
+template <typename T>
+T diameter(const forest <T> &g) {
+  vector <bool> seen(g.n, false);
+  vector <T> depth(g.n, -1);
+
+  function <void(int)> dfs = [&](int u) {
+    seen[u] = true;
+    for (int id : g.g[u]) {
+      auto &e = g.edges[id];
+      int v = e.from ^ e.to ^ u;
+      if (!seen[v]) {
+        depth[v] = depth[u] + e.cost;
+        dfs(v);
+      }
+    }
+  };
+
+  depth[0] = 0;
+  dfs(0);
+
+  T max_depth = numeric_limits<T>::min();
+  int from = 0;
+  for (int u = 0; u < g.n; u++) {
+    if (depth[u] > max_depth) {
+      max_depth = depth[u];
+      from = u;
+    }
+  }
+  
+  //reset
+  seen = vector <bool> (g.n, false);
+  depth = vector <int> (g.n, -1);
+  depth[from] = 0;
+  dfs(from);
+
+  T ans = numeric_limits<T>::min();
+  for (int u = 0; u < g.n; u++) {
+    ans = max(ans, depth[u]);
+  }
+  return ans;
+  // returns length of diameter
+} 

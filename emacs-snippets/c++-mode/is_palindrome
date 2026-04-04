@@ -1,0 +1,14 @@
+# -*- mode: snippet -*- 
+# name: is_palindrome 
+# key: is_palindrome	
+# --
+
+template <typename T>
+bool is_palindrome(const T &s) {
+  int n = s.size();
+  for (int i = 0; i < n / 2; i++) {
+    int j = n - i - 1;
+    if (s[i] != s[j]) return false;
+  } 
+  return true;
+}

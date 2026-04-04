@@ -1,0 +1,129 @@
+# -*- mode: snippet -*- 
+# name: segtree 
+# key: segtree	
+# --
+
+class segtree {
+ public:
+  struct node {
+    // don't forget to set default value (used for leaves)
+    // not necessarily neutral element!
+    ...
+    // variable holding the temporarily cumulative range updates
+    T add = 0; 
+    bool mark = false;
+    // the query result = node property, leaf property
+    T sum = 0;     
+    ...
+
+    void apply(int l, int h, ... v) {
+      assert(l <= h); // l == h for point update
+      ...
+      add += v;
+      sum += (h - l + 1) * v; // set query variable = query[l - h], Also for point-update one variable is required
+      mark = true;
+      ...
+    }
+  };
+ 
+  node unite(const node &a, const node &b) const {
+    node res;
+    res.sum = a.sum + b.sum; // do nothing for point query, simlply return res
+    // don't merge the temporary holdings of child since they're responsible in different range
+    return res;
+    ...
+  }
+ 
+  inline void push(int i, int l, int h) {
+    int m = (l + h) >> 1;
+    // push from i into left child and right child, Also no push in point-update
+    // only bother about pushing and not about pulling (uniting)
+   /*
+    if (tree[i].mark) {
+      tree[i << 1].apply(l, m, tree[i].add);
+      tree[(i << 1) + 1].apply(m + 1, h, tree[i].add);
+      tree[i].add = 0;
+      tree[i].mark = false;
+    }
+    */
+  }
+ 
+  inline void pull(int i) {
+    tree[i] = unite(tree[i << 1], tree[(i << 1) + 1]);
+  }
+ 
+  int n;
+  vector<node> tree;
+  
+  template <typename M>
+  void build(int i, int l, int h, const vector<M> &v) {
+    if (l == h) {
+      tree[i].apply(l, h, v[l]);
+      return;
+    }
+    int m = (l + h) >> 1;
+    build(i << 1, l, m, v);
+    build((i << 1) + 1, m + 1, h, v);
+    pull(i);
+  }
+ 
+  node get(int i, int l, int h, int ql, int qh) {
+    if (ql <= l && h <= qh) {
+      return tree[i];
+    }
+    int m = (l + h) >> 1;
+    push(i, l, h);
+    node res{};
+    if (qh <= m) {
+      res = get(i << 1, l, m, ql, qh);
+    } else {
+      if (ql > m) {
+        res = get((i << 1) + 1, m + 1, h, ql, qh);
+      } else {
+        res = unite(get(i << 1, l, m, ql, qh), get((i << 1) + 1, m + 1, h, ql, qh));
+      }
+    }
+    pull(i);
+    return res;
+  }
+ 
+  template <typename... M>
+  void modify(int i, int l, int h, int ql, int qh, const M&... v) {
+    if (ql <= l && h <= qh) {
+      tree[i].apply(l, h, v...);
+      return;
+    }
+    push(i, l, h);
+    int m = (l + h) >> 1;
+    if (qh <= m) {
+      modify(i << 1, l, m, ql, qh, v...);
+    } else {
+      if (ql > m) {
+        modify((i << 1) + 1, m + 1, h, ql, qh, v...);
+      } else {
+        modify(i << 1, l, m, ql, qh, v...);
+        modify((i << 1) + 1, m + 1, h, ql, qh, v...);
+      }
+    }
+    pull(i);
+  }
+ 
+  template <typename M>
+  segtree(const vector<M> &v) {
+    n = (int) v.size();
+    assert(n > 0);
+    tree.resize(4 * n);
+    build(1, 0, n - 1, v);
+  }
+ 
+  node get(int ql, int qh) {
+    assert(0 <= ql && ql <= qh && qh <= n - 1);
+    return get(1, 0, n - 1, ql, qh);
+  }
+ 
+  template <typename... M>
+  void modify(int ql, int qh, const M&... v) {
+    assert(0 <= ql && ql <= qh && qh <= n - 1);
+    modify(1, 0, n - 1, ql, qh, v...);
+  }
+};

@@ -1,0 +1,21 @@
+# -*- mode: snippet -*- 
+# name: u128 
+# key: u128	
+# --
+
+long long M = 1LL << 50; 
+struct u128 {
+  long long lo, hi;
+  long double val() {
+    return (long double) M * hi + lo;
+  }
+};
+
+u128 operator + (const u128 &a, const u128 &b) {
+  return u128{(a.lo + b.lo) & (M - 1), a.hi + b.hi + ((a.lo + b.lo) >> 50)};
+}
+
+u128 operator - (const u128 &a, const u128 &b) {
+  if (a.lo >= b.lo) return u128{a.lo - b.lo, a.hi - b.hi};
+  else return u128{a.lo - b.lo + M, a.hi - b.hi - 1};
+}

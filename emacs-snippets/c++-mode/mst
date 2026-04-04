@@ -1,0 +1,63 @@
+# -*- mode: snippet -*- 
+# name: mst 
+# key: mst	
+# --
+
+//prims spanning tree. very much similar to dijkstra
+template <typename T>
+vector <int> mst(const undigraph<T> &g, T &ans) {
+  priority_queue<pair<T, int>, vector<pair<T, int> >, greater<pair<T, int> > > s;
+  vector<T> dist(g.n, numeric_limits<T>::max());
+  vector <bool> seen(g.n, false);
+  vector <int> ans_list(g.n - 1);
+  
+  int start = 0;
+  dist[start] = 0;
+  s.emplace(dist[start], start);
+  while (!s.empty()) {
+    pair <T, int> pr = s.top(); 
+    s.pop();
+    int u = pr.second;
+    seen[u] = true;
+    for (int id : g.g[u]) {
+      auto &e = g.edges[id];
+      int v = e.from ^ e.to ^ u;
+      if (!seen[v] && e.cost < dist[v]) {
+        dist[v] = e.cost;
+        ans_list[v - 1] = id;
+        s.emplace(dist[v], v);
+      } 
+    }
+  }
+
+  ans = 0;
+  for (int i = 0; i < g.n; i++) {
+    ans += dist[i];
+  } 
+  return ans_list;
+  //returns edge ids of minimum "spanning" forest
+}
+
+//kruskal's mst using disjoint set union
+template <typename T>
+vector<int> mst(const undigraph<T> &g, T &ans) {
+  vector<int> order(g.edges.size());
+  iota(order.begin(), order.end(), 0);
+  sort(order.begin(), order.end(), [&g](int a, int b) {
+    return g.edges[a].cost < g.edges[b].cost;
+  });
+  dsu d(g.n);
+  vector<int> ans_list;
+  ans = 0;
+  for (int id : order) {
+    auto &e = g.edges[id];
+    if (d.get(e.from) != d.get(e.to)) {
+      d.unite(e.from, e.to);
+      ans_list.push_back(id);
+      ans += e.cost;
+    }
+  }
+  return ans_list;
+  //returns edge ids of minimum "spanning" forest
+}
+ 

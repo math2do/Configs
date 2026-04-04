@@ -1,0 +1,40 @@
+# -*- mode: snippet -*- 
+# name: permute 
+# key: permute	
+# --
+
+//..when repeated characters exist
+bool swap_allow(string &str, int idx, int i) {
+  for (int j = idx; j < i; j++) {
+    if (str[j] == str[i]) return false;
+  }
+  return true;
+}
+
+void permute(string &str, int idx, int len) {
+  if (idx == len) {
+    cout << str << endl;
+    return;    
+  }
+  for (int i = idx; i < len; i++) {
+    if (swap_allow(str, idx, i)) {
+      swap(str[idx], str[i]);
+      permute(str, idx + 1, len);
+      swap(str[idx], str[i]);
+    }
+  }  
+} 
+
+//..when all characters are distinct
+void permute(string &str, int idx, int len) {
+  if (idx == len) {
+    cout << str << endl;
+    return;
+  } 
+  for (int i = idx; i < len; i++) {
+    swap(str[idx], str[i]);
+    permute(str, idx + 1, len);
+    swap(str[idx], str[i]);
+  } 
+} 
+

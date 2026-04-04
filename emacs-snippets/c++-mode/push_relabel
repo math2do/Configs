@@ -1,0 +1,139 @@
+# -*- mode: snippet -*- 
+# name: push_relabel 
+# key: push_relabel	
+# --
+
+//..verfied against AOJ GRL_6_A
+struct Vertex {
+  int height;
+  int excess;
+};
+
+struct Edge {
+  int dst, rev;
+  int cap, flow;
+};
+
+class Graph {
+private:
+  int V;
+  int E;
+  vector <Vertex> ver;
+  vector <vector <Edge>> adj;
+  void preFlow(int s);
+  int overFlow(int s, int t);
+  bool push(int u);
+  void relabel(int u);
+public:
+  Graph(int n, int m);
+  void addEdge(int src, int dst, int cap);
+  int maxFlow(int s, int t);
+};
+
+Graph::Graph(int n, int m) {
+  this->V = n;
+  this->E = m;
+  adj.resize(n);
+  ver.resize(n);
+  for (int i = 0; i < n; i++) {
+    ver[i] = {0, 0};
+  } 
+}
+
+void Graph::addEdge(int src, int dst, int cap) {
+  Edge a = {dst, (int) adj[dst].size(), cap, 0};
+  Edge b = {src, (int) adj[src].size(), 0, 0};
+
+  adj[src].push_back(a);
+  adj[dst].push_back(b);
+} 
+
+void Graph::preFlow(int s) {
+  ver[s].height = V;
+  for (Edge &e : adj[s]) {
+    e.flow += e.cap;                      //..flow the whole capacity
+    ver[e.dst].excess += e.cap;
+
+    adj[e.dst][e.rev].flow -= e.cap;      //..flow in reverse
+  }
+}
+
+//..overflow at vertices other than s and t. They could have been queued as well
+int Graph::overFlow(int s, int t) {
+  for (int i = 0; i < V; i++) {
+    if (i == s || i == t) {
+      continue;
+    }
+    if (ver[i].excess > 0) {
+      return i;
+    }
+  }
+  return -1; 
+}
+
+bool Graph::push(int u) {
+  for (Edge &e : adj[u]) {
+    if (e.flow == e.cap) {
+      continue;
+    } 
+    int v = e.dst;
+    if (ver[v].height < ver[u].height) {
+      int flow = min(ver[u].excess, e.cap - e.flow);
+      ver[u].excess -= flow;
+      ver[v].excess += flow;
+
+      e.flow += flow;
+      adj[v][e.rev].flow -= flow;
+
+      return true;
+    }    
+  }
+  return false;
+}
+
+void Graph::relabel(int u) {
+  int min_h = pinf;
+  for (Edge e : adj[u]) {
+    if (e.flow == e.cap) {
+      continue;
+    }
+    int v = e.dst;
+    min_h = min(min_h, ver[v].height);
+    ver[u].height = min_h + 1;      
+  }
+}
+
+int Graph::maxFlow(int s, int t) {
+  preFlow(s);
+  //..until overflow is not over
+  while (1) {
+    int node = overFlow(s, t);
+    if (node == -1) break;
+
+    if (!push(node)) {
+      relabel(node);
+    }
+  }
+  
+  int total = 0;
+  for (Edge e : adj[s]) {
+    total += e.flow;    
+  }
+  return total;
+} 
+
+int main() {
+  int n, m;
+  cin >> n >> m;
+
+  Graph g(n, m);
+
+  int src, dst, cap;
+  for (int i = 0; i < m; i++) {
+    cin >> src >> dst >> cap;
+    g.addEdge(src, dst, cap);
+  }
+  cout << g.maxFlow(0, n - 1) << '\n';
+
+  return 0;
+} 

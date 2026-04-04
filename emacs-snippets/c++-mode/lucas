@@ -1,0 +1,60 @@
+# -*- mode: snippet -*- 
+# name: lucas 
+# key: lucas	
+# --
+
+/// calculate nCk mod module with n, k is large number ~ 10^18, module is small number ~ 10^6
+struct LucasTheorem {
+  long long mod;
+  vector<long long> fact, inv_fact;
+  const int limits = 4;
+  LucasTheorem(long long _mod) {
+    mod = _mod;
+    fact.assign(mod + 7, 0);
+    inv_fact.assign(mod + 7, 0);
+    fact[0] = 1;
+    for (int i = 1; i < mod; i++) {
+      fact[i] = fact[i - 1] * i % mod;
+    }
+    inv_fact[mod - 1] = inverse(fact[mod - 1]);
+    for (int i = mod - 2; i >= 0; i--) {
+      inv_fact[i] = inv_fact[i + 1] * (i + 1) % mod;
+    }
+  }
+  long long power(long long b, long long e) {
+    long long res = 1;
+    b %= mod;
+    for (; e; e >>= 1, b = b * b % mod) {
+      if (e & 1) res = res * b % mod;
+    }
+    return res;
+  }
+
+  long long inverse(long long a) {
+    return power(a, mod - 2);
+  }
+  vector<int> modRepresent(long long n) {
+    vector<int> res;
+    while (n) {
+      res.push_back(n % mod);
+      n /= mod;
+    }
+    while (res.size() < limits) res.push_back(0);
+    return res;
+  }
+  long long nCk(long long n, long long k) {
+    if (k > n) return 0;
+    long long res = fact[n] * inv_fact[k] % mod;
+    res = res * inv_fact[n - k] % mod;
+    return res;
+  }
+  long long mod_nCk(long long n, long long k) {
+    vector<int> repN = modRepresent(n);
+    vector<int> repK = modRepresent(k);
+    long long res = 1;
+    for (int i = 0; i < limits; i++) {
+      res = res * nCk(repN[i], repK[i]) % mod;
+    }
+    return res;
+  }
+};

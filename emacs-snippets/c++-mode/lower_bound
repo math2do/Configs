@@ -1,0 +1,21 @@
+# -*- mode: snippet -*- 
+# name: lower_bound 
+# key: lower_bound	
+# --
+
+template <typename T>
+int lower_bound(vector <T> arr, T x) {
+  int n = arr.size();
+  int l = 0;
+  int h = n; // Not n - 1
+  while (l < h) {
+    int mid = (l + h) / 2;
+    if (x <= arr[mid]) {
+      h = mid;
+    } else {
+      l = mid + 1;
+    }
+  }
+  return l;
+  //returns position of lower_bound
+}

@@ -1,0 +1,21 @@
+# -*- mode: snippet -*- 
+# name: gen 
+# key: gen	
+# --
+
+import matplotlib.pyplot as plt
+import networkx as nx
+import sys
+sys.stdin = open("sol.in", "r")
+G = nx.Graph()
+n, m = [int(x) for x in input().split()]
+for i in range(0, m):
+  s, t, w = [int(x) for x in input().split()]
+  G.add_edge(s, t, weight=w)
+
+pos = nx.spring_layout(G)  # compute graph layout
+nx.draw(G, pos, node_size=700)  # draw nodes and edges
+nx.draw_networkx_labels(G, pos)  # draw node labels/names
+labels = nx.get_edge_attributes(G, 'weight')
+nx.draw_networkx_edge_labels(G, pos, edge_labels=labels)
+plt.show()

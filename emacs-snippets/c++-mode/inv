@@ -1,0 +1,37 @@
+# -*- mode: snippet -*- 
+# name: inv 
+# key: inv	
+# --
+
+/*for mod not prime, but a and mod are co-prime
+inline int inv(int a) {
+  a %= mod;
+  if (a < 0) a += mod;
+  int b = mod, u = 0, v = 1;
+  while (a) {
+    int t = b / a;
+    b -= t * a; swap(a, b);
+    u -= t * v; swap(u, v);
+  }
+  assert(b == 1);
+  if (u < 0) u += mod;
+  return u;
+}
+
+//OR
+int inv(int a) {
+  int x, y;
+  int g = extended_gcd(a, mod, x, y);
+  if (g != 1) {
+    cerr << "No inverse exists" << endl;
+    return 0;
+  } else {
+    x = (x % mod + mod) % mod;
+    return x;
+  }  
+} 
+*/
+//when mod is a prime number
+inline int inv(int x) {
+  return power(x, mod - 2);
+}

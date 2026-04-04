@@ -1,0 +1,13 @@
+# -*- mode: snippet -*- 
+# name: mat_sum 
+# key: mat_sum	
+# --
+
+auto get = [&](int x, int y, int xx, int yy) {
+  int h = mat[xx][yy];
+  int l = 0;
+  l += x - 1 >= 0 ? mat[x - 1][yy] : 0;
+  l += y - 1 >= 0 ? mat[xx][y - 1] : 0;
+  l -= (x - 1 >= 0 && y - 1 >= 0) ? mat[x - 1][y - 1] : 0;
+  return h - l; 
+};

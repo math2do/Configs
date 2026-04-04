@@ -1,0 +1,89 @@
+# -*- mode: snippet -*- 
+# name: rabin_karp 
+# key: rabin_karp	
+# --
+
+//verfied against NHAY spoj
+//..both p and mod are primes
+const int p = 31;
+const int mod = (int) (1e9 + 9);
+
+inline long long mul(long long a, long long b) {
+  long long res = a * b;
+  a = res % mod;
+  return a;
+}
+
+inline void add(long long &a, long long b) {
+  a += b;
+  if (a >= mod) {
+    a -= mod;
+  }
+}
+
+inline void sub(long long &a, long long b) {
+  a -= b;
+  if (a < 0) {
+    a += mod;
+  }
+}
+ 
+long long power(long long a, long long b) {
+  long long res = 1;
+  while (b > 0) {
+    if (b & 1) {
+      res = mul(res, a);
+    }
+    b >>= 1;
+    a = mul(a, a);
+  }
+  return res;
+}
+
+inline long long inv(long long x) {
+  return power(x, mod - 2);
+}
+
+//..polynomial rolling hashing of form : str[0] * (p ^ 0) + str[1] * (p ^ 1) + str[2] * (p ^ 2)
+//..complete hash value at end of hash array
+vector <long long> hashing(const string &str) {
+  long long val = 0;
+  long long exp = 1;
+  int len = str.length();
+  vector <long long> hash(len);
+  for (int i = 0; i < len; i++) {   
+    char ch = str[i];
+    int coef = ch - 'a' + 1;
+    add(val, mul(coef, exp));
+    exp = mul(exp, p);
+
+    hash[i] = val;
+  }
+
+  return hash;
+}
+
+//..hash[i..j] = (hash[0...j] - hash[0...i - 1]) / (p ^ i) under mod
+vector <int> rabin_karp(const string& pat, const string &txt) {
+  int n = pat.length();
+  int m = txt.length();
+  vector <int> pos;   
+  vector <long long> a = hashing(pat);
+  vector <long long> b = hashing(txt);
+  
+  //..block hashing in text, windowing...
+  long long match = a[n - 1];
+  for (int i = 0; i <= m - n; i++) { 
+    int j = i + n - 1;
+    long long val = b[j];
+    if (i - 1 >= 0) {
+      sub(val, b[i - 1]);
+      val = mul(val, inv(power(p, i)));
+    }
+    if (val == match) {
+      pos.emplace_back(i);
+    } 
+  }
+  return pos;
+  //..first positions of pattern match
+}

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*- 
+# name: pi 
+# key: pi	
+# --
+
+const double pi = acos(-1.0);

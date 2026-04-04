@@ -1,0 +1,8 @@
+# -*- mode: snippet -*- 
+# name: in 
+# key: in	
+# --
+
+  #ifdef LOCAL
+    freopen("sol.in", "rt", stdin);
+  #endif

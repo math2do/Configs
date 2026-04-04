@@ -1,0 +1,6 @@
+# -*- mode: snippet -*- 
+# name: long 
+# key: long	
+# --
+
+using int64 = long long;

@@ -1,0 +1,100 @@
+# -*- mode: snippet -*- 
+# name: endmond_karp 
+# key: endmond_karp	
+# --
+
+//..uses bfs for augmentation
+//..verified against AOJ GRL_6_A 
+struct Edge {
+  int v, rev;
+  int cap, flow;
+};
+
+class Graph {
+private:
+  int V;
+  int E;
+  vector <vector <Edge>> adj;
+  bool augment(int s, int t, vector <int> &prev);
+public:
+  Graph(int n, int m);
+  void addEdge(int src, int dst, int cap);
+  int maxFlow(int s, int t);
+};
+
+Graph::Graph(int n, int m) {
+  this->V = n;
+  this->E = m;
+  adj.resize(n);
+}
+
+void Graph::addEdge(int src, int dst, int cap) {
+  Edge a = {dst, (int) adj[dst].size(), cap, 0};
+  Edge b = {src, (int) adj[src].size(), 0, 0};
+
+  adj[src].push_back(a);
+  adj[dst].push_back(b);
+}
+
+bool Graph::augment(int s, int t, vector <int> &prev) {
+  queue <int> q;
+  fill(prev.begin(), prev.end(), -1); //..used as visited
+  q.push(s);
+     
+  while (!q.empty()) {
+    int u = q.front();
+    q.pop();
+
+    for (Edge e : adj[u]) {
+      int v = e.v;
+      if (prev[v] == -1 && e.flow < e.cap) {
+        prev[v] = e.rev;
+        q.push(v);
+      }
+    }
+  }
+  return prev[t] != -1;
+}
+
+int Graph::maxFlow(int s, int t) {
+  int total = 0;
+  vector <int> prev(V);
+  while (augment(s, t, prev)) {
+    int v = t;
+    int flow = pinf;
+    //..find flow
+    while (v != s) {
+      int u = prev[v];
+      Edge e = adj[v][u];         //..reverse Edge
+      Edge f = adj[e.v][e.rev];   //..forward Edge
+      flow = min(flow, f.cap - f.flow);
+      v = e.v;
+    }
+    total += flow;
+    //..flow it
+    v = t;
+    while (v != s) {
+      int u = prev[v];
+      Edge &e = adj[v][u];
+      Edge &f = adj[e.v][e.rev];
+      f.flow += flow;
+      e.flow -= flow;
+      v = e.v;
+    } 
+  }
+  return total;
+}
+
+int main() {
+  int n, m;
+  cin >> n >> m;
+  Graph g(n, m);
+
+  int src, dst, cap;
+  for (int i = 0; i < m; i++) {
+    cin >> src >> dst >> cap; 
+    g.addEdge(src, dst, cap);
+  }
+  cout << g.maxFlow(0, n - 1) << '\n';
+  return 0;
+}
