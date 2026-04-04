@@ -854,6 +854,7 @@ require('lazy').setup({
 				'tailwindcss-language-server',
 				'eslint-lsp',
 				'yaml-language-server',
+				'yamlfmt',
 			})
 			require('mason-tool-installer').setup({ ensure_installed = ensure_installed })
 
