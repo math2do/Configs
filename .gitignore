@@ -10,3 +10,4 @@
 .config/helm/
 
 .config/lazygit/
+.config/nvim/lazy-lock.json

@@ -1,5 +1,5 @@
 # It's loaded during login, Onetime stuff like .profile. So put env variables
-## Use .zshrc for shell behaviour
+## Use .zshrc for shell behavior
 
 # setting up golang environment variables
 export PATH=$PATH:/usr/local/go/bin
@@ -13,6 +13,3 @@ export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:$CPP_LIB
 
 # add sync-dotfiles binary to path
 export PATH=$HOME/Configs/bin:$PATH
-
-# Add neovim binary to path
-export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
