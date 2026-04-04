@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: rest
-# key: <rest
-# --
-#+begin_src restclient
-$0
-#+end_src

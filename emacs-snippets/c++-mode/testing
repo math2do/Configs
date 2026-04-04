@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: testing
-# key: testing
-# --
-cout << "Testing" << endl;

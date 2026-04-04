@@ -1,5 +1,13 @@
 .config/emacs/eshell/lastdir
 .config/emacs/eshell/history
+.config/configstore/
 
 .password-store
 /.pgpass
+.config/go/
+.config/gopls/
+.config/coc/
+.config/helm/
+
+.config/lazygit/
+.config/nvim/lazy-lock.json

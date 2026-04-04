@@ -1,6 +1,0 @@
-# -*- mode: snippet -*- 
-# name: ninf 
-# key: ninf	
-# --
-
-const int ninf = numeric_limits<int>::min();

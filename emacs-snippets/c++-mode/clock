@@ -1,8 +1,0 @@
-# -*- mode: snippet -*- 
-# name: clock 
-# key: clock	
-# --
-
-  #ifdef LOCAL
-    fprintf(stderr, "Time elapsed: %.12lf secs...\n", tick());
-  #endif

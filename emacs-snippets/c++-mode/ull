@@ -1,6 +1,0 @@
-# -*- mode: snippet -*- 
-# name: ull 
-# key: ull	
-# --
-
-using ull = unsigned long long int;

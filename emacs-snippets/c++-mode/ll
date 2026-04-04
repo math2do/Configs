@@ -1,6 +1,0 @@
-# -*- mode: snippet -*- 
-# name: ll 
-# key: ll	
-# --
-
-using int64 = long long;

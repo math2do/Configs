@@ -1,9 +1,0 @@
-# -*- mode: snippet -*- 
-# name: gcd 
-# key: gcd	
-# --
-
-template <typename T>
-T gcd(T a, T b) {
-  return b == 0 ? a : gcd(b, a % b);
-}

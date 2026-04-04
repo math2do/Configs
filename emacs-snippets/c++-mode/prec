@@ -1,7 +1,0 @@
-# -*- mode: snippet -*- 
-# name: prec 
-# key: prec	
-# --
-
-  cout << fixed << setprecision(17);
-  cerr << fixed << setprecision(17);
