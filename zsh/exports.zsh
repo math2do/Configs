@@ -15,3 +15,6 @@ export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:$CPP_LIB
 export PATH=$HOME/Configs/bin:$PATH
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
+
+# Make neovim the default manpager
+export MANPAGER='nvim +Man!'
