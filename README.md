@@ -1,14 +1,9 @@
 # System Configurations
 
-For emacs configuration, credit goes to Daviwil.
-
-Reference
-
+This repository contains system configurations inspired by Daviwil's dotfiles and System Crafters' resources.
+See the following references for more details:
 - [Daviwil's dotfiles](github.com/daviwil/dotfiles)
-- [System Crafters's site](https://systemcrafters.net/)
-- [System Crafter's Youtube Channel](https://www.youtube.com/@SystemCrafters)
+- [System Crafters' site](https://systemcrafters.net/)
+- [System Crafters' YouTube Channel](https://www.youtube.com/@SystemCrafters)
 
 ## Neovim Configuration
-
-TODO:
- -[ ] Configure `toggleterm` in neovim
