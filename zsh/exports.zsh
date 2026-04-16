@@ -18,3 +18,5 @@ export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
 
 # Make neovim the default manpager
 export MANPAGER='nvim +Man!'
+# Python tools (virtualenv)
+export PATH="$HOME/.venv/tools/bin:$PATH"

@@ -11,3 +11,12 @@ alias hf='helmfile'
 alias t='terraform'
 alias cl='clear'
 alias lg='lazygit'
+
+# AI command
+ai() {
+  if [ -p /dev/stdin ]; then
+    sgpt "$(cat)" "$*"
+  else
+    sgpt "$*"
+  fi
+}
