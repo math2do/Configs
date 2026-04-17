@@ -10,3 +10,6 @@
 ^/Notes
 ^/README.*
 ^/zsh
+
+# ghostty background-images
+background-image.*
