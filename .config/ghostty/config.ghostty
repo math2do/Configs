@@ -2,10 +2,11 @@
 config-file = themes/tokyonight
 
 # Background
-background-opacity = 0.94
+# Background-opacity is the actual opacity behind the bacground image
+background-opacity = 1.0
 background-blur-radius = 25
 background-image = themes/background-image-1.jpg
-background-image-opacity = 0.15
+background-image-opacity = 0.08
 background-image-position = center
 background-image-fit = cover
 background-image-repeat = false
@@ -22,7 +23,7 @@ cursor-color = cell-foreground
 cursor-text = cell-background
 
 # Window
-window-decoration = false
+#window-decoration = false
 window-padding-x = 10
 #window-padding-y = 10
 window-padding-balance = true
