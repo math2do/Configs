@@ -51,7 +51,7 @@ if type fzf &>/dev/null; then
 
   export FZF_CTRL_T_OPTS="
   --walker-skip .git,node_modules,target
-  --preview 'bat -n --color=always {}'
+  --preview 'batcat -n --color=always {}'
   --height=80%
   --bind 'ctrl-/:change-preview-window(down|hidden|)'
   --header 'CTRL-/: Toggle preview window position'
