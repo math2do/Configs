@@ -25,7 +25,7 @@ cursor-text = cell-background
 # Window
 #window-decoration = false
 window-padding-x = 10
-#window-padding-y = 10
+window-padding-y = 0
 window-padding-balance = true
 
 # Misc
