@@ -1103,6 +1103,13 @@ require('lazy').setup({
 			vim.api.nvim_set_hl(0, 'NeoTreeNormalNC', { bg = 'none' })
 			vim.api.nvim_set_hl(0, 'NeoTreeEndOfBuffer', { bg = 'none' })
 			vim.api.nvim_set_hl(0, 'NeoTreeWinSeparator', { fg = '#3b4261', bg = 'none' })
+
+			-- line numbers
+			vim.api.nvim_set_hl(0, 'LineNr', { fg = '#737aa2' })
+			vim.api.nvim_set_hl(0, 'LineNrAbove', { fg = '#737aa2' })
+			vim.api.nvim_set_hl(0, 'LineNrBelow', { fg = '#737aa2' })
+			-- comments
+			vim.api.nvim_set_hl(0, 'Comment', { fg = '#737aa2', italic = false })
 		end,
 	},
 
