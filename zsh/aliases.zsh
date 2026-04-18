@@ -14,6 +14,9 @@ alias cl='clear'
 alias lg='lazygit'
 alias n='nvim'
 alias bat='batcat'
+alias fd="fdfind"
+alias pbcopy="xclip -selection clipboard"
+alias pbpaste="xclip -selection clipboard -o"
 # AI command
 # ------------------------------------------------------------------------------
 ai() {

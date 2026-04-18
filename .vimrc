@@ -130,7 +130,7 @@ nnoremap <leader>b :enew<CR>
 nnoremap <leader>lw :set wrap!<CR>
 
 " Press jk fast to exit insert mode
-inoremap jj <Esc>
+" inoremap jj <Esc>
 
 " Stay in indent mode
 " vnoremap < <gv

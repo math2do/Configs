@@ -208,7 +208,7 @@ vim.opt.runtimepath:remove('/usr/share/vim/vimfiles') -- Separate Vim plugins fr
 -- for conciseness
 local opts = { noremap = true, silent = true }
 -- make jj behave as esc
-vim.keymap.set('i', 'jj', '<Esc>', { noremap = true })
+-- vim.keymap.set('i', 'jj', '<Esc>', { noremap = true })
 
 -- Save file using <C-s>
 vim.keymap.set('n', '<C-s>', '<cmd> w <CR>', opts)
