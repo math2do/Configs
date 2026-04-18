@@ -131,12 +131,6 @@ vim.o.smartcase = true
 -- Keep signcolumn on by default
 vim.o.signcolumn = 'yes'
 
--- Decrease update time
-vim.o.updatetime = 250
-
--- Decrease mapped sequence wait time
-vim.o.timeoutlen = 300
-
 -- Configure how new splits should be opened
 vim.o.splitright = true
 vim.o.splitbelow = true
@@ -196,7 +190,7 @@ vim.wo.signcolumn = 'yes' -- Keep signcolumn on by default (default: 'auto')
 vim.o.fileencoding = 'utf-8' -- The encoding written to a file (default: 'utf-8')
 vim.o.cmdheight = 1 -- More space in the Neovim command line for displaying messages (default: 1)
 vim.o.updatetime = 250 -- Decrease update time (default: 4000)
-vim.o.timeoutlen = 300 -- Time to wait for a mapped sequence to complete (in milliseconds) (default: 1000)
+vim.o.timeoutlen = 0 -- Time to wait for a mapped sequence to complete (in milliseconds) (default: 1000)
 vim.o.backup = false -- Creates a backup file (default: false)
 vim.o.writebackup = false -- If a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited (default: true)
 vim.o.completeopt = 'menuone,noselect' -- Set completeopt to have a better completion experience (default: 'menu,preview')

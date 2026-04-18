@@ -23,3 +23,6 @@ export PATH="$HOME/.venv/tools/bin:$PATH"
 
 export EDITOR='nvim'
 export VISUAL='nvim'
+
+# reduce key delay
+xset r rate 200 50
