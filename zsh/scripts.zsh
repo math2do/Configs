@@ -41,6 +41,7 @@ if type fzf &>/dev/null; then
 fi
 
 # Open buffer line in editor
+# Open using shortcut Ctrl+X, Ctrl+E
 autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey '^x^e' edit-command-line

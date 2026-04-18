@@ -20,3 +20,6 @@ export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
 export MANPAGER='nvim +Man!'
 # Python tools (virtualenv)
 export PATH="$HOME/.venv/tools/bin:$PATH"
+
+export EDITOR='nvim'
+export VISUAL='nvim'
