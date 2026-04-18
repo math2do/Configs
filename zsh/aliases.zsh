@@ -26,3 +26,16 @@ alias pbpaste="xclip -selection clipboard -o"
 alias e="exit"
 alias vim="nvim"
 
+# Suffix Aliases
+alias -s md="bat"
+alias -s mov="xdg-open"
+alias -s png="xdg-open"
+alias -s mp4="xdg-open"
+alias -s jpg="xdg-open"
+alias -s jpeg="xdg-open"
+# TODO: Add more file types
+alias -s go="$EDITOR"
+alias -s js="$EDITOR"
+alias -s ts="$EDITOR"
+alias -s yaml="bat -l yaml"
+alias -s json="jless"
