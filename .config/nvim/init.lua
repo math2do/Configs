@@ -520,6 +520,13 @@ require('lazy').setup({
 				--     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
 				--   },
 				-- },
+				defaults = {
+					winblend = 0,
+					borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
+					color_devicons = true,
+					prompt_prefix = ' ',
+					selection_caret = '▶ ',
+				},
 				-- pickers = {}
 				extensions = {
 					['ui-select'] = {
@@ -527,6 +534,16 @@ require('lazy').setup({
 					},
 				},
 			})
+
+			-- Telescope transparency
+			vim.api.nvim_set_hl(0, 'TelescopeNormal', { bg = 'none' })
+			vim.api.nvim_set_hl(0, 'TelescopeBorder', { bg = 'none' })
+			vim.api.nvim_set_hl(0, 'TelescopePromptNormal', { bg = 'none' })
+			vim.api.nvim_set_hl(0, 'TelescopePromptBorder', { bg = 'none' })
+			vim.api.nvim_set_hl(0, 'TelescopeResultsNormal', { bg = 'none' })
+			vim.api.nvim_set_hl(0, 'TelescopeResultsBorder', { bg = 'none' })
+			vim.api.nvim_set_hl(0, 'TelescopePreviewNormal', { bg = 'none' })
+			vim.api.nvim_set_hl(0, 'TelescopePreviewBorder', { bg = 'none' })
 
 			-- Enable Telescope extensions if they are installed
 			pcall(require('telescope').load_extension, 'fzf')
