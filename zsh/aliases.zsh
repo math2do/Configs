@@ -1,5 +1,6 @@
 # Aliases
 alias c="clear"
+alias cls="clear"
 alias cdp="cd ~/Projects/"
 alias cdg="cd ~/Projects/go/src/"
 alias cdj="cd ~/Projects/java/"
