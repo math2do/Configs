@@ -210,6 +210,15 @@ local opts = { noremap = true, silent = true }
 -- make jj behave as esc
 -- vim.keymap.set('i', 'jj', '<Esc>', { noremap = true })
 
+-- Move lines up and down
+vim.keymap.set('n', '<A-j>', ':m .+1<CR>==', opts)
+vim.keymap.set('n', '<A-k>', ':m .-2<CR>==', opts)
+vim.keymap.set('v', '<A-j>', ':m \'>+1<CR>gv=gv', opts)
+vim.keymap.set('v', '<A-k>', ':m \'<-2<CR>gv=gv', opts)
+
+vim.keymap.set('i', '<A-j>', '<Esc>:m .+1<CR>==gi', opts)
+vim.keymap.set('i', '<A-k>', '<Esc>:m .-2<CR>==gi', opts)
+
 -- Save file using <C-s>
 vim.keymap.set('n', '<C-s>', '<cmd> w <CR>', opts)
 
