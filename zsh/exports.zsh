@@ -24,5 +24,11 @@ export PATH="$HOME/.venv/tools/bin:$PATH"
 export EDITOR='nvim'
 export VISUAL='nvim'
 
+export HISTSIZE=100000
+export SAVEHIST=100000
+setopt SHARE_HISTORY
+setopt HIST_IGNORE_DUPS      # don't save duplicate commands
+setopt HIST_IGNORE_SPACE     # don't save commands starting with a space
+
 # reduce key delay
 xset r rate 200 50

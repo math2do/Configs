@@ -49,3 +49,6 @@ bindkey '^x^e' edit-command-line
 bindkey ' ' magic-space
 
 bindkey '^f' autosuggest-accept
+
+# enable vi mode in zsh
+set -o vi
