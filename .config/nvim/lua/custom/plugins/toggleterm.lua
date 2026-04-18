@@ -33,15 +33,25 @@ return {
 
 		-- Optional: floating terminal for lazygit or similar
 		local Terminal = require('toggleterm.terminal').Terminal
-		local lazygit = Terminal:new({ cmd = 'lazygit', hidden = true, direction = 'float' })
 
+		-- lazygit terminal
+		local lazygit = Terminal:new({ cmd = 'lazygit', hidden = true, direction = 'float' })
 		function _lazygit_toggle()
 			if vim.bo.buftype == '' then
 				vim.cmd('write')
 			end
 			lazygit:toggle()
 		end
-
 		vim.keymap.set('n', '<leader>gg', _lazygit_toggle, { desc = 'Toggle Lazygit' })
+
+		-- Claude Code
+		local claude = Terminal:new({ cmd = 'claude', hidden = true, direction = 'float' })
+		local function claude_toggle()
+			if vim.bo.buftype == '' then
+				vim.cmd('write')
+			end
+			claude:toggle()
+		end
+		vim.keymap.set('n', '<leader>ai', claude_toggle, { desc = 'Toggle Claude Code' })
 	end,
 }
