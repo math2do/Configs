@@ -14,17 +14,23 @@ return {
 		{ '\\', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
 	},
 	opts = {
+		popup_border_style = 'rounded',
+		enable_git_status = true,
+		window = {
+			position = 'left',
+			width = 30,
+		},
 		filesystem = {
+			filtered_items = {
+				visible = true,
+				show_hidden_count = true,
+				hide_dotfiles = false,
+				hide_gitignored = false,
+			},
 			window = {
 				mappings = {
 					['\\'] = 'close_window',
 				},
-			},
-			filtered_items = {
-				visible = true, -- 👈 Show all files, even hidden ones
-				show_hidden_count = true,
-				hide_dotfiles = false, -- 👈 Don't hide dotfiles (e.g., .git, .env)
-				hide_gitignored = false, -- 👈 Don't hide files in .gitignore
 			},
 		},
 	},
