@@ -43,15 +43,5 @@ return {
 			lazygit:toggle()
 		end
 		vim.keymap.set('n', '<leader>gg', _lazygit_toggle, { desc = 'Toggle Lazygit' })
-
-		-- Claude Code
-		local claude = Terminal:new({ cmd = 'claude', hidden = true, direction = 'float' })
-		local function claude_toggle()
-			if vim.bo.buftype == '' then
-				vim.cmd('write')
-			end
-			claude:toggle()
-		end
-		vim.keymap.set('n', '<leader>ai', claude_toggle, { desc = 'Toggle Claude Code' })
 	end,
 }
