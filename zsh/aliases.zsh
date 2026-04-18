@@ -39,3 +39,5 @@ alias -s js="$EDITOR"
 alias -s ts="$EDITOR"
 alias -s yaml="bat -l yaml"
 alias -s json="jless"
+
+alias path='echo $PATH | tr ":" "\n" | sort -u'
