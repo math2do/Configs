@@ -2,9 +2,9 @@
 # ------------------------------------------------------------------------------
 ai() {
   if [ -p /dev/stdin ]; then
-    claude -p "$(cat)" "$*"
+    claude -p "$(cat)" "$*" | glow
   else
-    claude -p "$*"
+    claude -p "$*" | glow
   fi
 }
 
