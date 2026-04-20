@@ -896,6 +896,8 @@ require('lazy').setup({
 				'yamlfmt',
 				'pyright',
 				'black',
+				'gopls',
+				'goimports',
 			})
 			require('mason-tool-installer').setup({ ensure_installed = ensure_installed })
 
