@@ -12,3 +12,4 @@
 .config/lazygit/
 .config/nvim/lazy-lock.json
 .ssh/config
+.kube/
