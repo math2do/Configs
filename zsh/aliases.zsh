@@ -6,6 +6,7 @@ alias cdg="cd ~/Projects/go/src/"
 alias cda="cd ~/Projects/ansible-linux-mint/"
 alias cdj="cd ~/Projects/java/"
 alias cdc="cd ~/Configs"
+alias cdd="cd ~/DumpGround/"
 alias cdn="cd ~/Notes"
 alias clip="xclip -selection clipboard"
 alias d='docker'
