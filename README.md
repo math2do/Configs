@@ -13,7 +13,8 @@ Experiment with Neovim configurations, including plugins and custom settings.
 
 ## TMUX Configuration
 
-Experiment various tmux session management techniques
+Experiment various tmux session management techniques, including the use of `sesh` for session
+management and `resurrect` for session restoration.
 
 ## TODO
 
