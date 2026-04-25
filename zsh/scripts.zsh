@@ -44,11 +44,14 @@ fi
 # Open using shortcut Ctrl+X, Ctrl+E
 autoload -Uz edit-command-line
 zle -N edit-command-line
+
+# enable vi mode in zsh
+# NOTE: All the keybinding must be set after enabling vi mode, otherwise they won't work 
+set -o vi
+
 bindkey '^x^e' edit-command-line
 
 bindkey ' ' magic-space
 
 bindkey '^f' autosuggest-accept
 
-# enable vi mode in zsh
-set -o vi
