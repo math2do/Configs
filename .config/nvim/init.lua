@@ -898,6 +898,7 @@ require('lazy').setup({
 				'black',
 				'gopls',
 				'goimports',
+				'prettierd',
 			})
 			require('mason-tool-installer').setup({ ensure_installed = ensure_installed })
 
@@ -964,17 +965,22 @@ require('lazy').setup({
 				-- python = { "isort", "black" },
 				--
 				-- You can use 'stop_after_first' to run the first available formatter from the list
-				javascript = { 'prettier', 'prettierd', stop_after_first = true },
-				typescript = { 'prettier' },
-				css = { 'prettier', 'prettierd', stop_after_first = true },
-				javascriptreact = { 'prettier', 'prettierd', stop_after_first = true },
-				typescriptreact = { 'prettier' },
-				json = { 'prettier', 'prettierd', stop_after_first = true },
-				html = { 'prettier', 'prettierd', stop_after_first = true },
+				javascript = { 'prettierd', 'prettier', stop_after_first = true },
+				typescript = { 'prettierd', 'prettier', stop_after_first = true },
+				css = { 'prettierd', 'prettier', stop_after_first = true },
+				javascriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+				typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+				json = { 'prettierd', 'prettier', stop_after_first = true },
+				html = { 'prettierd', 'prettier', stop_after_first = true },
 			},
 			formatters = {
+				prettierd = {
+					env = {
+						string.format('PRETTIERD_DEFAULT_CONFIG=%s', vim.fn.expand('~/Configs/.prettierrc')),
+					},
+				},
 				markdownlint = {
-					prepend_args = { '--config', vim.fn.expand('~/.markdownlint.json') },
+					prepend_args = { '--config', vim.fn.expand('~/Configs/.markdownlint.json') },
 				},
 				stylua = {
 					prepend_args = { '--quote-style', 'ForceSingle' },

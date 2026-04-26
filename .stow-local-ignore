@@ -13,3 +13,5 @@
 
 # ghostty background-images
 background-image.*
+.prettierrc
+.markdownlint.json

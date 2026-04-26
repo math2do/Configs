@@ -17,6 +17,7 @@ background-image-repeat = false
 # font-family = JetBrainsMonoNL Nerd Font
 font-family = BlexMono Nerd Font Mono
 font-size = 13
+# Disable ligatures, as they can cause issues with cursor positioning and text selection
 font-feature = -liga,-calt,-dlig
 
 # Cursor
