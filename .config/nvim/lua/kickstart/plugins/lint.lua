@@ -10,7 +10,7 @@ return {
 			}
 			lint.linters.markdownlint.args = {
 				'--config',
-				vim.fn.expand('~/.markdownlint.json'),
+				vim.fn.expand('~/Configs/.markdownlint.json'),
 				'--stdin',
 			}
 			-- To allow other plugins to add linters to require('lint').linters_by_ft,

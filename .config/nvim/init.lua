@@ -164,6 +164,8 @@ vim.o.confirm = true
 --  See `:help vim.keymap.set()`
 
 -- MY ADDED KEYBINDINGS
+vim.opt.fixendofline = false
+vim.opt.endofline = false
 vim.o.fileformat = 'unix' -- expect the unix file format
 vim.o.relativenumber = true -- Set relative numbered lines (default: false)
 vim.o.wrap = false -- Display lines as one long line (default: true)
