@@ -1201,6 +1201,9 @@ require('lazy').setup({
 					'vim',
 					'vimdoc',
 					'python',
+					'javascript',
+					'typescript',
+					'tsx',
 				},
 				auto_install = true,
 				highlight = {
