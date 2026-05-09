@@ -836,6 +836,23 @@ require('lazy').setup({
 						},
 					},
 				},
+				helm_ls = {
+					settings = {
+						['helm-ls'] = {
+							yamlls = {
+								path = 'yaml-language-server',
+								enabled = true,
+								config = {
+									schemas = {
+										kubernetes = 'templates/**', -- this tells yamlls all files in templates/ are kubernetes
+									},
+									completion = true,
+									hover = true,
+								},
+							},
+						},
+					},
+				},
 				-- rust_analyzer = {},
 				-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
 				--
@@ -855,6 +872,8 @@ require('lazy').setup({
 								},
 							},
 							validate = true,
+							completion = true,
+							hover = true,
 						},
 					},
 				},
