@@ -920,6 +920,7 @@ require('lazy').setup({
 				'gopls',
 				'goimports',
 				'prettierd',
+				'google-java-format',
 			})
 			require('mason-tool-installer').setup({ ensure_installed = ensure_installed })
 
@@ -982,6 +983,7 @@ require('lazy').setup({
 				python = { 'black' },
 				yaml = { 'yamlfmt' },
 				yml = { 'yamlfmt' },
+				java = { 'google-java-format' },
 				-- Conform can also run multiple formatters sequentially
 				-- python = { "isort", "black" },
 				--
