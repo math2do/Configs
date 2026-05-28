@@ -4,7 +4,7 @@ return {
 	config = function()
 		require('toggleterm').setup({
 			size = 10,
-			open_mapping = [[<C-\>]],
+			-- open_mapping = [[<C-\>]],
 			hide_numbers = true,
 			shade_filetypes = {},
 			shade_terminals = true,
@@ -24,7 +24,7 @@ return {
 			},
 		})
 
-		vim.keymap.set({ 'n', 'i', 'v' }, '<C-\\>', function()
+		vim.keymap.set({ 'n', 'i', 'v', 't' }, '<C-\\>', function()
 			if vim.bo.buftype == '' then
 				vim.cmd('write')
 			end

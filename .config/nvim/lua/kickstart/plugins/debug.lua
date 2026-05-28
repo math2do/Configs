@@ -23,6 +23,7 @@ return {
 
 		-- Add your own debuggers here
 		'leoluz/nvim-dap-go',
+		'mfussenegger/nvim-jdtls',
 	},
 	keys = {
 		-- Basic debugging keymaps, feel free to change to your liking!
@@ -76,6 +77,21 @@ return {
 			end,
 			desc = 'Debug: See last session result.',
 		},
+		-- ADDED: Java specific debug keymaps
+		{
+			'<leader>dc',
+			function()
+				require('jdtls').test_class()
+			end,
+			desc = 'Debug: Java test class',
+		},
+		{
+			'<leader>dm',
+			function()
+				require('jdtls').test_nearest_method()
+			end,
+			desc = 'Debug: Java test nearest method',
+		},
 	},
 	config = function()
 		local dap = require('dap')
@@ -95,6 +111,8 @@ return {
 			ensure_installed = {
 				-- Update this to ensure that you have the debuggers for the langs you want
 				'delve',
+				'java-debug-adapter', -- ADDED: Java debug adapter
+				'java-test', -- ADDED: Java test runner
 			},
 		})
 
@@ -144,5 +162,24 @@ return {
 				detached = vim.fn.has('win32') == 0,
 			},
 		})
+
+		-- ADDED: Java DAP configuration
+		dap.configurations.java = {
+			{
+				type = 'java',
+				request = 'attach',
+				name = 'Debug (Attach) - Remote',
+				hostName = '127.0.0.1',
+				port = 5005,
+			},
+			{
+				type = 'java',
+				request = 'launch',
+				name = 'Debug (Launch) - Current File',
+				mainClass = function()
+					return vim.fn.input('Main class: ')
+				end,
+			},
+		}
 	end,
 }
