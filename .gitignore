@@ -10,3 +10,5 @@
 .config/helm/
 
 .config/lazygit/
+.ssh/
+.kube/
