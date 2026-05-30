@@ -9,6 +9,7 @@
 ^/bin
 ^/Notes
 ^/README.*
+^/CLAUDE.md
 ^/zsh
 
 # ghostty background-images
