@@ -292,4 +292,5 @@
   "remote.autoForwardPortsSource": "hybrid",
   "claudeCode.preferredLocation": "panel",
   "chat.viewSessions.orientation": "stacked",
+  "sonarlint.automaticAnalysis": true,
 }
