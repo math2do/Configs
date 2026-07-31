@@ -1,6 +1,6 @@
 {
   // GLOBAL CONFIGS ================================================
-  "editor.fontFamily": "'BlexMono Nerd Font', 'Source Code Pro', 'Cascadia Mono light', 'Fira Mono','Consolas','JetBrains Mono NL'",
+  "editor.fontFamily": "'JetBrainsMono Nerd Font Mono','FiraCode Nerd Font', 'BlexMono Nerd Font', 'Source Code Pro', 'Cascadia Mono light', 'Fira Mono','Consolas'",
   // Themes and editor view
   "workbench.iconTheme": "vscode-icons",
   "workbench.editor.enablePreview": false,
@@ -22,7 +22,8 @@
   "editor.bracketPairColorization.enabled": true,
   "editor.guides.bracketPairs": "active",
   "editor.fontSize": 17,
-  "editor.fontWeight": "400",
+  "editor.fontWeight": "300",
+  "editor.fontLigatures": true,
   // Language: HTML ================================================
   "html.autoClosingTags": true,
   "html.format.wrapLineLength": 180,
@@ -291,6 +292,7 @@
   ],
   "remote.autoForwardPortsSource": "hybrid",
   "claudeCode.preferredLocation": "panel",
-  "chat.viewSessions.orientation": "stacked",
+"chat.viewSessions.orientation": "stacked",
   "sonarlint.automaticAnalysis": true,
+  "terminal.integrated.initialHint": false
 }
