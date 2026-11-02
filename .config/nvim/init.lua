@@ -921,6 +921,7 @@ require('lazy').setup({
 				'goimports',
 				'prettierd',
 				'google-java-format',
+				'clang-format',
 			})
 			require('mason-tool-installer').setup({ ensure_installed = ensure_installed })
 

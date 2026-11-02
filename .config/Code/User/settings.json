@@ -7,7 +7,7 @@
   "files.insertFinalNewline": false, // TODO: doesn't work, fix it
   // Integrated Terminal
   "terminal.integrated.scrollback": 10000,
-  "terminal.integrated.fontSize": 17,
+  "terminal.integrated.fontSize": 16,
   // Git
   "git.autofetch": true,
   "git.confirmSync": false,
@@ -21,7 +21,7 @@
   "editor.cursorBlinking": "expand",
   "editor.bracketPairColorization.enabled": true,
   "editor.guides.bracketPairs": "active",
-  "editor.fontSize": 17,
+  "editor.fontSize": 16,
   "editor.fontWeight": "300",
   "editor.fontLigatures": true,
   // Language: HTML ================================================
@@ -213,9 +213,16 @@
   "clang-format.style": "{ BasedOnStyle: Google, ColumnLimit: 150, AlignAfterOpenBracket: DontAlign }",
   "[cpp]": {
     "editor.defaultFormatter": "xaver.clang-format",
-    // "editor.autoClosingBrackets": "never",
+    "editor.autoClosingBrackets": "never",
     "editor.formatOnSave": true,
-    "editor.formatOnType": true
+    "editor.formatOnType": true,
+    // during competitive coding, disable the LSP mode, looks cluterred
+    // remove below for normal development work
+    "editor.formatOnSave": false,
+    "editor.formatOnType": false,
+    "editor.quickSuggestions": "off",
+    "editor.inlayHints.enabled": "off",
+    "editor.suggestOnTriggerCharacters": false
   },
   // File format: yaml with redhat extension
   "yaml.format.singleQuote": true,
@@ -228,8 +235,15 @@
     "editor.formatOnSave": true
   },
   // Following for C/C++ extension of vs code from microsoft. Not needed anymore since clangd is configured
+  // disbale the extension version
   "C_Cpp.intelliSenseEngine": "disabled",
-  "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 2, ColumnLimit: 0, AlignAfterOpenBracket: DontAlign}",
+  "C_Cpp.errorSquiggles": "disabled",
+  "C_Cpp.autocomplete": "disabled",
+
+  // Enable the extension by commenting above and uncommenting below
+  // "C_Cpp.intelliSenseEngine": "disabled",
+  // "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 2, ColumnLimit: 0, AlignAfterOpenBracket: DontAlign}",
+
   // Code runner
   "code-runner.clearPreviousOutput": true,
   "code-runner.saveFileBeforeRun": true,
@@ -274,13 +288,11 @@
     "fenwick",
     "zipcodes"
   ],
-  "workbench.colorTheme": "Github Light Theme",
+  "workbench.colorTheme": "Dark Modern",
   "settingsSync.ignoredExtensions": [
     "ms-vscode-remote.remote-containers"
   ],
   "github.copilot.nextEditSuggestions.enabled": true,
-  "gitlens.ai.model": "vscode",
-  "gitlens.ai.vscode.model": "copilot:gpt-4.1",
   "vs-kubernetes": {
     "vs-kubernetes.minikube-show-information-expiration": "2025-12-15T19:35:14.104Z"
   },
@@ -294,5 +306,11 @@
   "claudeCode.preferredLocation": "panel",
 "chat.viewSessions.orientation": "stacked",
   "sonarlint.automaticAnalysis": true,
-  "terminal.integrated.initialHint": false
+  "terminal.integrated.initialHint": false,
+  "github.copilot.enable": {
+    "*": false,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false
+  }
 }
