@@ -220,7 +220,7 @@
     // remove below for normal development work
     "editor.formatOnSave": false,
     "editor.formatOnType": false,
-    "editor.quickSuggestions": "off",
+    // "editor.quickSuggestions": "off",
     "editor.inlayHints.enabled": "off",
     "editor.suggestOnTriggerCharacters": false
   },
@@ -253,8 +253,8 @@
     "python": "/home/math2do/Projects/python/practice/.venv/bin/python",
     "go": "go run",
     "c": "gcc $fileName -o sol && ./sol < in",
-    "cpp": "g++ $fileName -std=c++20 -O2 -o sol -Wall -Wextra -DLOCAL",
-    "cpp2": "g++ $fileName -Wall -Wextra -pedantic -std=c++20 -O2 -o sol -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTIFY_SOURCE=2 -fsanitize=address -fsanitize=undefined -fno-sanitize-recover -fstack-protector -DLOCAL",
+    "cpp": "g++ $fileName -std=c++23 -O2 -o sol -Wall -Wextra -DLOCAL",
+    "cpp2": "g++ $fileName -Wall -Wextra -pedantic -std=c++23 -O2 -o sol -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTIFY_SOURCE=2 -fsanitize=address -fsanitize=undefined -fno-sanitize-recover -fstack-protector -DLOCAL",
     "java": "javac -d bin src/*.java && java -cp bin Main"
   },
   // OTHERS
