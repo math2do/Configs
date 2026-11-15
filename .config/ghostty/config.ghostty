@@ -32,7 +32,7 @@ window-decoration = false
 window-padding-x = 10
 window-padding-y = 0
 window-padding-balance = true
-window-width = 200
+window-width = 250
 window-height = 60
 
 # Misc
